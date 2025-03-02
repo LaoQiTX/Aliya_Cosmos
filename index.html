@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport"
+			content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>Aliya</title>
+		<link rel="stylesheet" href="./css/index.css" />
+		<link rel="stylesheet" href="./css/popup.css" />
+		<style>
+			
+		</style>
+	</head>
+	<body>
+		<!-- 顶部按钮 -->
+		<header>
+			<div class="nav cosmos-head">
+				<div class="nav-item" id="Operation">Operation</div>
+				<div class="nav-item text-disabled">SOS</div>
+				<div class="nav-item text-disabled">FCS</div>
+				<div class="nav-item" id="settings">Settings</div>
+				<div class="nav-item warning text-disabled">WARNING</div>
+			</div>
+		</header>
+		
+		<div class="cosmos-body">
+			<!-- 聊天部分 -->
+			<div class="cosmos-chat cosmos-left">
+				<div class="messages" id="messages-container">
+				</div>
+				<div class="input-container">
+					<input type="text" id="message-input" placeholder="输入消息...">
+					<button id="send-button">发送</button>
+				</div>
+			</div>
+			
+			<!-- 右侧顶部数值部分 -->
+			<div class="cosmos-right not-moble">
+				<div class="heart">
+					<div class="dashboard">
+						<div class="heart-section">
+							<div class="Aliya">ALIYA</div>
+							<div class="heart-rate">
+								<div class="bpm">72</div>
+							</div>
+							<div class="label">
+								<span style="margin-bottom: 5px;">HEART RATE</span>
+							</div>
+						</div>
+
+						<div class="metrics">
+							<div class="metric">
+								<div class="bars">
+									<div class="bar OO" style="height: 100%; ">
+									</div>
+
+								</div>
+								<span class="metric-label">O₂</span>
+							</div>
+
+							<div class="metric">
+								<div class="bars">
+									<div class="bar HOO" style="height: 30%;">
+									</div>
+								</div>
+								<span class="metric-label">H₂O</span>
+							</div>
+
+							<div class="metric">
+								<div class="bars" style="">
+									<div class="bar ENG" style="height: 15%; ">
+									</div>
+								</div>
+								<span class="metric-label" style="margin-top: 2px;"> ENG</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				
+				<!-- 右侧按钮部分 -->
+				<div class="cosmos-right-switch">
+					<img src="img/RightMiddleFrame.png" id="switch-bg" alt="" />
+					
+					<!-- <div class="switch-container">
+						
+						<div class="switch-wrapper">
+							<div class="status-labels">
+								<span class="status-label off">off</span>
+								<span class="status-label on active">on</span>
+							</div>
+							<div class="switch-bg">
+								<div class="switch active">
+									<div class="switch-button"></div>
+								</div>
+							</div>
+							<div class="s-label">HRM</div>
+						</div>
+
+						<div class="switch-wrapper">
+							<div class="status-labels">
+								<span class="status-label off active">off</span>
+								<span class="status-label on">on</span>
+							</div>
+							<div class="switch-bg">
+								<div class="switch">
+									<div class="switch-button"></div>
+								</div>
+							</div>
+							<div class="s-label">EOG</div>
+						</div>
+
+						<div class="switch-wrapper">
+							<div class="status-labels">
+								<span class="status-label off active">off</span>
+								<span class="status-label on">on</span>
+							</div>
+							<div class="switch-bg">
+								<div class="switch">
+									<div class="switch-button"></div>
+								</div>
+							</div>
+							<div class="s-label">EH</div>
+						</div>
+
+						<div class="switch-wrapper second">
+							<div class="status-labels">
+								<span class="status-label off active">off</span>
+								<span class="status-label on">on</span>
+							</div>
+							<div class="switch-bg">
+								<div class="switch">
+									<div class="switch-button"></div>
+								</div>
+							</div>
+							<div class="s-label">EH</div>
+						</div>
+
+					</div> -->
+				</div>
+			</div>
+		</div>
+		
+		<!-- ---------------弹出框--------------- -->
+		
+		<!-- setting -->
+		<div class="modal-overlay" id="settingspop" style="display: none;">
+			<div class="username-modal">
+				<div class="modal-header">
+					<h2>设置用户名</h2>
+				</div>
+				<div class="input-group">
+					<input type="text" id="username" placeholder="输入用户名">
+				</div>
+				<div class="button-group">
+					<button class="cancel-btn" onclick="closeModal()">取消</button>
+					<button class="save-btn" onclick="saveUsername()">保存</button>
+				</div>
+			</div>
+		</div>
+		<!-- 模态框 -->
+		<div class="modal-overlay" id="operationModal" style="display: none;">
+		    <div class="operation-modal">
+		        <div class="modal-header">
+		            <h2>系统操作</h2>
+		        </div>
+		        <div class="button-group-vertical">
+		            <button class="init-btn" onclick="initConnection()">[初始化连接]</button>
+		            <button class="exit-btn" onclick="closeWindow()">退出</button>
+		        </div>
+		    </div>
+		</div>
+
+	</body>
+</html>
+<script src="./js/jquery.js"></script>
+<script src="./js/mui.min.js"></script>
+<script src="./js/index.js"></script>
+<!-- <script src="js/index_psw.js"></script> -->
