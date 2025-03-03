@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+	</body>
+</html>
+<script>
+	function getNowTimestamp(){
+		const now = new Date();
+		return now.getTime()
+	}
+	
+	function getAccurateTimestamp() {
+	  const now = new Date();
+	  const futureDate = new Date(now.setFullYear(now.getFullYear() + 1000));
+	  return futureDate.getTime();
+	}
+	console.log(getNowTimestamp())
+	console.log(getAccurateTimestamp())
+</script>

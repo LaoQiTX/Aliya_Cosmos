@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style>
+			.switch-container {
+				display: grid;
+				grid-template-columns: repeat(3, 1fr); /* 三列布局 */
+				grid-auto-rows: auto;                 /* 自动行高 */
+				gap: 0.2rem;
+				padding: 0.5rem;
+				border-radius: 15px;
+			}
+
+			/* 新增：第四个开关定位到第二行第三列 */
+			.switch-wrapper:nth-child(4) {
+				grid-row: 2;     /* 第二行 */
+				grid-column: 3;  /* 第三列 */
+			}
+
+			/* 其他原有样式保持不变 */
+			.switch-wrapper {
+				position: relative;
+			}
+
+			.status-labels {
+				position: absolute;
+				left: 0px;
+				width: 100%;
+				display: flex;
+				justify-content: space-around;
+				color: #ecf0f1;
+				font-family: Arial, sans-serif;
+				font-size: 14px;
+			}
+
+			.status-label {
+				opacity: 0.3;
+				transition: opacity 0.3s;
+			}
+
+			.status-label.active {
+				opacity: 1;
+			}
+
+			.switch {
+				width: 5rem;
+				height: 3.5rem;
+				background: #202020;
+				border-radius: 6px;
+				position: relative;
+				top: 14px;
+				cursor: pointer;
+				margin: 20px auto;
+				transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+			}
+
+			.switch.active {
+				background: #464646;
+			}
+
+			.switch-button {
+				width: 2.5rem;
+				height: 4.5rem;
+				background: #646464;
+				position: absolute;
+				top: -8px;
+				left: 0px;
+				border-radius: 4px;
+				box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+				transition: inherit;
+			}
+
+			.switch.active .switch-button {
+				left: calc(100% - 40px);
+			}
+
+			.s-label {
+				background-color: #454545;
+				width: 55px;
+				height: 21px;
+				text-align: center;
+				color: #ecf0f1;
+				font-family: Arial, sans-serif;
+				font-size: 18px;
+				margin-top: 15px;
+				letter-spacing: 1px;
+				position: absolute;
+				left: 36px;
+				top: 101px;
+			}
+
+			.cosmos-right-switch {
+				width: calc(40vw - 10px);
+				background: #454545;
+				border-radius: 20px;
+				height: calc(31vh - 10px);
+				margin-top: 10px;
+			}
+
+			.switch-bg {
+				background: #2c2c2c;
+				width: 6.5rem;
+				height: 5.3rem;
+				border-radius: 8px;
+			}
+
+			.switch-wrapper {
+				border: 2px #202020 solid;
+				border-radius: 10px;
+				padding: 10px;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="cosmos-right-switch">
+			<div class="switch-container">
+				<!-- 前三个在第一行 -->
+				<div class="switch-wrapper">
+					<div class="status-labels">
+						<span class="status-label off">off</span>
+						<span class="status-label on active">on</span>
+					</div>
+					<div class="switch-bg">
+						<div class="switch active">
+							<div class="switch-button"></div>
+						</div>
+					</div>
+					<div class="s-label">HRM</div>
+				</div>
+				<div class="switch-wrapper">
+					<div class="status-labels">
+						<span class="status-label off active">off</span>
+						<span class="status-label on">on</span>
+					</div>
+					<div class="switch-bg">
+						<div class="switch">
+							<div class="switch-button"></div>
+						</div>
+					</div>
+					<div class="s-label">HRM</div>
+				</div>
+				<div class="switch-wrapper">
+					<div class="status-labels">
+						<span class="status-label off">off</span>
+						<span class="status-label on active">on</span>
+					</div>
+					<div class="switch-bg">
+						<div class="switch active">
+							<div class="switch-button"></div>
+						</div>
+					</div>
+					<div class="s-label">HRM</div>
+				</div>
+
+				<!-- 第四个在第二行第三列 -->
+				<div class="switch-wrapper">
+					<div class="status-labels">
+						<span class="status-label off">off</span>
+						<span class="status-label on active">on</span>
+					</div>
+					<div class="switch-bg">
+						<div class="switch active">
+							<div class="switch-button"></div>
+						</div>
+					</div>
+					<div class="s-label">HRM</div>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>
+<script>
+	document.querySelectorAll('.switch').forEach(switchElement => {
+		switchElement.addEventListener('click', function() {
+			this.classList.toggle('active');
+			const labels = this.closest('.switch-wrapper').querySelector('.status-labels');
+			labels.querySelector('.off').classList.toggle('active');
+			labels.querySelector('.on').classList.toggle('active');
+		});
+	});
+</script>

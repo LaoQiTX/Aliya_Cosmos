@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>Aliya</title>
+    <style>
+        /* 你的原有样式 */
+        html {
+            background-color: #202020;
+        }
+
+        header {
+            width: 100%;
+        }
+
+        .nav {
+            width: 100%;
+            box-sizing: border-box;
+            line-height: 2rem;
+            background-color: #363636;
+            color: white;
+            border-radius: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-item {
+            cursor: pointer;
+            line-height: 2.5rem;
+            font-size: 1.5rem;
+            width: 8rem;
+            text-align: center;
+            background-color: #3f3f3f;
+            margin: 5px 10px;
+            border-radius: 10px;
+            white-space: nowrap;
+            padding: 0 10px;
+            user-select: none;
+        }
+
+        .warning {
+            margin-left: auto;
+        }
+
+        .text-disabled {
+            color: #5d5d5d;
+        }
+
+        /* 聊天框样式 */
+        :root {
+            --input-height: 80px;
+        }
+
+        .cosmos-body {
+            display: flex;
+            flex-direction: column;
+            height: calc(100vh - 3.5rem); /* 减去 header 的高度 */
+            padding: 10px;
+            box-sizing: border-box;
+        }
+
+        .cosmos-chat {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            background-color: #363636;
+            border-radius: 15px;
+            overflow: hidden;
+        }
+
+        .messages {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            padding-bottom: var(--input-height);
+        }
+
+        .messages::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+
+        .messages::-webkit-scrollbar-track {
+            background: #363636;
+            border-radius: 4px;
+        }
+
+        .messages::-webkit-scrollbar-thumb {
+            background: #5d5d5d;
+            border-radius: 4px;
+            transition: background 0.3s;
+        }
+
+        .messages::-webkit-scrollbar-thumb:hover {
+            background: #3f3f3f;
+        }
+
+        .messages {
+            scrollbar-width: thin;
+            scrollbar-color: #5d5d5d #363636;
+        }
+
+        .message {
+            max-width: 70%;
+            padding: 12px 20px;
+            border-radius: 20px;
+            background: #5d5d5d;
+            color: #fff;
+            word-break: break-word;
+            animation: fadeIn 0.3s ease-in;
+        }
+
+        .message.user-message {
+            background: #3f3f3f;
+            align-self: flex-end;
+        }
+
+        .input-container {
+            position: sticky;
+            bottom: 0;
+            background: #363636;
+            padding: 20px;
+            box-shadow: 0 -5px 15px rgba(0,0,0,0.2);
+            display: flex;
+            gap: 10px;
+        }
+
+        #message-input {
+            flex: 1;
+            padding: 15px;
+            border: none;
+            border-radius: 25px;
+            background: #5d5d5d;
+            color: #fff;
+            font-size: 16px;
+        }
+
+        #send-button {
+            padding: 15px 30px;
+            border: none;
+            border-radius: 25px;
+            background: #3f3f3f;
+            color: #fff;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        #send-button:hover {
+            background: #5d5d5d;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="nav cosmos-head">
+            <div class="nav-item">Operation</div>
+            <div class="nav-item text-disabled">SOS</div>
+            <div class="nav-item text-disabled">FCS</div>
+            <div class="nav-item">Settings</div>
+            <div class="nav-item warning text-disabled">WARNING</div>
+        </div>
+    </header>
+    <div class="cosmos-body">
+        <div class="cosmos-chat">
+            <div class="messages" id="messages-container"></div>
+            <div class="input-container">
+                <input type="text" id="message-input" placeholder="输入消息...">
+                <button id="send-button">发送</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 配置参数
+        const CONFIG = {
+            scrollThreshold: 100,
+            systemMsgInterval: 5000,
+            notificationIcon: 'https://via.placeholder.com/128/363636/ffffff?text=Chat'
+        };
+
+        // DOM元素引用
+        const elements = {
+            container: document.getElementById('messages-container'),
+            input: document.getElementById('message-input'),
+            sendBtn: document.getElementById('send-button'),
+            inputContainer: document.querySelector('.input-container')
+        };
+
+        // 初始化
+        function init() {
+            setupEventListeners();
+            setupLayout();
+            requestNotificationPermission();
+            loadSampleMessages();
+            startSystemMessages();
+        }
+
+        // 事件监听
+        function setupEventListeners() {
+            elements.sendBtn.addEventListener('click', sendUserMessage);
+            elements.input.addEventListener('keypress', e => e.key === 'Enter' && sendUserMessage());
+            window.addEventListener('resize', updateMessagesPadding);
+            new ResizeObserver(updateMessagesPadding).observe(elements.inputContainer);
+        }
+
+        // 布局相关
+        function setupLayout() {
+            updateMessagesPadding();
+        }
+
+        function updateMessagesPadding() {
+            const height = elements.inputContainer.offsetHeight;
+            document.documentElement.style.setProperty('--input-height', `${height}px`);
+        }
+
+        // 消息处理
+        function createMessage(text, isUser = true) {
+            const div = document.createElement('div');
+            div.className = `message ${isUser ? 'user-message' : ''}`;
+            div.textContent = text;
+            return div;
+        }
+
+        function addMessage(text, isUser = true) {
+            elements.container.appendChild(createMessage(text, isUser));
+            checkAutoScroll();
+            checkNotification(text, isUser);
+        }
+
+        // 滚动控制
+        function checkAutoScroll() {
+            const { scrollTop, scrollHeight, clientHeight } = elements.container;
+            const isNearBottom = scrollHeight - scrollTop <= clientHeight + CONFIG.scrollThreshold;
+            
+            if (isNearBottom) {
+                setTimeout(() => {
+                    elements.container.scrollTo({
+                        top: scrollHeight,
+                        behavior: 'smooth'
+                    });
+                }, 10);
+            }
+        }
+
+        // 通知系统
+        function requestNotificationPermission() {
+            if (Notification.permission === 'granted') return;
+            Notification.requestPermission();
+        }
+
+        function checkNotification(text, isUser) {
+            if (!isUser && !document.hasFocus() && Notification.permission === 'granted') {
+                showNotification('新消息', text);
+            }
+        }
+
+        function showNotification(title, message) {
+            new Notification(title, {
+                body: message,
+                icon: CONFIG.notificationIcon
+            });
+        }
+
+        // 用户交互
+        function sendUserMessage() {
+            const text = elements.input.value.trim();
+            if (!text) return;
+            
+            addMessage(text);
+            elements.input.value = '';
+        }
+
+        // 系统功能
+        function loadSampleMessages() {
+            ['欢迎使用聊天室！', '消息会自动滚动', '输入框不会遮挡内容'].forEach(msg => 
+                addMessage(msg, false)
+            );
+        }
+
+        function startSystemMessages() {
+            setInterval(() => {
+                addMessage(`系统时间：${new Date().toLocaleTimeString()}`, false);
+            }, CONFIG.systemMsgInterval);
+        }
+
+        // 启动应用
+        // init();
+    </script>
+</body>
+</html>

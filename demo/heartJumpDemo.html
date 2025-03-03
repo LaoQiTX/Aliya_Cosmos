@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<body>
+<canvas id="ecg" width="800" height="150"></canvas>
+
+<script>
+const canvas = document.getElementById('ecg');
+const ctx = canvas.getContext('2d');
+let offsetX = 0;
+
+// 样式配置
+ctx.strokeStyle = "#FFFFFF";
+ctx.lineWidth = 1;
+canvas.style.background = "#000000";
+
+function draw() {
+    // 清除画布
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    
+    // 绘制基线
+    ctx.beginPath();
+    ctx.setLineDash([5, 3]);
+    ctx.strokeStyle = "#333333";
+    ctx.moveTo(0, canvas.height/2);
+    ctx.lineTo(canvas.width, canvas.height/2);
+    ctx.stroke();
+    
+    // 重置样式
+    ctx.setLineDash([]);
+    ctx.strokeStyle = "#00FF00";
+    ctx.beginPath();
+    ctx.moveTo(0, canvas.height/2);
+
+    // 生成标准心电图波形
+    for(let x = 0; x < canvas.width; x++) {
+        // 波形参数
+        const cycle = 150;  // 心跳周期
+        const pos = (x + offsetX) % cycle;
+        let y = canvas.height/2;
+
+        // 构建标准波形（P波、QRS波群、T波）
+        if(pos < cycle) {
+            // P波
+            if(pos < 20) y -= Math.sin(pos/20 * Math.PI) * 3;
+            // QRS波群
+            else if(pos < 40) y += Math.pow(pos-30, 2)/10 * (pos < 30 ? -1 : 1);
+            // T波
+            else if(pos < 60) y -= Math.sin((pos-40)/20 * Math.PI) * 5;
+        }
+        
+        ctx.lineTo(x, y);
+    }
+
+    ctx.stroke();
+    
+    // 滚动偏移量
+    offsetX += 1;
+    requestAnimationFrame(draw);
+}
+
+draw();
+</script>
+</body>
+</html>

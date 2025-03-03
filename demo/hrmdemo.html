@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<style>
+			body {
+				margin: 0;
+				background: #0a0a0a;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				min-height: 100vh;
+				font-family: 'Arial', sans-serif;
+			}
+
+			.dashboard {
+				width: 1000px;
+				/* 加宽容器 */
+				height: 500px;
+				/* 加高容器 */
+				background: #1a1a1a;
+				border-radius: 20px;
+				display: flex;
+				padding: 40px;
+				box-shadow: 0 0 40px rgba(0, 150, 50, 0.2);
+			}
+
+			.heart-section {
+				flex: 1;
+				display: flex;
+				flex-direction: column;
+				justify-content: center;
+				align-items: center;
+				border-right: 2px solid #333;
+			}
+
+			.bpm {
+				color: #00ff88;
+				font-size: 8em;
+				/* 加大心率数字 */
+				text-shadow: 0 0 30px rgba(0, 255, 136, 0.4);
+				animation: pulse 1.5s ease-in-out infinite;
+			}
+
+			.label {
+				color: #666;
+				font-size: 1.5em;
+				/* 加大标签 */
+				letter-spacing: 4px;
+				margin-top: 20px;
+			}
+
+			.metrics {
+				flex: 1.2;
+				/* 右侧稍宽 */
+				display: flex;
+				flex-direction: row;
+				justify-content: space-around;
+				align-items: flex-end;
+				padding: 0 40px;
+			}
+
+			.metric {
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+				gap: 20px;
+			}
+
+			.bars {
+				width: 100px;
+				height: 200px;
+				background: #222;
+				border-radius: 8px;
+				position: relative;
+				overflow: hidden;
+				box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.3);
+			}
+
+			.bar {
+				width: 100%;
+				position: absolute;
+				transition: height 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+			}
+
+			.metric-label {
+				color: #fff;
+				font-size: 1.8em;
+				text-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+			}
+
+			@keyframes pulse {
+
+				0%,
+				100% {
+					transform: scale(1);
+					opacity: 0.9;
+				}
+
+				50% {
+					transform: scale(1.02);
+					opacity: 1;
+				}
+			}
+		</style>
+	</head>
+	<body>
+		<div class="dashboard">
+			<div class="heart-section">
+				<div class="heart-rate">
+					<div class="bpm">72</div>
+					<div class="label">HEART RATE</div>
+				</div>
+			</div>
+
+			<div class="metrics">
+				<div class="metric">
+					<div class="bars">
+						<div class="bar" style="height: 65%; background: linear-gradient(to top, #00a8ff, #0066ff);">
+						</div>
+						<div class="bar" style="height: 40%; background: linear-gradient(to top, #0066ff, #003399);">
+						</div>
+					</div>
+					<span class="metric-label">O₂ SAT</span>
+				</div>
+
+				<div class="metric">
+					<div class="bars">
+						<div class="bar" style="height: 80%; background: linear-gradient(to top, #00fff2, #0095ff);">
+						</div>
+						<div class="bar" style="height: 30%; background: linear-gradient(to top, #0095ff, #004c99);">
+						</div>
+					</div>
+					<span class="metric-label">H₂O LVL</span>
+				</div>
+
+				<div class="metric">
+					<div class="bars">
+						<div class="bar" style="height: 45%; background: linear-gradient(to top, #ff8800, #ff5500);">
+						</div>
+						<div class="bar" style="height: 25%; background: linear-gradient(to top, #ff5500, #cc4400);">
+						</div>
+					</div>
+					<span class="metric-label">ENG</span>
+				</div>
+			</div>
+		</div>
+
+		<script>
+			// 增强版动画
+			function updateBars() {
+				document.querySelectorAll('.bar').forEach(bar => {
+					const currentHeight = parseFloat(bar.style.height);
+					const fluctuation = Math.sin(Date.now() / 800) * 5 + (Math.random() - 0.5) * 3;
+					const newHeight = Math.max(15, Math.min(95, currentHeight + fluctuation));
+					bar.style.height = `${newHeight}%`;
+				});
+				requestAnimationFrame(updateBars);
+			}
+			updateBars();
+		</script>
+	</body>
+</html>

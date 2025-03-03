@@ -1,0 +1,436 @@
+ html {
+ 	background-color: #202020;
+ }
+
+ header {
+ 	/* width: 100%; */
+ 	padding: 10px;
+ }
+
+ .nav {
+ 	width: 100%;
+ 	box-sizing: border-box;
+ 	line-height: 2rem;
+ 	background-color: #363636;
+ 	color: white;
+ 	border-radius: 15px;
+ 	display: flex;
+ 	justify-content: space-between;
+ 	align-items: center;
+ }
+
+ .nav-item {
+ 	cursor: pointer;
+ 	line-height: 2.5rem;
+ 	font-size: 1.5rem;
+ 	width: 8rem;
+ 	text-align: center;
+ 	background-color: #3f3f3f;
+ 	margin: 5px 10px;
+ 	border-radius: 10px;
+ 	white-space: nowrap;
+ 	padding: 0 10px;
+ 	user-select: none;
+ }
+
+ .warning {
+ 	margin-left: auto;
+ }
+
+ .text-disabled {
+ 	color: #5d5d5d;
+ }
+
+ /* 聊天框样式 */
+ :root {
+ 	--input-height: 80px;
+ }
+
+ .cosmos-body {
+ 	display: flex;
+ 	flex-direction: column;
+ 	height: calc(100vh - 5rem);
+ 	/* 减去 header 的高度 */
+ 	padding: 10px;
+ 	box-sizing: border-box;
+ 	width: calc(99vw - 410px);
+ }
+
+ .cosmos-chat {
+ 	flex: 1;
+ 	display: flex;
+ 	flex-direction: column;
+ 	background-color: #363636;
+ 	border-radius: 20px;
+ 	overflow: hidden;
+ }
+
+ .messages {
+ 	flex: 1;
+ 	overflow-y: auto;
+ 	padding: 20px;
+ 	display: flex;
+ 	flex-direction: column;
+ 	gap: 15px;
+ 	padding-bottom: var(--input-height);
+ }
+
+ .messages::-webkit-scrollbar {
+ 	width: 8px;
+ 	height: 8px;
+ }
+
+ .messages::-webkit-scrollbar-track {
+ 	background: #363636;
+ 	border-radius: 4px;
+ }
+
+ .messages::-webkit-scrollbar-thumb {
+ 	background: #5d5d5d;
+ 	border-radius: 4px;
+ 	transition: background 0.3s;
+ }
+
+ .messages::-webkit-scrollbar-thumb:hover {
+ 	background: #3f3f3f;
+ }
+
+ .messages {
+ 	scrollbar-width: thin;
+ 	scrollbar-color: #5d5d5d #363636;
+ }
+
+ .message {
+ 	max-width: 70%;
+ 	width: max-content;
+ 	padding: 12px 20px;
+ 	border-radius: 20px;
+ 	background: #5d5d5d;
+ 	color: #fff;
+ 	word-break: break-word;
+ 	animation: fadeIn 0.3s ease-in;
+ }
+
+ .message.user-message {
+ 	background: #3f3f3f;
+ 	align-self: flex-end;
+ }
+
+ .input-container {
+ 	position: sticky;
+ 	bottom: 0;
+ 	background: #363636;
+ 	padding: 20px;
+ 	box-shadow: 0 -5px 15px rgba(0, 0, 0, 0.2);
+ 	display: flex;
+ 	gap: 10px;
+ }
+
+ #message-input {
+ 	flex: 1;
+ 	padding: 15px;
+ 	border: none;
+ 	border-radius: 25px;
+ 	background: #5d5d5d;
+ 	color: #fff;
+ 	font-size: 16px;
+ }
+
+ #send-button {
+ 	padding: 15px 30px;
+ 	border: none;
+ 	border-radius: 25px;
+ 	background: #3f3f3f;
+ 	color: #fff;
+ 	cursor: pointer;
+ 	transition: background 0.3s;
+ }
+
+ #send-button:hover {
+ 	background: #5d5d5d;
+ }
+
+ @keyframes fadeIn {
+ 	from {
+ 		opacity: 0;
+ 		transform: translateY(10px);
+ 	}
+
+ 	to {
+ 		opacity: 1;
+ 		transform: translateY(0);
+ 	}
+ }
+
+
+ body {
+ 	margin: 0;
+ }
+
+ .name {
+ 	width: 50%;
+ 	height: 1vh;
+
+ }
+
+ .cosmos-right {
+ 	/* background-color: #3f3f3f; */
+ 	width: 400px;
+ 	height: 30vh;
+ 	position: absolute;
+ 	right: 1vw;
+ }
+
+ .dashboard {
+ 	display: flex;
+ 	/* padding: 40px; */
+ }
+
+ .heart-section {
+ 	flex: 1;
+ 	display: flex;
+ 	flex-direction: column;
+ 	justify-content: space-between;
+ 	align-items: center;
+ 	/* border-right: 2px solid #333; */
+ }
+
+ .bpm {
+ 	color: #5d5d5d;
+ 	font-size: 6em;
+ }
+
+ .label {
+ 	color: white;
+ 	font-size: 1.5em;
+ 	/* margin-top: 20px; */
+ }
+
+ .metrics {
+ 	display: flex;
+ 	flex-direction: row;
+ 	justify-content: space-around;
+ 	/* align-items: flex-end; */
+ }
+
+ .metric {
+ 	text-align: center;
+ }
+
+ .bars {
+ 	margin: 0 8px;
+ 	width: 25px;
+ 	height: calc(27vh - 29px);
+ 	background: #2d2d2d;
+ 	border-radius: 8px;
+ 	position: relative;
+ 	overflow: hidden;
+ }
+
+ .bar {
+ 	bottom: 0;
+ 	background-color: #2d2d2d;
+ 	width: 100%;
+ 	position: absolute;
+ 	transition: height 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+ }
+
+ /* 三个柱状图 */
+ .OO {
+ 	background-color: #78a074;
+ }
+
+ .HOO {
+ 	background-color: #6d98a1;
+ }
+
+ .ENG {
+ 	background-color: darkgoldenrod;
+ }
+
+ /*  */
+ .metric-label {
+ 	color: #fff;
+ 	font-size: 0.8em;
+ 	text-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+ }
+
+ @keyframes pulse {
+
+ 	0%,
+ 	100% {
+ 		transform: scale(1);
+ 		opacity: 0.9;
+ 	}
+
+ 	50% {
+ 		transform: scale(1.02);
+ 		opacity: 1;
+ 	}
+ }
+
+ .Aliya {
+ 	color: white;
+ 	width: 90%;
+ 	border-radius: 10px;
+ 	font-size: 1.5rem;
+ 	padding: 0 0 0 15px;
+ 	/* position: absolute; */
+ 	top: 0;
+ 	background: #454545;
+ }
+ 
+ /* right */
+ 
+ .switch-container {
+ 	justify-content: space-around;
+ 	display: flex;
+ 	gap: 0.2rem;
+ 	padding: 0.5rem;
+ 	border-radius: 15px;
+ }
+ 
+ .status-labels {
+ 	position: absolute;
+ 	/* top: -10px; */
+ 	left: 0px;
+ 	width: 100%;
+ 	display: flex;
+ 	justify-content: space-around;
+ 	color: #ecf0f1;
+ 	font-family: Arial, sans-serif;
+ 	font-size: 14px;
+ }
+ 
+ .status-label {
+ 	opacity: 0.3;
+ 	transition: opacity 0.3s;
+ }
+ 
+ .status-label.active {
+ 	opacity: 1;
+ }
+ 
+ /* 开关核心样式 */
+ .switch {
+ 	width: 5rem;
+ 	height: 3rem;
+ 	background: #202020;
+ 	/* 默认关闭颜色 */
+ 	border-radius: 6px;
+ 	position: relative;
+ 	top: 9px;
+ 	cursor: pointer;
+ 	margin: 20px auto;
+ 	transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+ }
+ 
+ .switch.active {
+ 	background: #464646;
+ 	/* 开启状态颜色 */
+ }
+ 
+ .switch-button {
+ 	width: 2.5rem;
+ 	height: 3.5rem;
+ 	background: #646464;
+ 	position: absolute;
+ 	top: -4px;
+ 	left: 0px;
+ 	border-radius: 4px;
+ 	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+ 	transition: inherit;
+ 	/* 继承父级过渡效果 */
+ }
+ 
+ .switch.active .switch-button {
+ 	left: calc(100% - 40px);
+ }
+ 
+ .s-label {
+ 	background-color: #454545;
+ 	width: 55px;
+ 	/* height: 21px; */
+ 	text-align: center;
+ 	color: #ecf0f1;
+ 	font-family: Arial, sans-serif;
+ 	font-size: 17px;
+ 	margin-top: 4px;
+ 	letter-spacing: 1px;
+ 	position: absolute;
+ 	left: 32.1px;
+ 	top: 91px;
+ }
+ 
+ .cosmos-right-switch {
+ 	/* width: max-content; */
+ 	background: #454545;
+ 	border-radius: 20px;
+ 	/* height: 15rem; */
+ 	margin-top: 10px;
+ }
+ 
+ .switch-bg {
+ 	background: #2c2c2c;
+ 	width: 6rem;
+ 	height: 4.2rem;
+ 	border-radius: 8px;
+ 	margin-bottom: 1px;
+ }
+ 
+ .switch-wrapper {
+ 	position: relative;
+ 	border: 2px #202020 solid;
+ 	border-radius: 10px;
+ 	padding: 7px;
+ }
+ 
+ 
+ .switch-container {
+ 	display: grid;
+ 	/* 启用 Grid 布局 */
+ 	grid-template-columns: repeat(3, 1fr);
+ 	/* 关键新增：定义三列 */
+ 	grid-auto-rows: auto;
+ 	/* 自动行高（可选） */
+ }
+ 
+ .switch-wrapper:nth-child(4) {
+ 	grid-row: 2;
+ 	/* 第二行 */
+ 	grid-column: 3;
+ 	/* 第三列 */
+ 	margin-top: 5px;
+ }
+ 
+ 
+ #switch-bg{
+ 	width: 380px;
+ 	margin: 10px;
+ }
+ 
+ /* 适用于所有移动设备 */
+ @media only screen and (max-width: 850px) {
+ 
+ 	/* 在这里编写适用于移动设备的 CSS */
+ 	.not-moble {
+ 		display: none;
+ 	}
+ 
+ 	.cosmos-body {
+ 		width: 100%;
+ 	}
+ }
+ 
+ @media only screen and (max-width: 650px) {
+ 	.warning {
+ 		display: none;
+ 	}
+ }
+ 
+ @media only screen and (max-width: 500px) {
+ 	.text-disabled {
+ 		display: none;
+ 	}
+ }
+ 

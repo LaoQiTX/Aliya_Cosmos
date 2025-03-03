@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+/* 复用你提供的样式并稍作修改 */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: none; /* 默认隐藏 */
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+.operation-modal {
+    background-color: #363636;
+    padding: 30px;
+    border-radius: 8px;
+    width: 350px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.modal-header {
+    margin-bottom: 20px;
+}
+
+.modal-header h2 {
+    color: #fff;
+    margin: 0;
+    font-size: 24px;
+}
+
+.button-group-vertical {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+button.operation-trigger {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    padding: 10px 20px;
+    background-color: #5d5d5d;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    z-index: 10000;
+}
+
+.init-btn {
+    background-color: #4CAF50 !important;
+}
+
+.exit-btn {
+    background-color: #f44336 !important;
+}
+
+button {
+    padding: 12px 25px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s;
+    color: white !important;
+}
+
+button:hover {
+    opacity: 0.9;
+}
+</style>
+</head>
+<body>
+
+<!-- 操作触发按钮 -->
+<button id="Operation" class="operation-trigger">操作面板</button>
+
+<!-- 模态框 -->
+<div class="modal-overlay" id="operationModal">
+    <div class="operation-modal">
+        <div class="modal-header">
+            <h2>系统操作</h2>
+        </div>
+        <div class="button-group-vertical">
+            <button class="init-btn" onclick="initConnection()">[初始化连接]</button>
+            <button class="exit-btn" onclick="closeWindow()">退出</button>
+        </div>
+    </div>
+</div>
+
+<script>
+// 显示/隐藏模态框
+document.getElementById('Operation').addEventListener('click', function(e) {
+    e.stopPropagation();
+    document.getElementById('operationModal').style.display = 'flex';
+});
+
+// 点击遮罩层关闭
+document.querySelector('.modal-overlay').addEventListener('click', function(e) {
+    if (e.target === this) {
+        this.style.display = 'none';
+    }
+});
+
+// 初始化连接功能
+function initConnection() {
+    localStorage.removeItem("conversation_id");
+    alert("连接已初始化！");
+    document.getElementById('operationModal').style.display = 'none';
+}
+
+// 关闭窗口功能
+function closeWindow() {
+    document.getElementById('operationModal').style.display = 'none';
+    window.close();
+}
+</script>
+
+</body>
+</html>
