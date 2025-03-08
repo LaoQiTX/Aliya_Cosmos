@@ -53,7 +53,7 @@
  	/* 减去 header 的高度 */
  	padding: 10px;
  	box-sizing: border-box;
- 	width: calc(99vw - 410px);
+ 	width: calc(99vw - 445px);
  }
 
  .cosmos-chat {
@@ -175,7 +175,7 @@
 
  .cosmos-right {
  	/* background-color: #3f3f3f; */
- 	width: 400px;
+ 	/* width: 400px; */
  	height: 30vh;
  	position: absolute;
  	right: 1vw;
@@ -279,20 +279,12 @@
  	top: 0;
  	background: #454545;
  }
- 
+
  /* right */
- 
- .switch-container {
- 	justify-content: space-around;
- 	display: flex;
- 	gap: 0.2rem;
- 	padding: 0.5rem;
- 	border-radius: 15px;
- }
- 
+
  .status-labels {
  	position: absolute;
- 	/* top: -10px; */
+ 	top: 7px;
  	left: 0px;
  	width: 100%;
  	display: flex;
@@ -301,38 +293,37 @@
  	font-family: Arial, sans-serif;
  	font-size: 14px;
  }
- 
+
  .status-label {
  	opacity: 0.3;
  	transition: opacity 0.3s;
  }
- 
+
  .status-label.active {
  	opacity: 1;
  }
- 
+
  /* 开关核心样式 */
  .switch {
  	width: 5rem;
- 	height: 3rem;
+ 	height: 3.5rem;
  	background: #202020;
- 	/* 默认关闭颜色 */
  	border-radius: 6px;
  	position: relative;
- 	top: 9px;
+ 	top: 6px;
  	cursor: pointer;
  	margin: 20px auto;
  	transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
  }
- 
+
  .switch.active {
  	background: #464646;
  	/* 开启状态颜色 */
  }
- 
+
  .switch-button {
  	width: 2.5rem;
- 	height: 3.5rem;
+ 	height: 4rem;
  	background: #646464;
  	position: absolute;
  	top: -4px;
@@ -342,59 +333,77 @@
  	transition: inherit;
  	/* 继承父级过渡效果 */
  }
- 
+
  .switch.active .switch-button {
  	left: calc(100% - 40px);
  }
- 
+
  .s-label {
- 	background-color: #454545;
+ 	/* background-color: #454545; */
  	width: 55px;
  	/* height: 21px; */
  	text-align: center;
  	color: #ecf0f1;
  	font-family: Arial, sans-serif;
  	font-size: 17px;
- 	margin-top: 4px;
  	letter-spacing: 1px;
  	position: absolute;
- 	left: 32.1px;
- 	top: 91px;
+ 	left: 31px;
+ 	top: 99px;
  }
- 
+
  .cosmos-right-switch {
- 	/* width: max-content; */
+ 	width: 412px;
  	background: #454545;
- 	border-radius: 20px;
- 	/* height: 15rem; */
+ 	border-radius: 13px;
+ 	/* height: 30vh; */
  	margin-top: 10px;
+ 	padding: 1vh;
  }
- 
+
+ .switch-right-bg {
+ 	position: relative;
+ 	width: 100%;
+ 	/* height: 30vh; */
+ 	height: 286px;
+ 	background-image: url(../img/RightMiddleFrame.png);
+ 	background-size: cover;
+ 	background-position: center;
+ }
+
  .switch-bg {
- 	background: #2c2c2c;
+ 	/* background: #2c2c2c; */
  	width: 6rem;
  	height: 4.2rem;
  	border-radius: 8px;
  	margin-bottom: 1px;
  }
- 
+
  .switch-wrapper {
  	position: relative;
- 	border: 2px #202020 solid;
+ 	/* border: 2px #202020 solid; */
  	border-radius: 10px;
  	padding: 7px;
  }
- 
- 
+
+
  .switch-container {
+ 	position: relative;
+ 	top: -13px;
+ 	/* right: -5px; */
  	display: grid;
  	/* 启用 Grid 布局 */
  	grid-template-columns: repeat(3, 1fr);
  	/* 关键新增：定义三列 */
  	grid-auto-rows: auto;
  	/* 自动行高（可选） */
+	justify-content: space-around;
+	display: flex;
+	gap: 1.6rem;
+	padding: 0.5rem;
+	border-radius: 15px;
  }
- 
+
  .switch-wrapper:nth-child(4) {
  	grid-row: 2;
  	/* 第二行 */
@@ -402,35 +411,38 @@
  	/* 第三列 */
  	margin-top: 5px;
  }
- 
- 
- #switch-bg{
+
+
+ #switch-bg {
  	width: 380px;
  	margin: 10px;
  }
- 
+
  /* 适用于所有移动设备 */
  @media only screen and (max-width: 850px) {
- 
+
  	/* 在这里编写适用于移动设备的 CSS */
  	.not-moble {
  		display: none;
  	}
- 
+
  	.cosmos-body {
  		width: 100%;
  	}
  }
- 
+
+ img {
+ 	-webkit-user-drag: none;
+ }
+
  @media only screen and (max-width: 650px) {
  	.warning {
  		display: none;
  	}
  }
- 
+
  @media only screen and (max-width: 500px) {
  	.text-disabled {
  		display: none;
  	}
  }
- 

@@ -8,7 +8,7 @@
 		<link rel="stylesheet" href="./css/index.css" />
 		<link rel="stylesheet" href="./css/popup.css" />
 		<style>
-			
+
 		</style>
 	</head>
 	<body>
@@ -22,7 +22,7 @@
 				<div class="nav-item warning text-disabled">WARNING</div>
 			</div>
 		</header>
-		
+
 		<div class="cosmos-body">
 			<!-- 聊天部分 -->
 			<div class="cosmos-chat cosmos-left">
@@ -33,7 +33,7 @@
 					<button id="send-button">发送</button>
 				</div>
 			</div>
-			
+
 			<!-- 右侧顶部数值部分 -->
 			<div class="cosmos-right not-moble">
 				<div class="heart">
@@ -76,72 +76,60 @@
 						</div>
 					</div>
 				</div>
-				
+
 				<!-- 右侧按钮部分 -->
 				<div class="cosmos-right-switch">
-					<img src="img/RightMiddleFrame.png" id="switch-bg" alt="" />
-					
-					<!-- <div class="switch-container">
-						
-						<div class="switch-wrapper">
-							<div class="status-labels">
-								<span class="status-label off">off</span>
-								<span class="status-label on active">on</span>
-							</div>
-							<div class="switch-bg">
-								<div class="switch active">
-									<div class="switch-button"></div>
-								</div>
-							</div>
-							<div class="s-label">HRM</div>
-						</div>
+					<!-- <img src="img/RightMiddleFrame.png" id="switch-bg" alt="" /> -->
+					<div class="switch-right-bg">
+						<div class="switch-container">
 
-						<div class="switch-wrapper">
-							<div class="status-labels">
-								<span class="status-label off active">off</span>
-								<span class="status-label on">on</span>
-							</div>
-							<div class="switch-bg">
-								<div class="switch">
-									<div class="switch-button"></div>
+							<div class="switch-wrapper">
+								<div class="status-labels">
+									<span class="status-label off">off</span>
+									<span class="status-label on active">on</span>
 								</div>
-							</div>
-							<div class="s-label">EOG</div>
-						</div>
-
-						<div class="switch-wrapper">
-							<div class="status-labels">
-								<span class="status-label off active">off</span>
-								<span class="status-label on">on</span>
-							</div>
-							<div class="switch-bg">
-								<div class="switch">
-									<div class="switch-button"></div>
+								<div class="switch-bg">
+									<div class="switch active">
+										<div class="switch-button"></div>
+									</div>
 								</div>
+								<div class="s-label">HRM</div>
 							</div>
-							<div class="s-label">EH</div>
-						</div>
 
-						<div class="switch-wrapper second">
-							<div class="status-labels">
-								<span class="status-label off active">off</span>
-								<span class="status-label on">on</span>
-							</div>
-							<div class="switch-bg">
-								<div class="switch">
-									<div class="switch-button"></div>
+							<div class="switch-wrapper">
+								<div class="status-labels">
+									<span class="status-label off active">off</span>
+									<span class="status-label on">on</span>
 								</div>
+								<div class="switch-bg">
+									<div class="switch">
+										<div class="switch-button"></div>
+									</div>
+								</div>
+								<div class="s-label">EOG</div>
 							</div>
-							<div class="s-label">EH</div>
-						</div>
 
-					</div> -->
+							<div class="switch-wrapper">
+								<div class="status-labels">
+									<span class="status-label off active">off</span>
+									<span class="status-label on">on</span>
+								</div>
+								<div class="switch-bg">
+									<div class="switch">
+										<div class="switch-button"></div>
+									</div>
+								</div>
+								<div class="s-label">EH</div>
+							</div>
+						</div>
+					</div>
+
 				</div>
 			</div>
 		</div>
-		
+
 		<!-- ---------------弹出框--------------- -->
-		
+
 		<!-- setting -->
 		<div class="modal-overlay" id="settingspop" style="display: none;">
 			<div class="username-modal">
@@ -159,20 +147,44 @@
 		</div>
 		<!-- 模态框 -->
 		<div class="modal-overlay" id="operationModal" style="display: none;">
-		    <div class="operation-modal">
-		        <div class="modal-header">
-		            <h2>系统操作</h2>
-		        </div>
-		        <div class="button-group-vertical">
-		            <button class="init-btn" onclick="initConnection()">[初始化连接]</button>
-		            <button class="exit-btn" onclick="closeWindow()">退出</button>
-		        </div>
-		    </div>
+			<div class="operation-modal">
+				<div class="modal-header">
+					<h2>系统操作 <span id="closeWindow" onclick="closeModal()" style="cursor: pointer; float: right;">X</span></h2>
+				</div>
+				<div class="button-group-vertical">
+					<button class="init-btn" onclick="initConnection()">[初始化连接]</button>
+					<button class="init-btn" onclick="settingURL()">配置接口</button>
+					<button class="exit-btn" onclick="closeWindow()">退出</button>
+				</div>
+			</div>
+		</div>
+		<!-- 配置接口 -->
+		<div class="modal-overlay" id="settingURL" style="display: none;">
+			<div class="username-modal">
+				<div class="modal-header">
+					<h2>配置接口</h2>
+				</div>
+				<div class="input-group">
+					<input type="text" id="userURL" placeholder="输入URL">
+					<input type="text" id="userKey" placeholder="输入key">
+				</div>
+				<div class="button-group">
+					<button class="cancel-btn" onclick="closeWindow_URL()">取消</button>
+					<button class="save-btn" onclick="saveKey()">保存</button>
+				</div>
+			</div>
 		</div>
 
 	</body>
 </html>
 <script src="./js/jquery.js"></script>
 <script src="./js/mui.min.js"></script>
+<script src="./js/operation_saveUrl.js"></script>
+<script src="./js/post.js"></script>
 <script src="./js/index.js"></script>
-<!-- <script src="js/index_psw.js"></script> -->
+<script src="./js/operation_init.js"></script>
+<script src="./js/operation_closeWindow.js"></script>
+<script src="./js/settings.js"></script>
+<script>
+
+</script>

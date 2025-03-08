@@ -13,69 +13,6 @@ const elements = {
 	inputContainer: document.querySelector('.input-container')
 };
 
-function sendPost(question) {
-	var tkey = "Bearer 你的aikey";
-	var username = localStorage.getItem("AliyaCalledMe");
-	if (localStorage.getItem("conversation_id") == null) {
-		conversation_id = ""
-	} else {
-		conversation_id = localStorage.getItem("conversation_id");
-	}
-
-	// console.log(username)
-	// console.log(question)
-	// console.log(conversation_id)
-	var settings = {
-		"url": "你的apiURL",
-		"method": "POST",
-		"timeout": 0,
-		"headers": {
-			"Authorization": tkey,
-			"Content-Type": "application/json"
-		},
-		"data": JSON.stringify({
-			// 这里是你的dify提示词变量
-			"inputs": {
-				"user_name": username
-			},
-			"query": question,
-			"response_mode": "blocking",
-			"conversation_id": conversation_id,
-			"user": username
-		}),
-	};
-
-	$.ajax(settings).done(function(response) {
-		console.log(response);
-		// 服务器返回新的 conversation_id 时才存储
-		if (response.conversation_id !== conversation_id) {
-			localStorage.setItem("conversation_id", response.conversation_id);
-		}
-		var answer = response.answer
-		// console.log(answer)
-		if (answer.search("|") !== -1) {
-			var answer_arr = answer.split("|")
-			// console.log(answer_arr)
-
-			function task(i) {
-				setTimeout(function() {
-					addMessage(answer_arr[i], false)
-				}, 2000 * i);
-			}
-
-			for (var i = 0; i < answer_arr.length; i++) {
-				console.log(answer_arr[i])
-				// var answer_i = answer_arr[i]
-				task(i)
-			}
-		} else {
-			addMessage(response.answer, false);
-		}
-	});
-
-
-}
-
 // 事件监听
 function setupEventListeners() {
 	elements.sendBtn.addEventListener('click', function() {
@@ -192,6 +129,10 @@ document.querySelectorAll('.switch').forEach(switchElement => {
 });
 
 // console.log(localStorage.getItem("AliyaCalledMe"))
+function closeModal() {
+	document.querySelector('.modal-overlay').style.display = 'none';
+	$('#operationModal').css("display", "none")
+}
 
 if (localStorage.getItem("AliyaCalledMe") == null) {
 	$("#settingspop").css('display', 'flex')
@@ -204,33 +145,6 @@ if (localStorage.getItem("AliyaCalledMe") == null) {
 	closeModal()
 }
 
-// 点击Settings按钮
-$("#settings").on("tap", function() {
-	$("#settingspop").css('display', 'flex')
-})
-
-// 从本地存储获取已保存的用户名
-const savedUsername = localStorage.getItem('AliyaCalledMe');
-if (savedUsername) {
-	$('#username').val(savedUsername);
-}
-
-function saveUsername() {
-	var username = document.getElementById('username').value.trim();
-	if (username) {
-		localStorage.setItem('AliyaCalledMe', username);
-		closeModal();
-		alert('用户名已保存！');
-		location.reload()
-	} else {
-		alert('请输入有效的用户名');
-	}
-}
-
-function closeModal() {
-	document.querySelector('.modal-overlay').style.display = 'none';
-}
-
 // 可选：添加关闭模态框的点击外部区域功能
 document.querySelector('.modal-overlay').addEventListener('click', function(e) {
 	if (e.target === this) {
@@ -238,40 +152,5 @@ document.querySelector('.modal-overlay').addEventListener('click', function(e) {
 	}
 });
 
-
-if (localStorage.getItem("conversation_id") == null) {
-	localStorage.setItem("conversation_id", "")
-}
-var conversation_id
-
-// Operation
-// 显示/隐藏模态框
-document.getElementById('Operation').addEventListener('click', function(e) {
-	e.stopPropagation();
-	document.getElementById('operationModal').style.display = 'flex';
-});
-
-// 点击遮罩层关闭
-document.querySelector('#operationModal').addEventListener('click', function(e) {
-	if (e.target === this) {
-		this.style.display = 'none';
-	}
-});
-
-
-// 初始化连接功能
-function initConnection() {
-	localStorage.removeItem("conversation_id");
-	localStorage.removeItem("AliyaCalledMe")
-	alert("连接已初始化！");
-	document.getElementById('operationModal').style.display = 'none';
-}
-
-// 关闭窗口功能
-function closeWindow() {
-	document.getElementById('operationModal').style.display = 'none';
-	window.close();
-}
-
 // 启动应用
-init();
+// init();
