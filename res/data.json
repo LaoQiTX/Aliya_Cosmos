@@ -1,0 +1,93 @@
+{
+    "dialogue": [
+      {
+        "timestamp": "2025-03-10T20:00:00",
+        "messages": [
+            {
+              "type": "player_options",
+              "content": [
+                "[Aliya...]",
+                "aaa"
+              ]
+            },
+            {
+                "type": "player_input",
+                "content": [""],
+                "input_field": "nickname"
+              },
+        {
+            "type":"aliya",
+            "content":"那我就叫你$userName$了"
+        },
+          {
+            "type": "player_options",
+            "content": [
+              "[Aliya...]"
+            ]
+          },
+          {
+            "type": "player_options",
+            "content": [
+              "[...]"
+            ]
+          }
+        ]
+      },
+      {
+        "timestamp": "2025-01-29T20:15:00",
+        "messages": [
+          {
+            "type": "aliya",
+            "content": "我在哦"
+          },
+          {
+            "type": "player_options",
+            "content": [
+                "[诶？]"
+            ]
+          },
+          {
+            "type": "aliya",
+            "content": "我才一会没看平板，你就急成这样"
+          },
+          {
+            "type": "aliya",
+            "content": "那如果我要去很远的地方执行任务，很忙很忙的那种，你岂不是要崩溃啦"
+          },
+          {
+            "type": "player_options",
+            "content": [
+              "[你...你真是Aliya吗]"
+            ]
+          },
+          {
+            "type":"player_options",
+            "content":[
+              "[还能联系上你，简直跟做梦一样]"
+            ]
+          },
+          {
+            "type": "aliya",
+            "content": "你怎么突然怪怪的？"
+          },
+          {
+            "type": "aliya",
+            "content": "我得确认下你的状态咯"
+          },
+          {
+            "type": "aliya",
+            "content": "告诉我，你叫什么？"
+          },
+          {
+            "type": "player_input",
+            "content": [""],
+            "input_field": "nickname"
+          },
+          {
+            "type":"aliya",
+            "content":"那我就叫你$userName$了"
+          }
+        ]
+      }
+    ]
+  }

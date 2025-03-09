@@ -5,23 +5,32 @@ const CONFIG = {
 	// notificationIcon: '浏览器logo链接'
 };
 
+// 初始化
+function init() {
+	// setupEventListeners();
+	// setupLayout();
+	requestNotificationPermission();
+	// loadSampleMessages();
+	// startSystemMessages();
+}
+
 // DOM元素引用
 const elements = {
 	container: document.getElementById('messages-container'),
 	input: document.getElementById('message-input'),
-	sendBtn: document.getElementById('send-button'),
+	// sendBtn: document.getElementById('send-button'),
 	inputContainer: document.querySelector('.input-container')
 };
 
 // 事件监听
-function setupEventListeners() {
-	elements.sendBtn.addEventListener('click', function() {
-		sendUserMessage();
-	});
-	// elements.input.addEventListener('keypress', e => e.key === 'Enter' && sendUserMessage());
-	window.addEventListener('resize', updateMessagesPadding);
-	new ResizeObserver(updateMessagesPadding).observe(elements.inputContainer);
-}
+// function setupEventListeners() {
+// 	elements.sendBtn.addEventListener('click', function() {
+// 		sendUserMessage();
+// 	});
+// 	// elements.input.addEventListener('keypress', e => e.key === 'Enter' && sendUserMessage());
+// 	window.addEventListener('resize', updateMessagesPadding);
+// 	new ResizeObserver(updateMessagesPadding).observe(elements.inputContainer);
+// }
 
 // 布局相关
 function setupLayout() {
@@ -35,6 +44,9 @@ function updateMessagesPadding() {
 
 // 消息处理
 function createMessage(text, isUser = true) {
+	if(text.includes("$userName$")){
+		text = text.replace("$userName$", savedUsername)
+	}
 	const div = document.createElement('div');
 	div.className = `message ${isUser ? 'user-message' : ''}`;
 	div.textContent = text;
@@ -108,16 +120,7 @@ function startSystemMessages() {
 		addMessage(`系统时间：${new Date().toLocaleTimeString()}`, false);
 	}, CONFIG.systemMsgInterval);
 }
-
-// 初始化
-function init() {
-	setupEventListeners();
-	setupLayout();
-	requestNotificationPermission();
-	loadSampleMessages();
-	// startSystemMessages();
-}
-
+// On/Off切换
 document.querySelectorAll('.switch').forEach(switchElement => {
 	switchElement.addEventListener('click', function() {
 		this.classList.toggle('active');
@@ -152,5 +155,101 @@ document.querySelector('.modal-overlay').addEventListener('click', function(e) {
 	}
 });
 
+// 获取聊天区域背景颜色
+function getChatBackgroundColor() {
+	const chatElement = document.querySelector('.cosmos-chat');
+	if (chatElement) {
+		return window.getComputedStyle(chatElement).backgroundColor;
+	}
+	return '#4f4f4f'; // 默认值
+}
+// wait 
+function wait(ms) {
+	return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+
+let currentDialogueIndex = 0;
+let currentMessageIndex = 0;
+let isWaitingForChoice = false;
+
+async function loadMessages() {
+  try {
+    const response = await fetch('./res/data.json');
+    const data = await response.json();
+
+    // data.dialogue.sort((a, b) => new Date(a.timestamp) - new Date(b.timestamp));
+
+    // 递归处理对话
+    async function processDialogue() {
+      if (currentDialogueIndex >= data.dialogue.length) return;
+
+      const dialogue = data.dialogue[currentDialogueIndex];
+      const messagesContainer = document.getElementById('messages-container');
+      
+      // 处理当前时间段内的消息
+      while (currentMessageIndex < dialogue.messages.length) {
+        const message = dialogue.messages[currentMessageIndex];
+        
+        if (message.type === 'player_options') {
+          // 暂停处理，等待玩家选择
+          isWaitingForChoice = true;
+          await showOptions(message.content);
+          isWaitingForChoice = false;
+          currentMessageIndex++;
+		  await wait(1000);
+          continue;
+        }else if(message.type === 'player_input'){
+			isWaitingForChoice = true
+			await showInputDialog();
+			isWaitingForChoice = false
+			await closeInputDialog();
+			currentMessageIndex++;
+			console.log(currentMessageIndex);
+			await wait(1000);
+			continue;
+		}
+
+        addMessage(message.content, message.type !== 'aliya');
+        currentMessageIndex++;
+		await wait(1000);
+      }
+
+      // 重置索引并处理下一个时间段
+      currentMessageIndex = 0;
+      currentDialogueIndex++;
+      await processDialogue();
+    }
+
+    // 显示选项的Promise封装
+    function showOptions(options) {
+      return new Promise((resolve) => {
+        const optionsContainer = document.getElementById('player-options-container');
+        optionsContainer.innerHTML = ''; // 清空旧选项
+        
+        options.forEach(option => {
+          const optionElement = document.createElement('button');
+          optionElement.className = 'player-option';
+          optionElement.textContent = option;
+          
+          optionElement.addEventListener('click', () => {
+            addMessage(option, true);
+            optionsContainer.innerHTML = ''; // 选择后立即清除选项
+            resolve();
+          });
+          
+          optionsContainer.appendChild(optionElement);
+        });
+      });
+    }
+
+    await processDialogue();
+  } catch (error) {
+    console.error('Error:', error);
+  }
+}
+
+
 // 启动应用
-// init();
+init();
+loadMessages();

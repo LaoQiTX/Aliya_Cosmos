@@ -1,4 +1,4 @@
- .modal-overlay {
+.modal-overlay {
  	position: fixed;
  	top: 0;
  	left: 0;
@@ -82,6 +82,26 @@
  	background-color: #4f4f4f;
  }
  
+ .player-options-container {
+	margin-top: 10px;
+	/* background-color: #363636; */
+	display: flex;
+	flex-direction: column;
+	border: red solid 1px;
+	min-height: 130px;
+	flex-grow: 1; /* 占满剩余高度 */
+	gap: 10px;
+	padding: 10px;
+	border-radius: 8px;
+ }
+ 
+ .player-option {
+ 	padding: 8px 12px;
+ 	/* border: 1px solid #ccc; */
+ 	border-radius: 4px;
+ 	cursor: pointer;
+ 	background-color:#4f4f4f; /* 默认背景颜色 */
+ }
  
  .operation-modal {
      background-color: #363636;

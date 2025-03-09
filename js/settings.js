@@ -4,7 +4,7 @@ $("#settings").on("tap", function() {
 })
 
 // 从本地存储获取已保存的用户名
-const savedUsername = localStorage.getItem('AliyaCalledMe');
+let savedUsername = localStorage.getItem('AliyaCalledMe');
 if (savedUsername) {
 	$('#username').val(savedUsername);
 }
@@ -15,7 +15,8 @@ function saveUsername() {
 		localStorage.setItem('AliyaCalledMe', username);
 		closeModal();
 		alert('用户名已保存！');
-		location.reload()
+		savedUsername = localStorage.getItem('AliyaCalledMe');
+		// location.reload()
 	} else {
 		alert('请输入有效的用户名');
 	}
@@ -23,4 +24,24 @@ function saveUsername() {
 
 if (localStorage.getItem("conversation_id") == null) {
 	localStorage.setItem("conversation_id", "")
+}
+function showInputDialog() {
+    return new Promise(resolve => {
+        const modal = document.getElementById('settingspop');
+        modal.style.display = 'flex';
+
+        document.getElementById("save-btn").onclick = function () {
+            saveUsername();
+			resolve(); 
+        };
+    });
+}
+
+
+function closeInputDialog() {
+    return new Promise(resolve => {
+        const modal = document.getElementById('settingspop');
+        modal.style.display = 'none';
+        setTimeout(resolve, 300); // 让动画有时间完成
+    });
 }
