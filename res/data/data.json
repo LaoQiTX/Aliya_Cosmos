@@ -10,11 +10,6 @@
                 "aaa"
               ]
             },
-            {
-                "type": "player_input",
-                "content": [""],
-                "input_field": "nickname"
-              },
         {
             "type":"aliya",
             "content":"那我就叫你$userName$了"

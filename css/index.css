@@ -199,7 +199,7 @@ html {
 
 .heart-rate {
 	width: 100%; /* 占据全部宽度 */
-	background-image: url('../res//animation/heart_beat/heart_beat_0.gif'); /* 替换为你的心跳图 URL */
+	background-image: url('../res/animation/heart_beat/heart_beat_0.gif'); /* 替换为你的心跳图 URL */
 	background-size: cover; /* 覆盖整个区域 */
 	background-position: center; /* 居中显示 */
 	display: flex;
@@ -474,8 +474,11 @@ html {
  	border-radius: 20px;
  	margin-top: 10px;
     display: flex; /* 使用 Flexbox 布局 */
-    justify-content: space-around; /* 均匀分布按钮 */
+    justify-content: center; /* 均匀分布按钮 */
     align-items: center; /* 垂直居中按钮 */
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: contain;
  }
 
  .player-options-container button {

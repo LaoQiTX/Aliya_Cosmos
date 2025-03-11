@@ -21,9 +21,25 @@ const elements = {
 	container: document.getElementById('messages-container'),
 	input: document.getElementById('message-input'),
 	// sendBtn: document.getElementById('send-button'),
-	inputContainer: document.querySelector('.input-container')
+	inputContainer: document.querySelector('.input-container'),
+	optionsContainer: document.getElementById('player-options-container')
 };
 
+// 随机数生成函数
+function getRandomHeartRate(min, max) {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+// 更新心率函数
+function updateHeartRate() {
+  const bpmElement = document.querySelector('.bpm');
+  const randomHeartRate = getRandomHeartRate(60, 80); // 设置心率范围
+  bpmElement.textContent = randomHeartRate;
+}
+
+function setHeartBeat(){
+	setInterval(updateHeartRate, 1000); // 每秒更新一次
+}
 
 // 事件监听
 // function setupEventListeners() {
@@ -57,6 +73,8 @@ function createMessage(text, isUser = true) {
 }
 
 function addMessage(text, isUser = true) {
+	// 如果options的动画还没结束就再次触发来进行结束
+	hideLoadingGif();
 	const messageElement = createMessage(text, isUser);
 	elements.container.appendChild(messageElement);
 	checkAutoScroll();
@@ -172,6 +190,49 @@ function wait(ms) {
 	return new Promise(resolve => setTimeout(resolve, ms));
 }
 
+// 显示加载点点点的GIF
+function showPointLoadingGif() {
+	elements.optionsContainer.style.backgroundImage = "url('../res/animation/heart_beat/heart_beat_0.gif')"; 
+	elements.optionsContainer.style.backgroundSize = 'cover';
+	elements.optionsContainer.innerHTML = ''; // 隐藏选项
+}
+
+// 隐藏加载options选择框内的 GIF
+function hideLoadingGif() {
+	elements.optionsContainer.style.backgroundImage = '';
+	elements.optionsContainer.innerHTML = ''; // 清空内容
+}
+
+// 显示选项的Promise封装
+function showOptions(options) {
+	return new Promise((resolve) => {
+		const optionsContainer = document.getElementById('player-options-container');
+		optionsContainer.innerHTML = ''; // 清空旧选项
+		
+		options.forEach(option => {
+		const optionElement = document.createElement('button');
+		optionElement.className = 'player-option';
+		optionElement.textContent = option;
+		
+		optionElement.addEventListener('click', () => {
+			addMessage(option, true);
+			optionsContainer.innerHTML = ''; // 选择后立即清除选项
+			resolve();
+		});
+		
+		optionsContainer.appendChild(optionElement);
+		});
+	});
+}
+
+// 在 wait 之前显示 GIF 并隐藏选项
+async function pointAnimation(){
+	showPointLoadingGif();
+	await wait(1000);
+	hideLoadingGif();
+	await wait(100);
+}
+
 
 let currentDialogueIndex = 0;
 let currentMessageIndex = 0;
@@ -191,7 +252,6 @@ async function loadMessages() {
       if (currentDialogueIndex >= data.dialogue.length) return;
 
       const dialogue = data.dialogue[currentDialogueIndex];
-      const messagesContainer = document.getElementById('messages-container');
       
       // 处理当前时间段内的消息
       while (currentMessageIndex < dialogue.messages.length) {
@@ -203,7 +263,7 @@ async function loadMessages() {
           await showOptions(message.content);
           isWaitingForChoice = false;
           currentMessageIndex++;
-		  await wait(1000);
+		  await pointAnimation();
           continue;
         }else if(message.type === 'player_input'){
 			isWaitingForChoice = true
@@ -218,7 +278,7 @@ async function loadMessages() {
 
         addMessage(message.content, message.type !== 'aliya');
         currentMessageIndex++;
-		await wait(1000);
+		await pointAnimation();
       }
 
       // 重置索引并处理下一个时间段
@@ -226,29 +286,6 @@ async function loadMessages() {
       currentDialogueIndex++;
       await processDialogue();
     }
-
-    // 显示选项的Promise封装
-    function showOptions(options) {
-      return new Promise((resolve) => {
-        const optionsContainer = document.getElementById('player-options-container');
-        optionsContainer.innerHTML = ''; // 清空旧选项
-        
-        options.forEach(option => {
-          const optionElement = document.createElement('button');
-          optionElement.className = 'player-option';
-          optionElement.textContent = option;
-          
-          optionElement.addEventListener('click', () => {
-            addMessage(option, true);
-            optionsContainer.innerHTML = ''; // 选择后立即清除选项
-            resolve();
-          });
-          
-          optionsContainer.appendChild(optionElement);
-        });
-      });
-    }
-
     await processDialogue();
   } catch (error) {
     console.error('Error:', error);
@@ -256,21 +293,6 @@ async function loadMessages() {
 }
 
 
-// 随机数生成函数
-function getRandomHeartRate(min, max) {
-  return Math.floor(Math.random() * (max - min + 1)) + min;
-}
-
-// 更新心率函数
-function updateHeartRate() {
-  const bpmElement = document.querySelector('.bpm');
-  const randomHeartRate = getRandomHeartRate(60, 80); // 设置心率范围
-  bpmElement.textContent = randomHeartRate;
-}
-
-function setHeartBeat(){
-	setInterval(updateHeartRate, 1000); // 每秒更新一次
-}
 
 // 启动应用
 init();
