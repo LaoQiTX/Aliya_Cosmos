@@ -1,4 +1,4 @@
- html {
+html {
  	background-color: #202020;
  }
 
@@ -48,31 +48,34 @@
 
  .cosmos-body {
  	display: flex;
- 	flex-direction: column;
+ 	flex-direction: row; /* 水平布局 */
  	height: calc(100vh - 5rem);
  	/* 减去 header 的高度 */
  	padding: 10px;
  	box-sizing: border-box;
- 	width: calc(99vw - 445px);
+ 	width: 100%; /* 占据全部宽度 */
  }
 
  .cosmos-chat {
- 	flex: 1;
+ 	flex: 1; /* 占据剩余宽度 */
  	display: flex;
  	flex-direction: column;
  	background-color: #363636;
  	border-radius: 20px;
  	overflow: hidden;
+    width: 100%; /* 占据全部宽度 */
+    height: 100%; /* 占据全部高度 */
  }
 
  .messages {
  	flex: 1;
  	overflow-y: auto;
  	padding: 20px;
- 	display: flex;
+	border: purple solid 2px;
+ 	/* display: flex;
  	flex-direction: column;
  	gap: 15px;
- 	padding-bottom: var(--input-height);
+ 	padding-bottom: var(--input-height); */
  }
 
  .messages::-webkit-scrollbar {
@@ -174,11 +177,10 @@
  }
 
  .cosmos-right {
- 	/* background-color: #3f3f3f; */
- 	/* width: 400px; */
- 	height: 30vh;
- 	position: absolute;
- 	right: 1vw;
+ 	width: 445px; /* 固定宽度 */
+ 	display: flex;
+ 	flex-direction: column; /* 垂直布局 */
+	padding: 10px;
  }
 
  .dashboard {
@@ -186,19 +188,30 @@
  	/* padding: 40px; */
  }
 
- .heart-section {
- 	flex: 1;
- 	display: flex;
- 	flex-direction: column;
- 	justify-content: space-between;
- 	align-items: center;
- 	/* border-right: 2px solid #333; */
- }
+.heart-section {
+	flex: 1;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	align-items: center;
+	/* border-right: 2px solid #333; */
+}
 
- .bpm {
- 	color: #5d5d5d;
- 	font-size: 6em;
- }
+.heart-rate {
+	width: 100%; /* 占据全部宽度 */
+	background-image: url('./img/测试图片.jpg'); /* 替换为你的心跳图 URL */
+	background-size: cover; /* 覆盖整个区域 */
+	background-position: center; /* 居中显示 */
+	display: flex;
+	justify-content: center; /* 垂直居中 */
+	align-items: center; /* 水平居中 */
+	border: red 2px solid;
+}
+
+.bpm {
+	color: #5d5d5d;
+	font-size: 6em;
+}
 
  .label {
  	color: white;
@@ -353,12 +366,14 @@
  }
 
  .cosmos-right-switch {
- 	width: 412px;
- 	background: #454545;
- 	border-radius: 13px;
- 	/* height: 30vh; */
- 	margin-top: 10px;
- 	padding: 1vh;
+	width: 412px;
+	background: #454545;
+	border-radius: 13px;
+	/* height: 30vh; */
+	margin-top: 10px;
+	padding: 1vh;
+	margin-left: auto;
+	margin-right: auto;
  }
 
  .switch-right-bg {
