@@ -213,11 +213,16 @@ html {
 	font-size: 6em;
 }
 
- .label {
- 	color: white;
- 	font-size: 1.5em;
- 	/* margin-top: 20px; */
- }
+.label {
+	width: 100%;
+	min-height: 40px;
+	color: white;
+	font-size: 1.5em;
+	border: green 2px solid;
+	background-image: url('../img/HRCaption.png'); 
+	background-size: 100% 100%; /* 图片自适应宽和高 */
+	background-repeat: no-repeat; /* 防止图片重复 */
+}
 
  .metrics {
  	display: flex;

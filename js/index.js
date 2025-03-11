@@ -175,6 +175,8 @@ let currentDialogueIndex = 0;
 let currentMessageIndex = 0;
 let isWaitingForChoice = false;
 
+/*** todo: 逻辑重构优化*/ 
+
 async function loadMessages() {
   try {
     const response = await fetch('./res/data.json');
