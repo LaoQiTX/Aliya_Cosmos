@@ -12,6 +12,8 @@ function init() {
 	requestNotificationPermission();
 	// loadSampleMessages();
 	// startSystemMessages();
+	// 定期更新心率
+	setHeartBeat(); // 每秒更新一次
 }
 
 // DOM元素引用
@@ -179,7 +181,7 @@ let isWaitingForChoice = false;
 
 async function loadMessages() {
   try {
-    const response = await fetch('./res/data.json');
+    const response = await fetch('./res/data/data.json');
     const data = await response.json();
 
     // data.dialogue.sort((a, b) => new Date(a.timestamp) - new Date(b.timestamp));
@@ -253,6 +255,22 @@ async function loadMessages() {
   }
 }
 
+
+// 随机数生成函数
+function getRandomHeartRate(min, max) {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+// 更新心率函数
+function updateHeartRate() {
+  const bpmElement = document.querySelector('.bpm');
+  const randomHeartRate = getRandomHeartRate(60, 80); // 设置心率范围
+  bpmElement.textContent = randomHeartRate;
+}
+
+function setHeartBeat(){
+	setInterval(updateHeartRate, 1000); // 每秒更新一次
+}
 
 // 启动应用
 init();

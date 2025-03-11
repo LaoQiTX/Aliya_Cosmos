@@ -199,13 +199,14 @@ html {
 
 .heart-rate {
 	width: 100%; /* 占据全部宽度 */
-	background-image: url('./img/测试图片.jpg'); /* 替换为你的心跳图 URL */
+	background-image: url('../res//animation/heart_beat/heart_beat_0.gif'); /* 替换为你的心跳图 URL */
 	background-size: cover; /* 覆盖整个区域 */
 	background-position: center; /* 居中显示 */
 	display: flex;
 	justify-content: center; /* 垂直居中 */
 	align-items: center; /* 水平居中 */
 	border: red 2px solid;
+	opacity: 0.5; /* 设置透明度 */
 }
 
 .bpm {
@@ -371,7 +372,7 @@ html {
  }
 
  .cosmos-right-switch {
-	width: 412px;
+	width: 425px;
 	background: #454545;
 	border-radius: 13px;
 	/* height: 30vh; */
