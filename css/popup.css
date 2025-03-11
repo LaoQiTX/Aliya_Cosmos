@@ -83,16 +83,19 @@
  }
  
  .player-options-container {
-	margin-top: 10px;
-	/* background-color: #363636; */
-	display: flex;
-	flex-direction: column;
-	border: red solid 1px;
-	min-height: 130px;
-	flex-grow: 1; /* 占满剩余高度 */
-	gap: 10px;
-	padding: 10px;
-	border-radius: 8px;
+    margin-top: 10px;
+    /* background-color: #363636; */
+    display: flex;
+    flex-direction: column;
+    border: red solid 1px;
+    min-height: 130px;
+    flex-grow: 1;
+    gap: 10px;
+    padding: 10px;
+    border-radius: 8px;
+    align-content: space-around;
+    align-items: stretch;
+    justify-content: space-evenly;
  }
  
  .player-option {

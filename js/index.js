@@ -12,7 +12,6 @@ function init() {
 	requestNotificationPermission();
 	// loadSampleMessages();
 	// startSystemMessages();
-	initBackgroundOverlays();
 }
 
 // DOM元素引用
@@ -23,27 +22,6 @@ const elements = {
 	inputContainer: document.querySelector('.input-container')
 };
 
-const optionbg = [
-	'./img/测试图片.jpg'
-]
-
-function initBackgroundOverlays() {
-	const container = document.getElementById('bg-overlay-container');
-	
-	backgroundImages.forEach((imgSrc, index) => {
-	  // 预加载图片
-	  const img = new Image();
-	  img.src = imgSrc;
-	  
-	  // 创建叠加层
-	  const overlay = document.createElement('div');
-	  overlay.className = 'bg-overlay';
-	  overlay.style.backgroundImage = `url(${imgSrc})`;
-	  overlay.dataset.index = index;
-	  
-	  container.appendChild(overlay);
-	});
-  }
 
 // 事件监听
 // function setupEventListeners() {
@@ -77,7 +55,8 @@ function createMessage(text, isUser = true) {
 }
 
 function addMessage(text, isUser = true) {
-	elements.container.appendChild(createMessage(text, isUser));
+	const messageElement = createMessage(text, isUser);
+	elements.container.appendChild(messageElement);
 	checkAutoScroll();
 	checkNotification(text, isUser);
 }
