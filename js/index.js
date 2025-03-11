@@ -292,8 +292,13 @@ async function loadMessages() {
   }
 }
 
+var audio = document.getElementById("bg-music");
 
+function playMusic() {
+  audio.play().catch(error => console.log("播放失败", error));
+}
 
 // 启动应用
 init();
 loadMessages();
+playMusic(); // 在页面加载时播放音乐
