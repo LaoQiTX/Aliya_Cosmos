@@ -454,8 +454,18 @@
         {
           "type": "player_options",
           "content": [
-            "[如果剩下的氧气支撑不到那边的话]",
-            "[或者，即使到了那边也没能让你得救的话]",
+            "[如果剩下的氧气支撑不到那边的话]"
+          ]
+        },
+        {
+          "type": "player_options",
+          "content": [
+            "[或者，即使到了那边也没能让你得救的话]"
+          ]
+        },
+        {
+          "type": "player_options",
+          "content": [
             "[我会接受不了…你再次离开我的]"
           ]
         },
@@ -507,11 +517,11 @@
         },
         {
           "type": "player_action",
-          "content": "（打开燃料阀）（燃料阀约15秒后手动关闭，氧气和燃料条随之下降）"
+          "content": "（打开燃料阀）（燃料阀约15秒后手动关闭，氧气和燃料条随之下降） todo 资源交互逻辑"
         },
         {
           "type": "system",
-          "content": "（未完成操作接坠机剧情）"
+          "content": "（未完成操作接坠机剧情） todo 更新结局逻辑"
         },
         {
           "type": "player_options",
