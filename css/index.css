@@ -177,37 +177,48 @@ html {
  }
 
  .cosmos-right {
- 	width: 445px; /* 固定宽度 */
+ 	flex: 0 0 30rem; /* 不允许放大，不允许缩小，初始宽度为 30rem */
  	display: flex;
  	flex-direction: column; /* 垂直布局 */
 	padding: 10px;
+	box-sizing: border-box; /* 包含 padding */
  }
 
  .dashboard {
- 	display: flex;
- 	/* padding: 40px; */
+	display: flex;
+	flex-direction: row;
+	/* padding: 40px; */
+	width: 100%;
+	height: 100%;
+	border: aqua 2px solid;
+	max-height: fit-content;
+    min-height: fit-content;
  }
 
 .heart-section {
 	flex: 1;
 	display: flex;
-	flex-direction: column;
-	justify-content: space-between;
-	align-items: center;
+	flex-direction: column; /* 水平布局 */
+	justify-content: space-around;
+	align-items: stretch;
 	/* border-right: 2px solid #333; */
+	width: 73%;
+	row-gap: 13px;
+	/* max-height: 30vh; */
 }
 
 .heart-rate {
 	width: 100%; /* 占据全部宽度 */
 	background-image: url('../res/animation/heart_beat/heart_beat_0.gif'); /* 替换为你的心跳图 URL */
 	background-size: cover; /* 覆盖整个区域 */
-	background-position: center; /* 居中显示 */
-	display: flex;
-	justify-content: center; /* 垂直居中 */
-	align-items: center; /* 水平居中 */
-	border: red 2px solid;
-	opacity: 0.5; /* 设置透明度 */
-}
+ 	background-position: center; /* 居中显示 */
+ 	display: flex;
+ 	justify-content: center; /* 垂直居中 */
+ 	align-items: center; /* 水平居中 */
+ 	border: red 0.125rem solid; /* 2px / 16px */
+ 	opacity: 0.5; /* 设置透明度 */
+ 	box-sizing: border-box; /* 包含 border */
+ }
 
 .bpm {
 	color: #5d5d5d;
@@ -226,20 +237,29 @@ html {
 }
 
  .metrics {
- 	display: flex;
- 	flex-direction: row;
- 	justify-content: space-around;
- 	/* align-items: flex-end; */
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: 30%;
+    height: 100%;
+    align-items: stretch;
  }
 
  .metric {
  	text-align: center;
+	height: auto;
+	flex: 1; /* 占据剩余高度 */
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	padding-left: 3px;
+    padding-top: 3px;
  }
 
  .bars {
  	margin: 0 8px;
  	width: 25px;
- 	height: calc(27vh - 29px);
+ 	height: 100%;
  	background: #2d2d2d;
  	border-radius: 8px;
  	position: relative;
@@ -272,6 +292,10 @@ html {
  	color: #fff;
  	font-size: 0.8em;
  	text-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+	line-height: 24px;
+	text-align: center;
+	display: inline-flex;
+	justify-content: center;
  }
 
  @keyframes pulse {
@@ -290,7 +314,7 @@ html {
 
  .Aliya {
  	color: white;
- 	width: 90%;
+ 	/* width: 90%; */
  	border-radius: 10px;
  	font-size: 1.5rem;
  	padding: 0 0 0 15px;
@@ -332,7 +356,7 @@ html {
  	top: 6px;
  	cursor: pointer;
  	margin: 20px auto;
- 	transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+ 	transition: all 0.3s cubic-bezier(0.4, 0, 0, 0.2);
  }
 
  .switch.active {
@@ -372,25 +396,25 @@ html {
  }
 
  .cosmos-right-switch {
-	width: 425px;
+	width: 97%;
 	background: #454545;
 	border-radius: 13px;
 	/* height: 30vh; */
 	margin-top: 10px;
 	padding: 1vh;
-	margin-left: auto;
-	margin-right: auto;
- }
+	/* margin-left: auto; */
+	/* margin-right: auto; */
+	}
 
- .switch-right-bg {
- 	position: relative;
- 	width: 100%;
- 	/* height: 30vh; */
- 	height: 286px;
- 	background-image: url(../img/RightMiddleFrame.png);
- 	background-size: cover;
- 	background-position: center;
- }
+	.switch-right-bg {
+		position: relative;
+		/* width: 100%; */
+		/* height: 30vh; */
+		height: 310px;
+		background-image: url(../img/RightMiddleFrame.png);
+		background-size: cover;
+		background-position: center;
+	}
 
  .switch-bg {
  	/* background: #2c2c2c; */
@@ -479,6 +503,9 @@ html {
 	background-repeat: no-repeat;
 	background-position: center;
 	background-size: contain;
+	max-height: 300px; /* 设置容器的最大高度，超过这个高度时会出现滚动 */
+	overflow-y: auto; /* 如果内容超出，显示垂直滚动条 */
+	padding: 10px; /* 为容器添加一些内边距，防止内容贴着边缘 */
  }
 
  .player-options-container button {
@@ -489,3 +516,12 @@ html {
     font-size: 1.2em;
     cursor: pointer;
  }
+
+ .chat-image {
+	max-width: 200px; /* 限制最大宽度 */
+	max-height: 200px; /* 限制最大高度 */
+	border-radius: 10px;
+	display: block;
+	margin: 5px 0;
+  }
+  

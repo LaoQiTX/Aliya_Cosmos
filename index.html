@@ -37,48 +37,45 @@
 			<!-- 右侧布局 -->
 			<div class="cosmos-right">
 				<!-- 右侧顶部数值部分 -->
-				<div class="cosmos-right-top not-moble">
-					<div class="heart">
-						<div class="dashboard">
-							<div class="heart-section">
-								<div class="Aliya">ALIYA</div>
-								<div class="heart-rate">
-									<div class="bpm">72</div>
+
+					<div class="dashboard">
+						<div class="heart-section">
+							<div class="Aliya">ALIYA</div>
+							<div class="heart-rate">
+								<div class="bpm">72</div>
+							</div>
+							<div class="label">
+								<!-- <span style="margin-bottom: 5px;">HEART RATE</span> -->
+							</div>
+						</div>
+
+						<div class="metrics">
+							<div class="metric">
+								<div class="bars">
+									<div class="bar OO" style="height: 100%; ">
+									</div>
+
 								</div>
-								<div class="label">
-									<!-- <span style="margin-bottom: 5px;">HEART RATE</span> -->
-								</div>
+								<span class="metric-label">O₂</span>
 							</div>
 
-							<div class="metrics">
-								<div class="metric">
-									<div class="bars">
-										<div class="bar OO" style="height: 100%; ">
-										</div>
-
+							<div class="metric">
+								<div class="bars">
+									<div class="bar HOO" style="height: 30%;">
 									</div>
-									<span class="metric-label">O₂</span>
 								</div>
+								<span class="metric-label">H₂O</span>
+							</div>
 
-								<div class="metric">
-									<div class="bars">
-										<div class="bar HOO" style="height: 30%;">
-										</div>
+							<div class="metric">
+								<div class="bars" style="">
+									<div class="bar ENG" style="height: 15%; ">
 									</div>
-									<span class="metric-label">H₂O</span>
 								</div>
-
-								<div class="metric">
-									<div class="bars" style="">
-										<div class="bar ENG" style="height: 15%; ">
-										</div>
-									</div>
-									<span class="metric-label" style="margin-top: 2px;"> ENG</span>
-								</div>
+								<span class="metric-label" style="margin-top: 2px;margin-left: -2px;"> ENG</span>
 							</div>
 						</div>
 					</div>
-				</div>
 
 				<!-- 右侧按钮部分 -->
 				<div class="cosmos-right-switch">
@@ -130,7 +127,7 @@
 				</div>
 				<!-- 新的选项容器 -->
 				<div class="player-options-container" id="player-options-container"></div>
-<audio src="./res/music/Asher Monroe - Try.mp3" loop autoplay></audio>
+				<audio src="./res/music/Asher Monroe - Try.mp3" loop autoplay id="bg-music"></audio>
 			</div>
 		</div>
 			</div>
@@ -182,8 +179,6 @@
 				</div>
 			</div>
 		</div>
-
-	<audio src="./res/music/カタオモイ（Aimer） 夏色まつり cover.flac" loop autoplay></audio>
 	</body>
 </html>
 <script src="./js/jquery.js"></script>

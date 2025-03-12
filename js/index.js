@@ -2,7 +2,7 @@
 const CONFIG = {
 	scrollThreshold: 100,
 	systemMsgInterval: 5000,
-	// notificationIcon: '浏览器logo链接'
+	notificationIcon: './img/test.jpg'
 };
 
 // 初始化
@@ -108,7 +108,7 @@ function requestNotificationPermission() {
 
 function checkNotification(text, isUser) {
 	if (!isUser && !document.hasFocus() && Notification.permission === 'granted') {
-		showNotification('新消息', text);
+		showNotification('Aliya发来了一条新消息哦', text);
 	}
 }
 
@@ -275,8 +275,12 @@ async function loadMessages() {
 			await wait(1000);
 			continue;
 		}
-
-        addMessage(message.content, message.type !== 'aliya');
+		
+		if(message.image_url && message.type === 'aliya'){
+			addImageMessage(message.image_url, false);
+		}else{
+			addMessage(message.content, message.type !== 'aliya');
+		}
         currentMessageIndex++;
 		await pointAnimation();
       }
@@ -292,10 +296,40 @@ async function loadMessages() {
   }
 }
 
-var audio = document.getElementById("bg-music");
+function createImageMessage(imageUrl, isUser = true) {
+    const div = document.createElement('div');
+    div.className = `message ${isUser ? 'user-message' : ''}`;
+
+    const img = document.createElement('img');
+    img.src = imageUrl;
+    img.alt = "图片消息";
+    img.classList.add("chat-image"); // 添加 CSS 类，方便样式调整
+
+    div.appendChild(img);
+    return div;
+}
+
+function addImageMessage(imageUrl, isUser = true) {
+    hideLoadingGif();
+    const messageElement = createImageMessage(imageUrl, isUser);
+    elements.container.appendChild(messageElement);
+    checkAutoScroll();
+    checkNotification("[图片消息]", isUser);
+}
+
+  
 
 function playMusic() {
-  audio.play().catch(error => console.log("播放失败", error));
+	document.addEventListener("click", function() {
+		const musicPlayer = document.getElementById("bg-music");
+		if (musicPlayer.paused) {
+			musicPlayer.play().catch(error => console.error("播放失败:", error));
+		}else{
+			console.log("播放音乐成功");
+		}
+		
+	}, { once: true }); // 确保只触发一次
+	
 }
 
 // 启动应用
