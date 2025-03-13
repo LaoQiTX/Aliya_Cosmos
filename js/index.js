@@ -1,3 +1,6 @@
+import * as saveModule from './save.js';
+import * as loadModule from './load.js';
+
 // 配置参数
 const CONFIG = {
 	scrollThreshold: 100,
@@ -5,8 +8,20 @@ const CONFIG = {
 	notificationIcon: './img/test.jpg'
 };
 
+let data;
+
 // 初始化
 function init() {
+	loadModule.loadDialogueData()
+		.then((res) => {
+			data = res;  // 将返回的数据存储到全局变量data
+			loadMessages();  // 调用loadMessages()来处理数据
+		})
+		.catch((error) => {
+			console.error('Error loading dialogue data:', error);  // 捕获并处理错误
+		});
+
+
 	// setupEventListeners();
 	// setupLayout();
 	requestNotificationPermission();
@@ -27,17 +42,17 @@ const elements = {
 
 // 随机数生成函数
 function getRandomHeartRate(min, max) {
-  return Math.floor(Math.random() * (max - min + 1)) + min;
+	return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
 // 更新心率函数
 function updateHeartRate() {
-  const bpmElement = document.querySelector('.bpm');
-  const randomHeartRate = getRandomHeartRate(60, 80); // 设置心率范围
-  bpmElement.textContent = randomHeartRate;
+	const bpmElement = document.querySelector('.bpm');
+	const randomHeartRate = getRandomHeartRate(60, 80); // 设置心率范围
+	bpmElement.textContent = randomHeartRate;
 }
 
-function setHeartBeat(){
+function setHeartBeat() {
 	setInterval(updateHeartRate, 1000); // 每秒更新一次
 }
 
@@ -63,7 +78,7 @@ function updateMessagesPadding() {
 
 // 消息处理
 function createMessage(text, isUser = true) {
-	if(text.includes("$userName$")){
+	if (text.includes("$userName$")) {
 		text = text.replace("$userName$", savedUsername)
 	}
 	const div = document.createElement('div');
@@ -144,7 +159,7 @@ function startSystemMessages() {
 }
 // On/Off切换
 document.querySelectorAll('.switch').forEach(switchElement => {
-	switchElement.addEventListener('click', function() {
+	switchElement.addEventListener('click', function () {
 		this.classList.toggle('active');
 		const labels = this.closest('.switch-wrapper').querySelector('.status-labels');
 		labels.querySelector('.off').classList.toggle('active');
@@ -171,7 +186,7 @@ if (localStorage.getItem("AliyaCalledMe") == null) {
 }
 
 // 可选：添加关闭模态框的点击外部区域功能
-document.querySelector('.modal-overlay').addEventListener('click', function(e) {
+document.querySelector('.modal-overlay').addEventListener('click', function (e) {
 	if (e.target === this) {
 		closeModal();
 	}
@@ -192,7 +207,7 @@ function wait(ms) {
 
 // 显示加载点点点的GIF
 function showPointLoadingGif() {
-	elements.optionsContainer.style.backgroundImage = "url('../res/animation/heart_beat/heart_beat_0.gif')"; 
+	elements.optionsContainer.style.backgroundImage = "url('../res/animation/heart_beat/heart_beat_0.gif')";
 	elements.optionsContainer.style.backgroundSize = 'cover';
 	elements.optionsContainer.innerHTML = ''; // 隐藏选项
 }
@@ -208,25 +223,25 @@ function showOptions(options) {
 	return new Promise((resolve) => {
 		const optionsContainer = document.getElementById('player-options-container');
 		optionsContainer.innerHTML = ''; // 清空旧选项
-		
+
 		options.forEach(option => {
-		const optionElement = document.createElement('button');
-		optionElement.className = 'player-option';
-		optionElement.textContent = option;
-		
-		optionElement.addEventListener('click', () => {
-			addMessage(option, true);
-			optionsContainer.innerHTML = ''; // 选择后立即清除选项
-			resolve();
-		});
-		
-		optionsContainer.appendChild(optionElement);
+			const optionElement = document.createElement('button');
+			optionElement.className = 'player-option';
+			optionElement.textContent = option;
+
+			optionElement.addEventListener('click', () => {
+				addMessage(option, true);
+				optionsContainer.innerHTML = ''; // 选择后立即清除选项
+				resolve();
+			});
+
+			optionsContainer.appendChild(optionElement);
 		});
 	});
 }
 
 // 在 wait 之前显示 GIF 并隐藏选项
-async function pointAnimation(){
+async function pointAnimation() {
 	showPointLoadingGif();
 	await wait(1000);
 	hideLoadingGif();
@@ -238,101 +253,103 @@ let currentDialogueIndex = 0;
 let currentMessageIndex = 0;
 let isWaitingForChoice = false;
 
-/*** todo: 逻辑重构优化*/ 
+/*** todo: 逻辑重构优化*/
 
 async function loadMessages() {
-  try {
-    const response = await fetch('./res/data/data.json');
-    const data = await response.json();
+	try {
+		while (currentDialogueIndex < data.dialogue.length) {
+			const dialogue = data.dialogue[currentDialogueIndex];
 
-    // data.dialogue.sort((a, b) => new Date(a.timestamp) - new Date(b.timestamp));
+			while (currentMessageIndex < dialogue.messages.length) {
+				const message = dialogue.messages[currentMessageIndex];
 
-    // 递归处理对话
-    async function processDialogue() {
-      if (currentDialogueIndex >= data.dialogue.length) return;
+				if (message.type === 'player_options') {
+					isWaitingForChoice = true;
+					await showOptions(message.content);
+					isWaitingForChoice = false;
+					currentMessageIndex++;
+					await pointAnimation();
+					continue;
+				} else if (message.type === 'player_input') {
+					isWaitingForChoice = true;
+					await showInputDialog();
+					isWaitingForChoice = false;
+					await closeInputDialog();
+					currentMessageIndex++;
+					console.log(currentMessageIndex);
+					await wait(1000);
+					continue;
+				}
 
-      const dialogue = data.dialogue[currentDialogueIndex];
-      
-      // 处理当前时间段内的消息
-      while (currentMessageIndex < dialogue.messages.length) {
-        const message = dialogue.messages[currentMessageIndex];
-        
-        if (message.type === 'player_options') {
-          // 暂停处理，等待玩家选择
-          isWaitingForChoice = true;
-          await showOptions(message.content);
-          isWaitingForChoice = false;
-          currentMessageIndex++;
-		  await pointAnimation();
-          continue;
-        }else if(message.type === 'player_input'){
-			isWaitingForChoice = true
-			await showInputDialog();
-			isWaitingForChoice = false
-			await closeInputDialog();
-			currentMessageIndex++;
-			console.log(currentMessageIndex);
-			await wait(1000);
-			continue;
+				if (message.image_url && message.type === 'aliya') {
+					addImageMessage(message.image_url, false);
+				} else {
+					addMessage(message.content, message.type !== 'aliya');
+				}
+
+				currentMessageIndex++;
+				await pointAnimation();
+			}
+
+			// 处理完当前对话，移动到下一个
+			currentMessageIndex = 0;
+			currentDialogueIndex++;
 		}
-		
-		if(message.image_url && message.type === 'aliya'){
-			addImageMessage(message.image_url, false);
-		}else{
-			addMessage(message.content, message.type !== 'aliya');
-		}
-        currentMessageIndex++;
-		await pointAnimation();
-      }
-
-      // 重置索引并处理下一个时间段
-      currentMessageIndex = 0;
-      currentDialogueIndex++;
-      await processDialogue();
-    }
-    await processDialogue();
-  } catch (error) {
-    console.error('Error:', error);
-  }
+	} catch (error) {
+		console.error('Error:', error);
+	}
 }
 
+
 function createImageMessage(imageUrl, isUser = true) {
-    const div = document.createElement('div');
-    div.className = `message ${isUser ? 'user-message' : ''}`;
+	const div = document.createElement('div');
+	div.className = `message ${isUser ? 'user-message' : ''}`;
 
-    const img = document.createElement('img');
-    img.src = imageUrl;
-    img.alt = "图片消息";
-    img.classList.add("chat-image"); // 添加 CSS 类，方便样式调整
+	const img = document.createElement('img');
+	img.src = imageUrl;
+	img.alt = "图片消息";
+	img.classList.add("chat-image"); // 添加 CSS 类，方便样式调整
 
-    div.appendChild(img);
-    return div;
+	div.appendChild(img);
+	return div;
 }
 
 function addImageMessage(imageUrl, isUser = true) {
-    hideLoadingGif();
-    const messageElement = createImageMessage(imageUrl, isUser);
-    elements.container.appendChild(messageElement);
-    checkAutoScroll();
-    checkNotification("[图片消息]", isUser);
+	hideLoadingGif();
+	const messageElement = createImageMessage(imageUrl, isUser);
+	elements.container.appendChild(messageElement);
+	checkAutoScroll();
+	checkNotification("[图片消息]", isUser);
 }
 
-  
+
 
 function playMusic() {
-	document.addEventListener("click", function() {
+	document.addEventListener("click", function () {
 		const musicPlayer = document.getElementById("bg-music");
 		if (musicPlayer.paused) {
 			musicPlayer.play().catch(error => console.error("播放失败:", error));
-		}else{
+		} else {
 			console.log("播放音乐成功");
 		}
-		
+
 	}, { once: true }); // 确保只触发一次
-	
+
+}
+
+function saveInit() {
+
+}
+
+function resumeInit() {
+	const cachedData = loadModule.getCache();
+	const lastExitTime = cachedData.lastExitTime || 0;
+	const lastOptionIndex = cachedData.optionIndex || 0;
+	const { timeStage, optionIndex } = loadModule.resumeGame(data.dialogue, lastExitTime, lastOptionIndex);
+
 }
 
 // 启动应用
 init();
-loadMessages();
+// loadMessages();
 playMusic(); // 在页面加载时播放音乐
