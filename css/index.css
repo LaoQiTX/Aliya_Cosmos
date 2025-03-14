@@ -391,8 +391,8 @@ html {
  	font-size: 17px;
  	letter-spacing: 1px;
  	position: absolute;
- 	left: 31px;
- 	top: 99px;
+	left: 35px;
+	top: 107px;
  }
 
  .cosmos-right-switch {
@@ -440,21 +440,22 @@ html {
  	/* 启用 Grid 布局 */
  	grid-template-columns: repeat(3, 1fr);
  	/* 关键新增：定义三列 */
- 	grid-auto-rows: auto;
+ 	grid-auto-rows: auto,auto;
  	/* 自动行高（可选） */
 	justify-content: space-around;
-	display: flex;
+	/* display: flex; */
 	gap: 1.6rem;
 	padding: 0.5rem;
  	border-radius: 15px;
  }
 
  .switch-wrapper:nth-child(4) {
- 	grid-row: 2;
+ 	grid-row: 2 / 3;
  	/* 第二行 */
- 	grid-column: 3;
+ 	grid-column: 3 / 4;
  	/* 第三列 */
  	margin-top: 5px;
+	justify-self: flex-end;
  }
 
 

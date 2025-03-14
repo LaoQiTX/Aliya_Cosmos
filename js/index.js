@@ -332,7 +332,7 @@ async function loadMessages(timeStage = 0, currentMessageIndex = 0) {
 			while (currentMessageIndex < dialogue.messages.length) {
 				const message = dialogue.messages[currentMessageIndex];
 				if (isLoad) {
-					debugger;
+					// debugger;
 					if (cacheOptionIndex >= optionsList.length - 1) {
 						isLoad = false;
 						console.log("load完成");
