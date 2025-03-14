@@ -344,7 +344,12 @@ async function loadMessages(timeStage = 0, currentMessageIndex = 0) {
 					} else if (message.type === 'aliya') {
 						option = message.content;
 					}
-					addMessage(option, message.type !== 'aliya', false);
+					// todo 暂时修复，后续应该更新data.json 应新增data类型,使其能适配aliya_img类型;及应将[aliya]类型下的Content统一改成数组
+					if(message.image_url){
+						addImageMessage(message.image_url, false,false);
+					}else{
+						addMessage(option, message.type !== 'aliya', false);
+					}
 					cacheOptionIndex++;
 					currentMessageIndex++;
 					continue;
@@ -417,7 +422,7 @@ function createImageMessage(imageUrl, isUser = true) {
 	return div;
 }
 
-function addImageMessage(imageUrl, isUser = true) {
+function addImageMessage(imageUrl, isUser = true, needNotify = true) {
 	hideLoadingGif();
 	const messageElement = createImageMessage(imageUrl, isUser);
 	elements.container.appendChild(messageElement);
