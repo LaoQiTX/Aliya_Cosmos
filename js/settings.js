@@ -13,7 +13,7 @@ function saveUsername() {
 	var username = document.getElementById('username').value.trim();
 	if (username) {
 		localStorage.setItem('AliyaCalledMe', username);
-		closeModal();
+		// closeModal();
 		alert('用户名已保存！');
 		savedUsername = localStorage.getItem('AliyaCalledMe');
 		// location.reload()
