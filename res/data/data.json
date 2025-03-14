@@ -1,7 +1,7 @@
 {
   "dialogue": [
     {
-      "timestamp": "2025-03-10T20:00:00",
+      "timestamp": 30000,
       "messages": [
         {
           "type": "aliya",
@@ -14,10 +14,6 @@
             "[Aliya...]",
             "aaa"
           ]
-        },
-        {
-          "type": "aliya",
-          "content": "那我就叫你$userName$了"
         },
         {
           "type": "player_options",
@@ -34,7 +30,7 @@
       ]
     },
     {
-      "timestamp": "2025-01-29T20:15:00",
+      "timestamp": 30000,
       "messages": [
         {
           "type": "aliya",

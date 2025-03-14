@@ -15,7 +15,7 @@ function init() {
 	loadModule.loadDialogueData()
 		.then((res) => {
 			data = res;  // 将返回的数据存储到全局变量data
-			loadMessages();  // 调用loadMessages()来处理数据
+			// loadMessages();  // 调用loadMessages()来处理数据
 		})
 		.catch((error) => {
 			console.error('Error loading dialogue data:', error);  // 捕获并处理错误
@@ -29,6 +29,7 @@ function init() {
 	// startSystemMessages();
 	// 定期更新心率
 	setHeartBeat(); // 每秒更新一次
+	resumeInit();
 }
 
 // DOM元素引用
@@ -87,13 +88,15 @@ function createMessage(text, isUser = true) {
 	return div;
 }
 
-function addMessage(text, isUser = true) {
+function addMessage(text, isUser = true, needNotify = true) {
 	// 如果options的动画还没结束就再次触发来进行结束
 	hideLoadingGif();
 	const messageElement = createMessage(text, isUser);
 	elements.container.appendChild(messageElement);
 	checkAutoScroll();
-	checkNotification(text, isUser);
+	if (needNotify) {
+		checkNotification(text, isUser);
+	}
 }
 
 // 滚动控制
@@ -120,7 +123,7 @@ function requestNotificationPermission() {
 	if (Notification.permission === 'granted') return;
 	Notification.requestPermission();
 }
-
+// todo 加变量来区分当前是处于加载状态还是正常状态
 function checkNotification(text, isUser) {
 	if (!isUser && !document.hasFocus() && Notification.permission === 'granted') {
 		showNotification('Aliya发来了一条新消息哦', text);
@@ -224,7 +227,7 @@ function showOptions(options) {
 		const optionsContainer = document.getElementById('player-options-container');
 		optionsContainer.innerHTML = ''; // 清空旧选项
 
-		options.forEach(option => {
+		options.forEach((option, index) => {
 			const optionElement = document.createElement('button');
 			optionElement.className = 'player-option';
 			optionElement.textContent = option;
@@ -232,7 +235,8 @@ function showOptions(options) {
 			optionElement.addEventListener('click', () => {
 				addMessage(option, true);
 				optionsContainer.innerHTML = ''; // 选择后立即清除选项
-				resolve();
+				console.log("玩家选择了btn->" + index);
+				resolve(index);
 			});
 
 			optionsContainer.appendChild(optionElement);
@@ -249,32 +253,113 @@ async function pointAnimation() {
 }
 
 
-let currentDialogueIndex = 0;
+let timeStage = 0;
 let currentMessageIndex = 0;
 let isWaitingForChoice = false;
 
 /*** todo: 逻辑重构优化*/
 
-async function loadMessages() {
+// async function loadMessages(timeStage = 0, currentMessageIndex = 0) {
+// 	try {
+// 		while (timeStage < data.dialogue.length) {
+// 			const dialogue = data.dialogue[timeStage];
+
+// 			while (currentMessageIndex < dialogue.messages.length) {
+// 				const message = dialogue.messages[currentMessageIndex];
+
+// 				if (message.type === 'player_options') {
+// 					isWaitingForChoice = true;
+// 					await showOptions(message.content);
+// 					isWaitingForChoice = false;
+// 					currentMessageIndex++;
+// 					await pointAnimation();
+// 					continue;
+// 				} else if (message.type === 'player_input') {
+// 					isWaitingForChoice = true;
+// await showInputDialog();
+// 					isWaitingForChoice = false;
+// 					await closeInputDialog();
+// 					currentMessageIndex++;
+// 					console.log(currentMessageIndex);
+// 					await wait(1000);
+// 					continue;
+// 				}
+
+// 				if (message.image_url && message.type === 'aliya') {
+// 					addImageMessage(message.image_url, false);
+// 				} else {
+// 					addMessage(message.content, message.type !== 'aliya');
+// 				}
+
+// 				currentMessageIndex++;
+// 				await pointAnimation();
+// 			}
+
+// 			// todo 判断当前时间戳是否到达了下个剧情的时间戳检查点
+// 			if (hasReachedNextCheckpoint(Date.now(), dialogue.timestamp)) {
+// 				timeStage++;
+// 				currentMessageIndex = 0;
+// 				continue;
+// 			} 
+// 			await wait(60000);
+
+// 			// 处理完当前对话，移动到下一个
+// 			// currentMessageIndex = 0;
+// 			// timeStage++;
+// 		}
+// 	} catch (error) {
+// 		console.error('Error:', error);
+// 	}
+// }
+
+// function hasReachedNextCheckpoint(currentTime, nextCheckpointTime) {
+// 	return (currentTime - lastExitTime) >= nextCheckpointTime;
+// }
+
+// todo 抽离方法进行简化
+async function loadMessages(timeStage = 0, currentMessageIndex = 0) {
+	const data = await loadModule.loadDialogueData();
+	var cachedData = loadModule.resume();
+	var optionsList = cachedData.optionsChoiceList;
+	var isLoad = true;
+	var cacheOptionIndex = 0;
+	var isEnd = false;
+	console.log("开始load中");
 	try {
-		while (currentDialogueIndex < data.dialogue.length) {
-			const dialogue = data.dialogue[currentDialogueIndex];
+		while (timeStage < data.dialogue.length) {
+			const dialogue = data.dialogue[timeStage];
 
 			while (currentMessageIndex < dialogue.messages.length) {
 				const message = dialogue.messages[currentMessageIndex];
-
+				if (isLoad) {
+					debugger;
+					if (cacheOptionIndex >= optionsList.length - 1) {
+						isLoad = false;
+						console.log("load完成");
+						continue;
+					}
+					var option = "";
+					if (message.type === 'player_options') {
+						option = message.content[optionsList[cacheOptionIndex]];
+					} else if (message.type === 'aliya') {
+						option = message.content;
+					}
+					addMessage(option, message.type !== 'aliya', false);
+					cacheOptionIndex++;
+					currentMessageIndex++;
+					continue;
+				}
 				if (message.type === 'player_options') {
-					isWaitingForChoice = true;
-					await showOptions(message.content);
-					isWaitingForChoice = false;
+					const choiceIndex = await showOptions(message.content);
+					optionsList.push(choiceIndex);
+					cachedData.optionIndex = optionsList;
+					localStorage.setItem("saveData", JSON.stringify(cachedData));
 					currentMessageIndex++;
 					await pointAnimation();
 					continue;
 				} else if (message.type === 'player_input') {
-					isWaitingForChoice = true;
 					await showInputDialog();
-					isWaitingForChoice = false;
-					await closeInputDialog();
+					// await closeInputDialog();
 					currentMessageIndex++;
 					console.log(currentMessageIndex);
 					await wait(1000);
@@ -286,20 +371,38 @@ async function loadMessages() {
 				} else {
 					addMessage(message.content, message.type !== 'aliya');
 				}
-
 				currentMessageIndex++;
 				await pointAnimation();
+				// 此时阶段剧情已经结束 需要进行存档;
+				if (currentMessageIndex >= dialogue.messages.length) {
+					isEnd = true;
+					console.log("需要进行存档");
+				}
+			}
+			// 此时说明当前阶段剧情已经结束 更新下个剧情的时间戳检查点
+			if (isEnd) {
+				cachedData.nextStageTime = dialogue.timestamp + Date.now();
+				localStorage.setItem("saveData", JSON.stringify(cachedData));
+				isEnd = false;
+				console.log("更新时间戳成功");
 			}
 
-			// 处理完当前对话，移动到下一个
-			currentMessageIndex = 0;
-			currentDialogueIndex++;
+			// 判断当前时间戳是否到达了下个剧情的时间戳检查点
+			if (hasReachedNextCheckpoint(Date.now(), cachedData.nextStageTime)) {
+				timeStage++;
+				currentMessageIndex = 0;
+				continue;
+			}
+			await wait(60000);
 		}
 	} catch (error) {
 		console.error('Error:', error);
 	}
 }
 
+function hasReachedNextCheckpoint(currentTime, nextCheckpointTime) {
+	return currentTime >= nextCheckpointTime;
+}
 
 function createImageMessage(imageUrl, isUser = true) {
 	const div = document.createElement('div');
@@ -345,8 +448,9 @@ function resumeInit() {
 	const cachedData = loadModule.getCache();
 	const lastExitTime = cachedData.lastExitTime || 0;
 	const lastOptionIndex = cachedData.optionIndex || 0;
-	const { timeStage, optionIndex } = loadModule.resumeGame(data.dialogue, lastExitTime, lastOptionIndex);
-
+	// const { timeStage, optionIndex } = loadModule.resumeGame(data.dialogue, lastExitTime, lastOptionIndex);
+	// loadMessages(timeStage, optionIndex);
+	loadMessages();
 }
 
 // 启动应用

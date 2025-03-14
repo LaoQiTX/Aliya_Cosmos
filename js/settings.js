@@ -33,6 +33,7 @@ function showInputDialog() {
         document.getElementById("save-btn").onclick = function () {
             saveUsername();
 			resolve(); 
+			closeInputDialog();
         };
     });
 }
