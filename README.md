@@ -14,7 +14,7 @@ laoqi_young@foxmail.com
 代码几乎都是html+css+js/jQuery
 
 ## 安装教程
-#### 推荐新手最好下载一个IDE（写代码的软件）这里推荐hbuilder/vscode/webstorm，本教程使用hbuilder
+#### （目前最新版应该不需要了）推荐新手最好下载一个IDE（写代码的软件）这里推荐hbuilder/vscode/webstorm，本教程使用hbuilder
 ##### 1、下载代码
 
 （本教程面向新手 大佬基本可以跳过）
@@ -27,12 +27,17 @@ laoqi_young@foxmail.com
 
 ![下载zip](https://foruda.gitee.com/images/1740845833980335674/545f6c6c_15010283.png "下载zip")
 
-解压到一个目录之后用IDE打开，能运行在浏览器中就可以了
+最新的版本不需要修改代码，直接解压好后直接点开文件中的<b>index.html</b>文件就可以使用了！
 
-但是到目前还不能使用对话功需要改下js文件的内容，找到/js/index.js文件，双击打开
-![index.js](%E6%95%99%E7%A8%8B%E6%88%AA%E5%9B%BE/ef008e6be3c6797560c0f11de885aa8.png)
-找到以下代码，一会要用来修改
-![需要修改代码](%E6%95%99%E7%A8%8B%E6%88%AA%E5%9B%BE/image.png)
+![index](%E6%95%99%E7%A8%8B%E6%88%AA%E5%9B%BE/index.html.png)
+
+然后点击Operation，点击配置接口
+
+![配置接口](%E6%95%99%E7%A8%8B%E6%88%AA%E5%9B%BE/%E9%85%8D%E7%BD%AE%E6%8E%A5%E5%8F%A3.png)
+
+然后输入你的URL和key 如何获取url和key在后面的教程里讲到了
+
+![URL/key](%E6%95%99%E7%A8%8B%E6%88%AA%E5%9B%BE/URL/key.png)
 
 ##### 2、搭建deepseek+dify（本教程为最简单版）
 先去deepseek官网[deepseek官网](https://www.deepseek.com/)，点右上角的“api开放平台”

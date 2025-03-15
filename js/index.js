@@ -153,4 +153,4 @@ document.querySelector('.modal-overlay').addEventListener('click', function(e) {
 });
 
 // 启动应用
-// init();
+init();
