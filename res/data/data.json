@@ -1,7 +1,7 @@
 {
   "dialogue": [
     {
-      "timestamp": 30000,
+      "timestamp": 300000,
       "messages": [
         {
           "type": "aliya",

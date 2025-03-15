@@ -8,18 +8,18 @@ const CONFIG = {
 	notificationIcon: './img/test.jpg'
 };
 
-let data;
+let cachedData;
 
 // 初始化
 function init() {
-	loadModule.loadDialogueData()
-		.then((res) => {
-			data = res;  // 将返回的数据存储到全局变量data
-			// loadMessages();  // 调用loadMessages()来处理数据
-		})
-		.catch((error) => {
-			console.error('Error loading dialogue data:', error);  // 捕获并处理错误
-		});
+	// loadModule.loadDialogueData()
+	// 	.then((res) => {
+	// 		data = res;  // 将返回的数据存储到全局变量data
+	// 		// loadMessages();  // 调用loadMessages()来处理数据
+	// 	})
+	// 	.catch((error) => {
+	// 		console.error('Error loading dialogue data:', error);  // 捕获并处理错误
+	// 	});
 
 
 	// setupEventListeners();
@@ -317,9 +317,10 @@ let isWaitingForChoice = false;
 // }
 
 // todo 抽离方法进行简化
+
 async function loadMessages(timeStage = 0, currentMessageIndex = 0) {
 	const data = await loadModule.loadDialogueData();
-	var cachedData = loadModule.resume();
+	cachedData = loadModule.resume();
 	var optionsList = cachedData.optionsChoiceList;
 	var isLoad = true;
 	var cacheOptionIndex = 0;
@@ -366,7 +367,7 @@ async function loadMessages(timeStage = 0, currentMessageIndex = 0) {
 					await showInputDialog();
 					// await closeInputDialog();
 					currentMessageIndex++;
-					console.log(currentMessageIndex);
+					// console.log(currentMessageIndex);
 					await wait(1000);
 					continue;
 				}
@@ -384,25 +385,45 @@ async function loadMessages(timeStage = 0, currentMessageIndex = 0) {
 					console.log("需要进行存档");
 				}
 			}
+
+			if (currentMessageIndex >= dialogue.messages.length) {
+				isEnd = true;
+				console.log("需要进行存档");
+			}
 			// 此时说明当前阶段剧情已经结束 更新下个剧情的时间戳检查点
 			if (isEnd) {
 				cachedData.nextStageTime = dialogue.timestamp + Date.now();
 				localStorage.setItem("saveData", JSON.stringify(cachedData));
 				isEnd = false;
+				currentMessageIndex = 0;
 				console.log("更新时间戳成功");
+				document.addEventListener('keydown', handleKeyPress);
 			}
 
 			// 判断当前时间戳是否到达了下个剧情的时间戳检查点
 			if (hasReachedNextCheckpoint(Date.now(), cachedData.nextStageTime)) {
 				timeStage++;
-				currentMessageIndex = 0;
+				document.removeEventListener('keydown', handleKeyPress);
 				continue;
 			}
-			await wait(60000);
+            await new Promise(resolve => {
+                const wakeUpListener = () => {
+					if (hasReachedNextCheckpoint(Date.now(), cachedData.nextStageTime)) {
+						timeStage++;
+					}
+                    document.removeEventListener('wakeUp', wakeUpListener);
+                    resolve();
+                };
+                document.addEventListener('wakeUp', wakeUpListener);
+				setTimeout(() => {
+					document.removeEventListener('wakeUp', wakeUpListener); // 确保超时后移除
+					resolve();
+				}, 60000);
+            });
 		}
 	} catch (error) {
 		console.error('Error:', error);
-	}
+	} 
 }
 
 function hasReachedNextCheckpoint(currentTime, nextCheckpointTime) {
@@ -427,10 +448,24 @@ function addImageMessage(imageUrl, isUser = true, needNotify = true) {
 	const messageElement = createImageMessage(imageUrl, isUser);
 	elements.container.appendChild(messageElement);
 	checkAutoScroll();
-	checkNotification("[图片消息]", isUser);
+	if (needNotify) {
+		checkNotification("[图片消息]", isUser);
+	}
 }
 
-
+// 键盘事件监听器
+function handleKeyPress(event) {
+	console.log("按键事件触发"+event.key);
+	if (event.key === 'Shift') {
+		cachedData.nextStageTime = Date.now();
+		debugger;
+		localStorage.setItem("saveData", JSON.stringify(cachedData));
+		console.log(cachedData);
+		console.log("nextStageTime 已更新为当前时间");
+		// 触发自定义事件以唤醒 wait
+		document.dispatchEvent(new Event('wakeUp'));
+	}
+}
 
 function playMusic() {
 	document.addEventListener("click", function () {

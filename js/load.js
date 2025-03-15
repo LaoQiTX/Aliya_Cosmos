@@ -47,7 +47,7 @@ function resume (){
 function firstLoad(data){
     // 第一次进入则设置下个时间节点为当前时间，待其选完全部的剧情后再对其进行时间戳的更新
     if(data.nextStageTime == null){
-        data.nextStageTime = Date.now();
+        data.nextStageTime = Date.now() + 300000;
     }
     // 第一次进入则设置文本索引为0
     if(data.optionIndex == null){
