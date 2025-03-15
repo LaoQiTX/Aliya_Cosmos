@@ -172,7 +172,7 @@ document.querySelectorAll('.switch').forEach(switchElement => {
 });
 
 // console.log(localStorage.getItem("AliyaCalledMe"))
-function closeModal() {
+export function closeModal() {
 	document.querySelector('.modal-overlay').style.display = 'none';
 	$('#operationModal').css("display", "none")
 }
@@ -358,7 +358,7 @@ async function loadMessages(timeStage = 0, currentMessageIndex = 0) {
 				if (message.type === 'player_options') {
 					const choiceIndex = await showOptions(message.content);
 					optionsList.push(choiceIndex);
-					cachedData.optionIndex = optionsList;
+					cachedData.optionsChoiceList = optionsList;
 					localStorage.setItem("saveData", JSON.stringify(cachedData));
 					currentMessageIndex++;
 					await pointAnimation();
