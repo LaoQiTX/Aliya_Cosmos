@@ -399,7 +399,6 @@ async function loadMessages(timeStage = 0, currentMessageIndex = 0) {
 				console.log("更新时间戳成功");
 				document.addEventListener('keydown', handleKeyPress);
 			}
-
 			// 判断当前时间戳是否到达了下个剧情的时间戳检查点
 			if (hasReachedNextCheckpoint(Date.now(), cachedData.nextStageTime)) {
 				timeStage++;
@@ -417,6 +416,9 @@ async function loadMessages(timeStage = 0, currentMessageIndex = 0) {
                 document.addEventListener('wakeUp', wakeUpListener);
 				setTimeout(() => {
 					document.removeEventListener('wakeUp', wakeUpListener); // 确保超时后移除
+					if (hasReachedNextCheckpoint(Date.now(), cachedData.nextStageTime)) {
+						timeStage++;
+					}
 					resolve();
 				}, 60000);
             });
@@ -458,7 +460,7 @@ function handleKeyPress(event) {
 	console.log("按键事件触发"+event.key);
 	if (event.key === 'Shift') {
 		cachedData.nextStageTime = Date.now();
-		debugger;
+		// debugger;
 		localStorage.setItem("saveData", JSON.stringify(cachedData));
 		console.log(cachedData);
 		console.log("nextStageTime 已更新为当前时间");
