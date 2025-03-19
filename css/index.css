@@ -50,6 +50,7 @@ html {
  	display: flex;
  	flex-direction: row; /* 水平布局 */
  	height: calc(100vh - 5rem);
+	column-gap: 10px;
  	/* 减去 header 的高度 */
  	padding: 10px;
  	box-sizing: border-box;
@@ -180,7 +181,7 @@ html {
  	flex: 0 0 30rem; /* 不允许放大，不允许缩小，初始宽度为 30rem */
  	display: flex;
  	flex-direction: column; /* 垂直布局 */
-	padding: 10px;
+	/* padding: 10px; */
 	box-sizing: border-box; /* 包含 padding */
  }
 
