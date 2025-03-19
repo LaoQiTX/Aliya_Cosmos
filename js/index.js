@@ -357,7 +357,7 @@ async function loadMessages(timeStage = 0, currentMessageIndex = 0) {
 						currentMessageIndex++;
 						continue;
 					}
-					debugger;
+					// debugger;
 					if (message.type === 'player_options') {
 						const choiceIndex = await showOptions(message.content);
 						optionsList.push(choiceIndex);
@@ -457,15 +457,44 @@ function createImageMessage(imageUrl, isUser = true) {
 	return div;
 }
 
+// function addImageMessage(imageUrl, isUser = true, needNotify = true) {
+// 	hideLoadingGif();
+// 	const messageElement = createImageMessage(imageUrl, isUser);
+// 	elements.container.appendChild(messageElement);
+// 	checkAutoScroll();
+// 	if (needNotify) {
+// 		checkNotification("[图片消息]", isUser);
+// 	}
+// }
+
 function addImageMessage(imageUrl, isUser = true, needNotify = true) {
-	hideLoadingGif();
-	const messageElement = createImageMessage(imageUrl, isUser);
-	elements.container.appendChild(messageElement);
-	checkAutoScroll();
-	if (needNotify) {
-		checkNotification("[图片消息]", isUser);
-	}
+    hideLoadingGif();
+    const messageElement = createImageMessage(imageUrl, isUser);
+    elements.container.appendChild(messageElement);
+    checkAutoScroll();
+
+    // 添加点击事件监听器
+    messageElement.addEventListener('click', () => {
+        showImagePopup(imageUrl);
+    });
+
+    if (needNotify) {
+        checkNotification("[图片消息]", isUser);
+    }
 }
+
+function showImagePopup(imageUrl) {
+    const popup = document.getElementById('image-popup');
+    const popupImage = document.getElementById('popup-image');
+
+    popupImage.src = imageUrl;
+    popup.style.display = 'block';
+}
+
+// 关闭弹出框
+document.getElementById('close-popup').addEventListener('click', () => {
+    document.getElementById('image-popup').style.display = 'none';
+});
 
 // 键盘事件监听器
 function handleKeyPress(event) {
