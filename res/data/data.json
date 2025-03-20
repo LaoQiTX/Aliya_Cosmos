@@ -1,7 +1,7 @@
 {
   "dialogue": [
     {
-      "timestamp": 300000,
+      "timestamp": 900000,
       "messages": [
         {
           "type": "aliya",
@@ -30,7 +30,7 @@
       ]
     },
     {
-      "timestamp": 30000,
+      "timestamp": 2700000,
       "messages": [
         {
           "type": "aliya",
@@ -417,7 +417,7 @@
       ]
     },
     {
-      "timestamp": "2025-01-29T21:00:00",
+      "timestamp": 44100000,
       "messages": [
         {
           "type": "aliya",
@@ -603,7 +603,7 @@
       ]
     },
     {
-      "timestamp": "2025-01-30T09:15:00",
+      "timestamp": 900000,
       "messages": [
         {
           "type": "aliya",
@@ -654,7 +654,7 @@
       ]
     },
     {
-      "timestamp": "2025-01-30T09:30:00",
+      "timestamp": 37800000,
       "messages": [
         {
           "type": "aliya",
@@ -947,7 +947,7 @@
       ]
     },
     {
-      "timestamp": "2025-01-30T20:00:00",
+      "timestamp": 97200000,
       "messages": [
         {
           "type": "aliya",
@@ -1183,7 +1183,7 @@
       ]
     },
     {
-      "timestamp": "2025-01-31T23:00:00",
+      "timestamp": 39600000,
       "messages": [
         {
           "type": "aliya",
@@ -1484,7 +1484,7 @@
       ]
     },
     {
-      "timestamp": "2025-02-01T10:00:00",
+      "timestamp": 72000000,
       "messages": [
         {
           "type": "aliya",
@@ -2086,7 +2086,7 @@
       ]
     },
     {
-      "timestamp": "2025-02-02T06:00:00",
+      "timestamp": 31200000,
       "messages": [
         {
           "type": "aliya",
@@ -2839,7 +2839,7 @@
       ]
     },
     {
-      "timestamp": "2025-02-02T14:40:00",
+      "timestamp": 0,
       "messages": [
         {
           "type": "aliya",
