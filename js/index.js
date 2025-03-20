@@ -5,7 +5,7 @@ import * as loadModule from './load.js';
 const CONFIG = {
 	scrollThreshold: 100,
 	systemMsgInterval: 5000,
-	notificationIcon: './img/test.jpg'
+	notificationIcon: './res/img/notify_img.png'
 };
 
 let cachedData;
@@ -210,7 +210,7 @@ function wait(ms) {
 
 // 显示加载点点点的GIF
 function showPointLoadingGif() {
-	elements.optionsContainer.style.backgroundImage = "url('../res/animation/heart_beat/heart_beat_0.gif')";
+	elements.optionsContainer.style.backgroundImage = "url('../res/animation/wait/donet_waiting.gif')";
 	elements.optionsContainer.style.backgroundSize = 'cover';
 	elements.optionsContainer.innerHTML = ''; // 隐藏选项
 }
@@ -251,11 +251,6 @@ async function pointAnimation() {
 	hideLoadingGif();
 	await wait(100);
 }
-
-
-let timeStage = 0;
-let currentMessageIndex = 0;
-let isWaitingForChoice = false;
 
 /*** todo: 逻辑重构优化*/
 
@@ -316,12 +311,58 @@ let isWaitingForChoice = false;
 // 	return (currentTime - lastExitTime) >= nextCheckpointTime;
 // }
 
-// todo 抽离方法进行简化
 
+class DialogueStateDto {
+    constructor() {
+        if (!DialogueStateDto.instance) {
+			this.#init();
+            DialogueStateDto.instance = this; // 存储实例
+        }
+        return DialogueStateDto.instance; // 返回已存在的实例
+    }
+
+    static getInstance() {
+        if (!DialogueStateDto.instance) {
+            DialogueStateDto.instance = new DialogueStateDto();
+        }
+        return DialogueStateDto.instance;
+    }
+
+	#init(){
+		// 剧情阶段
+		this.timeStage = 0;
+		// 当前剧情阶段索引
+		this.currentMessageIndex = 0;
+		this.isLoad = true;
+		this.cacheOptionIndex = 0;
+		this.isEnd = false;
+		this.readyForNextStage = true;
+	}
+
+    nextStage() {
+        this.timeStage++;
+    }
+
+    nextMessage() {
+        this.currentMessageIndex++;
+    }
+}
+
+
+const dialogueDto = DialogueStateDto.getInstance();
+// todo 抽离方法进行简化
+/**
+ * 加载信息;
+ * @param {Integer} timeStage 当前的剧情阶段 
+ * @param {Integer} currentMessageIndex 当前剧情中的第几个msg消息
+ */
 async function loadMessages(timeStage = 0, currentMessageIndex = 0) {
 	const data = await loadModule.loadDialogueData();
 	cachedData = loadModule.resume();
 	var optionsList = cachedData.optionsChoiceList;
+	if(!dialogueDto){
+		dialogueDto = DialogueStateDto.getInstance();
+	}
 	var isLoad = true;
 	var cacheOptionIndex = 0;
 	var isEnd = false;
@@ -529,10 +570,6 @@ function saveInit() {
 
 function resumeInit() {
 	const cachedData = loadModule.getCache();
-	const lastExitTime = cachedData.lastExitTime || 0;
-	const lastOptionIndex = cachedData.optionIndex || 0;
-	// const { timeStage, optionIndex } = loadModule.resumeGame(data.dialogue, lastExitTime, lastOptionIndex);
-	// loadMessages(timeStage, optionIndex);
 	loadMessages();
 }
 

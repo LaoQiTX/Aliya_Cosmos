@@ -6,7 +6,7 @@
         {
           "type": "aliya",
           "content": "[发送图片]",
-          "image_url": "./img/test.jpg"
+          "image_url": "./res/img/test.jpg"
         },
         {
           "type": "player_options",

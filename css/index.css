@@ -232,7 +232,7 @@ html {
 	color: white;
 	font-size: 1.5em;
 	border: green 2px solid;
-	background-image: url('../img/HRCaption.png'); 
+	background-image: url('../res/img/heart_rate.png'); 
 	background-size: 100% 100%; /* 图片自适应宽和高 */
 	background-repeat: no-repeat; /* 防止图片重复 */
 }
@@ -412,7 +412,7 @@ html {
 		/* width: 100%; */
 		/* height: 30vh; */
 		height: 310px;
-		background-image: url(../img/RightMiddleFrame.png);
+		background-image: url(../res/img/cosmos_console.png);
 		background-size: cover;
 		background-position: center;
 	}
