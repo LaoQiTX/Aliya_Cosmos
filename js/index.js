@@ -311,14 +311,16 @@ async function pointAnimation() {
 // 	return (currentTime - lastExitTime) >= nextCheckpointTime;
 // }
 
-
+/**
+ * 剧情循环中的DTO类;
+ */
 class DialogueStateDto {
     constructor() {
         if (!DialogueStateDto.instance) {
 			this.#init();
-            DialogueStateDto.instance = this; // 存储实例
+            DialogueStateDto.instance = this; 
         }
-        return DialogueStateDto.instance; // 返回已存在的实例
+        return DialogueStateDto.instance; 
     }
 
     static getInstance() {
@@ -338,6 +340,88 @@ class DialogueStateDto {
 		this.isEnd = false;
 		this.readyForNextStage = true;
 	}
+	
+	setTimeStage(stage){
+		if(typeof stage != 'number'){
+			throw new Error("传入的应该是number类型")
+		}
+		this.timeStage = stage;
+	}
+
+	getTimeStage(){
+		return this.timeStage;
+	}
+	
+	getIsLoad(){
+		return this.isLoad;
+	}
+
+	setIsLoad(boolValue){
+		if(typeof boolValue != 'boolean'){
+			throw new Error("传入的应是bool类型")
+		}
+		this.isLoad = boolValue;
+	}
+	
+	 // ========== currentMessageIndex ==========
+	setCurrentMessageIndex(index) {
+		if (typeof index !== 'number') {
+			throw new Error("传入的应该是 number 类型");
+		}
+		this.currentMessageIndex = index;
+    }
+
+    getCurrentMessageIndex() {
+        return this.currentMessageIndex;
+    }
+
+
+	 // ========== cacheOptionIndex ==========
+	 setCacheOptionIndex(index) {
+        if (typeof index !== 'number') {
+            throw new Error("传入的应该是 number 类型");
+        }
+        this.cacheOptionIndex = index;
+    }
+
+    getCacheOptionIndex() {
+        return this.cacheOptionIndex;
+    }
+
+    // ========== isEnd ==========
+    setIsEnd(boolValue) {
+        if (typeof boolValue !== 'boolean') {
+            throw new Error("传入的应该是 boolean 类型");
+        }
+        this.isEnd = boolValue;
+    }
+
+    getIsEnd() {
+        return this.isEnd;
+    }
+
+    // ========== readyForNextStage ==========
+    setReadyForNextStage(boolValue) {
+        if (typeof boolValue !== 'boolean') {
+            throw new Error("传入的应该是 boolean 类型");
+        }
+        this.readyForNextStage = boolValue;
+    }
+
+    getReadyForNextStage() {
+        return this.readyForNextStage;
+    }
+	
+	// other methods
+	convertIsLoad(){
+		this.isLoad = !this.isLoad;
+		return this.isLoad;
+	}
+	
+	convertIsEnd(){
+		this.isEnd = !this.isEnd;
+		return this.isEnd;
+	}
 
     nextStage() {
         this.timeStage++;
@@ -346,93 +430,81 @@ class DialogueStateDto {
     nextMessage() {
         this.currentMessageIndex++;
     }
+	nextCacheOptionIndex(){
+		this.cacheOptionIndex++;
+	}
 }
 
 
-const dialogueDto = DialogueStateDto.getInstance();
+
 // todo 抽离方法进行简化
 /**
  * 加载信息;
  * @param {Integer} timeStage 当前的剧情阶段 
  * @param {Integer} currentMessageIndex 当前剧情中的第几个msg消息
  */
-async function loadMessages(timeStage = 0, currentMessageIndex = 0) {
+async function loadMessages() {
 	const data = await loadModule.loadDialogueData();
 	cachedData = loadModule.resume();
-	var optionsList = cachedData.optionsChoiceList;
+	var cacheOptionList = cachedData.optionsChoiceList;
 	if(!dialogueDto){
-		dialogueDto = DialogueStateDto.getInstance();
+		var dialogueDto = DialogueStateDto.getInstance();
 	}
 	var isLoad = true;
 	var cacheOptionIndex = 0;
 	var isEnd = false;
 	var readyForNextStage = true;
+	var currentMessageIndex = dialogueDto.getCurrentMessageIndex();
+	var timeStage = dialogueDto.getTimeStage();
 	console.log("开始load中");
 	try {
 		while (timeStage < data.dialogue.length) {
 			const dialogue = data.dialogue[timeStage];
-			if(readyForNextStage){
+			if(dialogueDto.getReadyForNextStage()){
 				while (currentMessageIndex < dialogue.messages.length) {
 					const message = dialogue.messages[currentMessageIndex];
-					if (isLoad) {
-						// debugger;
-						// 只有当cache里面的数组遍历完的时候才算load完成;
-						if (cacheOptionIndex >= optionsList.length - 1) {
-							isLoad = false;
-							console.log("load完成");
-							continue;
-						}
-						var option = "";
-						if (message.type === 'player_options') {
-							option = message.content[optionsList[cacheOptionIndex]];
-						} else if (message.type === 'aliya') {
-							option = message.content;
-						}
-						// todo 暂时修复，后续应该更新data.json 应新增data类型,使其能适配aliya_img类型;及应将[aliya]类型下的Content统一改成数组
-						if(message.image_url){
-							addImageMessage(message.image_url, false,false);
-						}else{
-							addMessage(option, message.type !== 'aliya', false);
-						}
-						cacheOptionIndex++;
-						currentMessageIndex++;
+					if (dialogueDto.getIsLoad()) {
+						currentMessageIndex = loadCacheData(dialogueDto,cacheOptionList,message,currentMessageIndex);
 						continue;
 					}
 					// debugger;
 					if (message.type === 'player_options') {
 						const choiceIndex = await showOptions(message.content);
-						optionsList.push(choiceIndex);
-						cachedData.optionsChoiceList = optionsList;
+						cacheOptionList.push(choiceIndex);
+						cachedData.optionsChoiceList = cacheOptionList;
 						localStorage.setItem("saveData", JSON.stringify(cachedData));
 						currentMessageIndex++;
 						await pointAnimation();
 						continue;
 					} else if (message.type === 'player_input') {
 						await showInputDialog();
-						// await closeInputDialog();
 						currentMessageIndex++;
-						// console.log(currentMessageIndex);
 						await wait(1000);
 						continue;
 					}
-	
-					if (message.image_url && message.type === 'aliya') {
-						addImageMessage(message.image_url, false);
-					} else {
-						addMessage(message.content, message.type !== 'aliya');
-					}
+					// 这一块是不需要区分的 因为只有aliya的msg会在这边发送，而玩家的会在showOption发送;
+					// if (message.image_url) {
+					// 	addImageMessage(message.image_url, false);
+					// } else {
+					// 	addMessage(message.content, message.type !== 'aliya');
+					// }
+					sendMsg(null,message);
 					currentMessageIndex++;
 					await pointAnimation();
 					// 此时阶段剧情已经结束 需要进行存档;
-					if (currentMessageIndex >= dialogue.messages.length && !isLoad) {
+					// if (currentMessageIndex >= dialogue.messages.length && !isLoad) {
+					// 	isEnd = true;
+					// 	console.log("需要进行存档");
+					// }
+				}
+				// debugger;
+				if (currentMessageIndex >= dialogue.messages.length && !dialogueDto.getIsLoad()) {
+					document.removeEventListener('keydown',handleKeyPress);
+					document.addEventListener('keydown',handleKeyPress);
+					if(dialogueDto.getIsLoad()){
 						isEnd = true;
 						console.log("需要进行存档");
 					}
-				}
-	
-				if (currentMessageIndex >= dialogue.messages.length && !isLoad) {
-					isEnd = true;
-					console.log("需要进行存档");
 				}
 				// 此时说明当前阶段剧情已经结束 更新下个剧情的时间戳检查点
 				if (isEnd) {
@@ -447,18 +519,28 @@ async function loadMessages(timeStage = 0, currentMessageIndex = 0) {
 			}
 			
 			// 判断当前时间戳是否到达了下个剧情的时间戳检查点
-			if (hasReachedNextCheckpoint(Date.now(), cachedData.nextStageTime)) {
-				timeStage++;
-				readyForNextStage = true;
+			// if (hasReachedNextCheckpoint(Date.now(), cachedData.nextStageTime)) {
+			// 	timeStage++;
+			// 	readyForNextStage = true;
+			// 	currentMessageIndex = 0;
+			// 	document.removeEventListener('keydown', handleKeyPress);
+			// 	continue;
+			// }
+
+			// 如果已经准备好进入下个阶段时 则直接进入循环;
+			if(checkForNextStage(dialogueDto)){
 				currentMessageIndex = 0;
-				document.removeEventListener('keydown', handleKeyPress);
+				timeStage = dialogueDto.getTimeStage();
 				continue;
 			}
             await new Promise(resolve => {
                 const wakeUpListener = () => {
-					if (hasReachedNextCheckpoint(Date.now(), cachedData.nextStageTime)) {
-						timeStage++;
-						readyForNextStage = true;
+					// if (hasReachedNextCheckpoint(Date.now(), cachedData.nextStageTime)) {
+					// 	timeStage++;
+					// 	readyForNextStage = true;
+					// 	currentMessageIndex = 0;
+					// }
+					if(checkForNextStage(dialogueDto)){
 						currentMessageIndex = 0;
 					}
                     document.removeEventListener('wakeUp', wakeUpListener);
@@ -467,24 +549,108 @@ async function loadMessages(timeStage = 0, currentMessageIndex = 0) {
                 document.addEventListener('wakeUp', wakeUpListener);
 				setTimeout(() => {
 					document.removeEventListener('wakeUp', wakeUpListener); // 确保超时后移除
-					if (hasReachedNextCheckpoint(Date.now(), cachedData.nextStageTime)) {
-						timeStage++;
-						readyForNextStage = true;
+					// if (hasReachedNextCheckpoint(Date.now(), cachedData.nextStageTime)) {
+					// 	timeStage++;
+					// 	readyForNextStage = true;
+					// 	currentMessageIndex = 0;
+					// }
+					if(checkForNextStage(dialogueDto)){
 						currentMessageIndex = 0;
 					}
 					resolve();
 				}, 60000);
             });
+			timeStage = dialogueDto.getTimeStage();
 		}
 	} catch (error) {
 		console.error('Error:', error);
 	} 
 }
 
+/**
+ * 判断当前是否超过了检查点的时间
+ * @param {Date} currentTime 
+ * @param {Date} nextCheckpointTime 
+ * @returns {Boolean} true:超过了检查点时间;false:未超过检查点时间;
+ */
 function hasReachedNextCheckpoint(currentTime, nextCheckpointTime) {
 	return currentTime >= nextCheckpointTime;
 }
 
+/**
+ * 查询当前是否已经准备好进入下一个剧情阶段
+ * @param {DialogueStateDto} dialogueDto 
+ * @returns {Boolean} true:已经准备好进入下一个剧情阶段;
+ */
+function checkForNextStage(dialogueDto){
+	// debugger;
+	if (hasReachedNextCheckpoint(Date.now(), cachedData.nextStageTime)) {
+		dialogueDto.setTimeStage(dialogueDto.getTimeStage()+1)
+		dialogueDto.setReadyForNextStage(true);
+		return true;
+	}
+	return false;
+}
+
+/**
+ * 加载存档的数据
+ * @param {DialogueStateDto} dialogueDto 
+ * @param {List<Integer>} cacheOptionList 缓存中的option数组
+ * @param {JSON} message 剧情文本信息
+ * @returns 
+ */
+function loadCacheData(dialogueDto,cacheOptionList,message,currentMessageIndex){
+	// debugger;
+	var index = dialogueDto.getCacheOptionIndex();
+	// 只有当cache里面的数组遍历完的时候才算load完成;
+	if (index > cacheOptionList.length - 1) {
+		dialogueDto.setIsLoad(false);
+		console.log("load完成");
+		return currentMessageIndex;
+	}
+	var option = "";
+	if (message.type === 'player_options') {
+		option = message.content[cacheOptionList[index]];
+		dialogueDto.setCacheOptionIndex(index+=1);
+	} else if (message.type === 'aliya') {
+		option = message.content;
+	}
+	// todo 暂时修复，后续应该更新data.json 应新增data类型,使其能适配aliya_img类型;及应将[aliya]类型下的Content统一改成数组
+	// if(message.image_url){
+	// 	addImageMessage(message.image_url, false,false);
+	// }else{
+	// 	addMessage(option, message.type !== 'aliya', false);
+	// }
+	sendMsg(option,message)
+	return currentMessageIndex+=1;
+	// cacheOptionIndex++;
+	// currentMessageIndex++;
+}
+
+/**
+ * 
+ * @param {String} content 玩家的option选项;根据其是否是null来判断当前处于是load状态还是play状态 
+ * @param {JSON} message 剧情文本
+ */
+function sendMsg(content,message){
+	var isLoad = content == null?false:true;
+	if(message.image_url){
+		addImageMessage(message.image_url, false,isLoad);
+	}else{
+		// 如果aliya发送的消息不是img的时候 则需要把他的content更新到content进行输出
+		if(message.type == 'aliya'){
+			content = message.content
+		}
+		addMessage(content, message.type !== 'aliya', isLoad);
+	}
+}
+
+/**
+ * 创建图文信息
+ * @param {String} imageUrl 
+ * @param {Boolean} isUser 
+ * @returns 
+ */
 function createImageMessage(imageUrl, isUser = true) {
 	const div = document.createElement('div');
 	div.className = `message ${isUser ? 'user-message' : ''}`;
@@ -569,7 +735,6 @@ function saveInit() {
 }
 
 function resumeInit() {
-	const cachedData = loadModule.getCache();
 	loadMessages();
 }
 
