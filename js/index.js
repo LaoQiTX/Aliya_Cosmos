@@ -80,6 +80,7 @@ function updateMessagesPadding() {
 
 // 消息处理
 function createMessage(text, isUser = true) {
+	// debugger;
 	if (text.includes("$userName$")) {
 		text = text.replace("$userName$", savedUsername)
 	}
@@ -87,6 +88,36 @@ function createMessage(text, isUser = true) {
 	div.className = `message ${isUser ? 'user-message' : ''}`;
 	div.textContent = text;
 	return div;
+}
+
+function handleTimeMsg(startTime){
+    let timeMsg = startTime != null ? startTime : Date.now();
+    // 将时间转换为 Date 对象
+    timeMsg = new Date(timeMsg);
+		// startTime = Date.now();
+		// const timeMsg = new Date(Math.min((startTime + timeStamp),Date.now()));
+	const timeString = timeMsg.toLocaleString('zh-CN', {
+		year: 'numeric',
+		month: '2-digit',
+		day: '2-digit',
+		hour: '2-digit',
+		minute: '2-digit',
+		hour12: false // 24小时制
+	}).replace(/\//g, '-'); // 处理 `/` 变成 `-`
+	createTimeMsg(timeString);
+	cachedData.everyStartTimeList.push(timeMsg);
+	localStorage.setItem("saveData", JSON.stringify(cachedData));
+}
+
+/**
+ * 时间
+ * @param {String} text 
+ */
+function createTimeMsg(text){
+	const div = document.createElement('div');
+	div.className = `message time-msg`;
+	div.textContent = text;
+	elements.container.appendChild(div);
 }
 
 function addMessage(text, isUser = true, needNotify = true) {
@@ -437,7 +468,7 @@ class DialogueStateDto {
 }
 
 const replySound = new Howl({
-	src: ['./res/music/reply_test_sound.mp3'], // 替换为你的背景音乐路径
+	src: ['./res/music/reply_test_sound.mp3'], 
     loop: false, // 让背景音乐循环
     volume: 1 // 调整音量
 })
@@ -466,9 +497,17 @@ async function loadMessages() {
 	try {
 		while (timeStage < data.dialogue.length) {
 			const dialogue = data.dialogue[timeStage];
+			var hasSendTime = false;
 			if(dialogueDto.getReadyForNextStage()){
 				while (currentMessageIndex < dialogue.messages.length) {
 					const message = dialogue.messages[currentMessageIndex];
+					if(currentMessageIndex === 0 && !hasSendTime ){
+						// debugger;
+						handleTimeMsg(cachedData.everyStartTimeList[timeStage])
+						hasSendTime = true;
+						console.log("已经输出过时间了");
+					}
+
 					if (dialogueDto.getIsLoad()) {
 						currentMessageIndex = loadCacheData(dialogueDto,cacheOptionList,message,currentMessageIndex);
 						continue;
@@ -529,7 +568,9 @@ async function loadMessages() {
 					readyForNextStage = false;
 					currentMessageIndex = 0;
 					console.log("更新时间戳成功");
-					document.addEventListener('keydown', handleKeyPress);
+					if(timeStage+1 !== data.dialogue.length-1){
+						document.addEventListener('keydown', handleKeyPress);
+					}
 				}
 			}
 			
@@ -685,6 +726,7 @@ function sendMsg(content,message){
 		addMessage(content, message.type !== 'aliya', isLoad);
 	}
 	if(isLoad == false){
+		// debugger;
 		replySound.play();
 	}
 }

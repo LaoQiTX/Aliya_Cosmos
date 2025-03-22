@@ -120,6 +120,14 @@ html {
  	align-self: flex-end;
  }
 
+ .message.time-msg{
+    align-self: center;
+    text-align: center;
+    color: gray;
+    font-size: 18px;
+	background-color: transparent;
+ }
+
  .input-container {
  	position: sticky;
  	bottom: 0;

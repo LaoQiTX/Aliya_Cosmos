@@ -45,6 +45,11 @@ function resume (){
 
 
 function firstLoad(data){
+    // 存的是用户每个阶段开始的时间数组;
+    if(data.everyStartTimeList == null || data.everyStartTimeList.length == 0){
+        data.everyStartTimeList = [];
+        // data.everyStartTimeList.push(Date.now());
+    }
     // 第一次进入则设置下个时间节点为当前时间，待其选完全部的剧情后再对其进行时间戳的更新
     if(data.nextStageTime == null){
         data.nextStageTime = Date.now() + 300000;
