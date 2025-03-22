@@ -247,7 +247,7 @@ function showOptions(options) {
 // 在 wait 之前显示 GIF 并隐藏选项
 async function pointAnimation() {
 	showPointLoadingGif();
-	await wait(1000);
+	await wait(2000);
 	hideLoadingGif();
 	await wait(100);
 }
@@ -447,15 +447,15 @@ async function loadMessages() {
 	const data = await loadModule.loadDialogueData();
 	cachedData = loadModule.resume();
 	var cacheOptionList = cachedData.optionsChoiceList;
+	var sendFromUser = false;
 	if(!dialogueDto){
 		var dialogueDto = DialogueStateDto.getInstance();
 	}
-	var isLoad = true;
-	var cacheOptionIndex = 0;
 	var isEnd = false;
-	var readyForNextStage = true;
 	var currentMessageIndex = dialogueDto.getCurrentMessageIndex();
 	var timeStage = dialogueDto.getTimeStage();
+	// 玩家发送的上一条的信息
+	var lastUserMsg = "";
 	console.log("开始load中");
 	try {
 		while (timeStage < data.dialogue.length) {
@@ -467,13 +467,15 @@ async function loadMessages() {
 						currentMessageIndex = loadCacheData(dialogueDto,cacheOptionList,message,currentMessageIndex);
 						continue;
 					}
-					// debugger;
+					// debugger; 当前应是具体流程
 					if (message.type === 'player_options') {
 						const choiceIndex = await showOptions(message.content);
+						lastUserMsg = message.content[choiceIndex];
 						cacheOptionList.push(choiceIndex);
 						cachedData.optionsChoiceList = cacheOptionList;
 						localStorage.setItem("saveData", JSON.stringify(cachedData));
 						currentMessageIndex++;
+						sendFromUser = true;
 						await pointAnimation();
 						continue;
 					} else if (message.type === 'player_input') {
@@ -488,9 +490,15 @@ async function loadMessages() {
 					// } else {
 					// 	addMessage(message.content, message.type !== 'aliya');
 					// }
+					// 如果上一个消息是玩家发送的,那么需要让aliya进行判断等待;
+					if(sendFromUser){
+						aliyaWaitingTime(lastUserMsg,true);
+						sendFromUser = false;
+					}
 					sendMsg(null,message);
 					currentMessageIndex++;
 					await pointAnimation();
+
 					// 此时阶段剧情已经结束 需要进行存档;
 					// if (currentMessageIndex >= dialogue.messages.length && !isLoad) {
 					// 	isEnd = true;
@@ -534,6 +542,7 @@ async function loadMessages() {
 				continue;
 			}
             await new Promise(resolve => {
+				let timeOutId;
                 const wakeUpListener = () => {
 					// if (hasReachedNextCheckpoint(Date.now(), cachedData.nextStageTime)) {
 					// 	timeStage++;
@@ -542,19 +551,20 @@ async function loadMessages() {
 					// }
 					if(checkForNextStage(dialogueDto)){
 						currentMessageIndex = 0;
+						console.log("listner 里的currentMessageIndex被初始化");
 					}
                     document.removeEventListener('wakeUp', wakeUpListener);
+					if(timeOutId){
+						clearTimeout(timeOutId);
+						timeOutId = null;
+					}
                     resolve();
                 };
                 document.addEventListener('wakeUp', wakeUpListener);
-				setTimeout(() => {
+				timeOutId = setTimeout(() => {
 					document.removeEventListener('wakeUp', wakeUpListener); // 确保超时后移除
-					// if (hasReachedNextCheckpoint(Date.now(), cachedData.nextStageTime)) {
-					// 	timeStage++;
-					// 	readyForNextStage = true;
-					// 	currentMessageIndex = 0;
-					// }
 					if(checkForNextStage(dialogueDto)){
+						debugger
 						currentMessageIndex = 0;
 					}
 					resolve();
@@ -565,6 +575,29 @@ async function loadMessages() {
 	} catch (error) {
 		console.error('Error:', error);
 	} 
+}
+
+/**
+ * @param {boolean} [isTargetConvert=false] 是否进行了对话方的转换 
+ * @param {String} userMsg 用户消息 
+ */
+function aliyaWaitingTime(userMsg,isTargetConvert = false){
+	const msgLength = userMsg.length;
+	showPointLoadingGif();
+	// 如果是对话方互相转换时 额外增加1.2s
+	if(isTargetConvert){
+		wait(1200);
+	}
+	if(msgLength <= 6){
+		wait(1200);
+	}else if(msgLength<= 12){
+		wait(2400);
+	}else if(msgLength <= 18){
+		wait(3600);
+	}else{
+		wait(4500);
+	}
+	// hideLoadingGif();
 }
 
 /**
@@ -587,6 +620,7 @@ function checkForNextStage(dialogueDto){
 	if (hasReachedNextCheckpoint(Date.now(), cachedData.nextStageTime)) {
 		dialogueDto.setTimeStage(dialogueDto.getTimeStage()+1)
 		dialogueDto.setReadyForNextStage(true);
+		console.log("已经准备好进入下一阶段");
 		return true;
 	}
 	return false;
