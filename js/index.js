@@ -553,8 +553,11 @@ async function loadMessages() {
 				}
 				// debugger;
 				if (currentMessageIndex >= dialogue.messages.length && !dialogueDto.getIsLoad()) {
-					document.removeEventListener('keydown',handleKeyPress);
-					document.addEventListener('keydown',handleKeyPress);
+					// 业务新需求 当不处在倒数第二个阶段的时候 允许玩家进行跳过
+					if(timeStage + 1 != data.dialogue.length -1){
+						document.removeEventListener('keydown',handleKeyPress);
+						document.addEventListener('keydown',handleKeyPress);
+					}
 					if(dialogueDto.getIsLoad()){
 						isEnd = true;
 						console.log("需要进行存档");
@@ -612,7 +615,7 @@ async function loadMessages() {
 				timeOutId = setTimeout(() => {
 					document.removeEventListener('wakeUp', wakeUpListener); // 确保超时后移除
 					if(checkForNextStage(dialogueDto)){
-						debugger
+						// debugger
 						currentMessageIndex = 0;
 					}
 					resolve();
