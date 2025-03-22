@@ -1,5 +1,6 @@
 import * as saveModule from './save.js';
 import * as loadModule from './load.js';
+// import { Howl } from 'howler';
 
 // 配置参数
 const CONFIG = {
@@ -435,6 +436,11 @@ class DialogueStateDto {
 	}
 }
 
+const replySound = new Howl({
+	src: ['./res/music/reply_test_sound.mp3'], // 替换为你的背景音乐路径
+    loop: false, // 让背景音乐循环
+    volume: 1 // 调整音量
+})
 
 
 // todo 抽离方法进行简化
@@ -496,6 +502,7 @@ async function loadMessages() {
 						sendFromUser = false;
 					}
 					sendMsg(null,message);
+					
 					currentMessageIndex++;
 					await pointAnimation();
 
@@ -676,6 +683,9 @@ function sendMsg(content,message){
 			content = message.content
 		}
 		addMessage(content, message.type !== 'aliya', isLoad);
+	}
+	if(isLoad == false){
+		replySound.play();
 	}
 }
 
