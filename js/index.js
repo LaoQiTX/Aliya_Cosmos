@@ -1,4 +1,4 @@
-import * as saveModule from './save.js';
+// import * as saveModule from './save.js';
 import * as loadModule from './load.js';
 // import { Howl } from 'howler';
 
@@ -92,7 +92,6 @@ function createMessage(text, isUser = true) {
 
 function handleTimeMsg(startTime){
     let timeMsg = startTime != null ? startTime : Date.now();
-    // 将时间转换为 Date 对象
     timeMsg = new Date(timeMsg);
 		// startTime = Date.now();
 		// const timeMsg = new Date(Math.min((startTime + timeStamp),Date.now()));
@@ -266,6 +265,8 @@ function showOptions(options) {
 
 			optionElement.addEventListener('click', () => {
 				addMessage(option, true);
+				// // declare 测试
+				// playMusicV1("./res/music/Asher Monroe - Try.mp3",false,0.5);
 				optionsContainer.innerHTML = ''; // 选择后立即清除选项
 				console.log("玩家选择了btn->" + index);
 				resolve(index);
@@ -473,12 +474,23 @@ const replySound = new Howl({
     volume: 1 // 调整音量
 })
 
+/**
+ * 
+ * @param {String} src 
+ * @param {Boolean} isLoop 
+ * @param {Float} volume 
+ */
+function playMusicV1(src,isLoop,volume){
+	new Howl({
+		src:[src],
+		loop:isLoop,
+		volume:volume
+	}).play();
+}
 
 // todo 抽离方法进行简化
 /**
- * 加载信息;
- * @param {Integer} timeStage 当前的剧情阶段 
- * @param {Integer} currentMessageIndex 当前剧情中的第几个msg消息
+ * 往聊天框内加载信息 该方法中已整合存档和正常游玩功能;
  */
 async function loadMessages() {
 	const data = await loadModule.loadDialogueData();
@@ -541,6 +553,9 @@ async function loadMessages() {
 						sendFromUser = false;
 					}
 					sendMsg(null,message);
+					cacheOptionList.push(0);
+					cachedData.optionsChoiceList = cacheOptionList;
+					localStorage.setItem("saveData", JSON.stringify(cachedData));
 					
 					currentMessageIndex++;
 					await pointAnimation();
@@ -696,10 +711,12 @@ function loadCacheData(dialogueDto,cacheOptionList,message,currentMessageIndex){
 	var option = "";
 	if (message.type === 'player_options') {
 		option = message.content[cacheOptionList[index]];
-		dialogueDto.setCacheOptionIndex(index+=1);
+		// dialogueDto.setCacheOptionIndex(index+=1);
 	} else if (message.type === 'aliya') {
-		option = message.content;
+		option = message.content[0];
 	}
+	dialogueDto.setCacheOptionIndex(index+=1);
+
 	// todo 暂时修复，后续应该更新data.json 应新增data类型,使其能适配aliya_img类型;及应将[aliya]类型下的Content统一改成数组
 	// if(message.image_url){
 	// 	addImageMessage(message.image_url, false,false);
@@ -714,7 +731,7 @@ function loadCacheData(dialogueDto,cacheOptionList,message,currentMessageIndex){
 
 /**
  * 
- * @param {String} content 玩家的option选项;根据其是否是null来判断当前处于是load状态还是play状态 
+ * @param {String} content 玩家的option选项;根据其是否是null来判断当前处于是load状态还是play状态  null为加载状态
  * @param {JSON} message 剧情文本
  */
 function sendMsg(content,message){
@@ -724,7 +741,7 @@ function sendMsg(content,message){
 	}else{
 		// 如果aliya发送的消息不是img的时候 则需要把他的content更新到content进行输出
 		if(message.type == 'aliya'){
-			content = message.content
+			content = message.content[0];
 		}
 		addMessage(content, message.type !== 'aliya', isLoad);
 	}
@@ -830,4 +847,4 @@ function resumeInit() {
 // 启动应用
 init();
 // loadMessages();
-playMusic(); // 在页面加载时播放音乐
+// playMusic(); // 在页面加载时播放音乐
