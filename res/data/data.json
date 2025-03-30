@@ -18,7 +18,8 @@
           ],
           "params":{
             "music":"./res/music/Astral_Sunset.mp3",
-            "heart_rate":[0,0]
+            "heart_rate":[0,0],
+            "nessecery_op":0
           }
         },
         {

@@ -10,6 +10,17 @@ const CONFIG = {
 };
 
 let cachedData;
+// 存储定时器实例
+let resourceInterval = null;
+
+// 控制是否暂停
+let isPaused = false;
+let water = 0;
+let oxgen = 0;
+let eng = 0;
+// 按钮
+let EOHBtnActive = false;
+let EHBtnActive = false;
 
 // 初始化
 function init() {
@@ -49,7 +60,7 @@ function getRandomHeartRate(min, max) {
 // 更新心率函数
 function updateHeartRate(min,max) {
 	const bpmElement = document.querySelector('.bpm');
-	debugger;
+	// debugger;
 	const randomHeartRate = getRandomHeartRate(min, max); // 设置心率范围
 	bpmElement.textContent = randomHeartRate;
 }
@@ -195,6 +206,7 @@ function startSystemMessages() {
 		addMessage(`系统时间：${new Date().toLocaleTimeString()}`, false);
 	}, CONFIG.systemMsgInterval);
 }
+
 // On/Off切换
 document.querySelectorAll('.switch').forEach(switchElement => {
 	switchElement.addEventListener('click', function () {
@@ -202,7 +214,25 @@ document.querySelectorAll('.switch').forEach(switchElement => {
 		const labels = this.closest('.switch-wrapper').querySelector('.status-labels');
 		labels.querySelector('.off').classList.toggle('active');
 		labels.querySelector('.on').classList.toggle('active');
+		// 获取 HRM 开关的按钮
+		const hrmSwitch = document.getElementById('hrm-switch-btn');
+		const heartRateElement = document.querySelector('.heart-rate');
+		const eogSwitch = document.getElementById('eog-switch-btn');
+		const ehSwitch = document.getElementById('eh-switch-btn');
+		// 检查 HRM 是否为 on 状态
+		if (hrmSwitch.classList.contains('active')) {
+			heartRateElement.style.display = 'flex'; 
+		} else {
+			heartRateElement.style.display = 'none'; 
+		}
 
+		if (eogSwitch.classList.contains('active')) {
+			EOHBtnActive = true;
+		}
+
+		if (ehSwitch.classList.contains('active')) {
+			EHBtnActive = true;
+		}
 	});
 });
 
@@ -260,14 +290,14 @@ function handlerParmas(params){
 	if(params?.music){
 		playMusicV1(params.music,true,0.5);
 		cachedData.last_music = params.music;
-		localStorage.setItem("saveData", JSON.stringify(cachedData));
+		// localStorage.setItem("saveData", JSON.stringify(cachedData));
 	}
 
 	if(params?.heart_rate){
 		console.log("被触发的心跳[" + params.heart_rate[0] + "," +params.heart_rate[1]+"]");
 		setHeartBeat(params.heart_rate[0],params.heart_rate[1]);
 		cachedData.heart_rate = params.heart_rate;
-		localStorage.setItem("saveData", JSON.stringify(cachedData));
+		// localStorage.setItem("saveData", JSON.stringify(cachedData));
 	}
 
 }
@@ -731,6 +761,7 @@ function loadCacheData(dialogueDto,cacheOptionList,message,currentMessageIndex){
 	if (index > cacheOptionList.length - 1) {
 		dialogueDto.setIsLoad(false);
 		console.log("load完成");
+		startResourceDecay();
 		return currentMessageIndex;
 	}
 	var option = "";
@@ -867,20 +898,24 @@ function playMusic() {
  */
 function loadConstConifg(){
 	cachedData = loadModule.resume();
-	loadResBarConifg(cachedData.resouce.oxgen,
-		cachedData.resouce.water,
-		cachedData.resouce.eng);
+	oxgen = cachedData.resouce.oxgen;
+	water = cachedData.resouce.water;
+	eng = cachedData.resouce.eng;
+	updateResBarConifg(oxgen,water,eng);
 	const heartRate = cachedData.heart_rate;
 	setHeartBeat(heartRate[0],heartRate[1]);
 	playMusicV1(cachedData.last_music,true,0.5);
 }
+
+
+
 /**
  * 更新氧气 水 能量的高度
  * @param {Float} oxgen 氧气
  * @param {Float} water 水
  * @param {Float} eng  燃料能量
  */
-function loadResBarConifg(oxgen,water,eng){
+function updateResBarConifg(oxgen,water,eng){
     const oxgenBar = document.querySelector('.bar.OO');
     const waterBar = document.querySelector('.bar.HOO');
     const engBar = document.querySelector('.bar.ENG');
@@ -896,10 +931,74 @@ function loadResBarConifg(oxgen,water,eng){
     }
 }
 
+function startResourceDecay() {
+    if (resourceInterval || isPaused) return; // 如果已有定时器或已暂停则不重复启动
+    resourceInterval = setInterval(() => {
+		// todo 待加按钮是否打开判断
+        if (oxgen > 5 && EOHBtnActive) {
+            oxgen -= 0.1;
+        }
+        if (water > 5 && EOHBtnActive) {
+            water -= 0.1;
+        }
+        if (eng > 5 && EHBtnActive) {
+            eng -= 0.1;
+        }
+        updateResBarConifg(oxgen,water,eng);
+    }, 60000); // 每分钟更新
+}
+
+// 暂停资源衰减
+function pauseResourceDecay() {
+    if (resourceInterval) {
+        clearInterval(resourceInterval); 
+        isPaused = true; 
+    }
+}
+
+// 恢复资源衰减
+function resumeResourceDecay() {
+    if (isPaused) {
+        isPaused = false; // 标记为恢复
+        startDecay(); // 恢复定时器
+    }
+}
+
+// 停止资源衰减
+function stopResourceDecay() {
+    if (resourceInterval) {
+        clearInterval(resourceInterval); // 停止定时器
+        resourceInterval = null; // 清除定时器实例
+    }
+}
+
+
 function resumeInit() {
 	loadConstConifg();
 	loadMessages();
 }
+
+/**
+ * 在destroy之前保存数据
+ */
+function saveDataBeforeQuit(){
+	var resouce={
+		"oxgen":oxgen,
+		"water":water,
+		"eng":eng
+	}
+	cachedData.resouce  = resouce;
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    window.addEventListener('beforeunload', (event) => {
+		debugger;
+		saveDataBeforeQuit()
+		localStorage.setItem("saveData", JSON.stringify(cachedData));
+    });
+});
+
+
 
 // 启动应用
 init();
