@@ -10,6 +10,13 @@
         "next_stage_time":"下个剧情开始的时间 第一次进入时用now来判断;在加载时先判断这个",
         "options_choice_list":[
             1,2,1,2
-        ]
+        ],
+        "heart_rate":[0,0],
+        "resouce":{
+            "oxgen":50.0,
+            "water":50.0,
+            "eng":50.0
+        },
+        "last_music":"上一个music"
     }
 }

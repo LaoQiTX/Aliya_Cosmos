@@ -65,6 +65,19 @@ function firstLoad(data){
     if(data.optionsChoiceList == null){
         data.optionsChoiceList = [];
     }
+
+    if(data.resouce == null){
+        data.resouce={
+            "oxgen":50.0,
+            "water":50.0,
+            "eng":50.0
+        }
+    }
+
+    if(data.last_music == null){
+        data.last_music = "./res/music/Astral_Sunset.mp3"
+    }
+    data.heart_rate = [0,0];
     return data;
 }
 

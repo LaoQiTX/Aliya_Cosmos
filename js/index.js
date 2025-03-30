@@ -29,7 +29,6 @@ function init() {
 	// loadSampleMessages();
 	// startSystemMessages();
 	// 定期更新心率
-	setHeartBeat(); // 每秒更新一次
 	resumeInit();
 }
 
@@ -48,14 +47,19 @@ function getRandomHeartRate(min, max) {
 }
 
 // 更新心率函数
-function updateHeartRate() {
+function updateHeartRate(min,max) {
 	const bpmElement = document.querySelector('.bpm');
-	const randomHeartRate = getRandomHeartRate(60, 80); // 设置心率范围
+	debugger;
+	const randomHeartRate = getRandomHeartRate(min, max); // 设置心率范围
 	bpmElement.textContent = randomHeartRate;
 }
 
-function setHeartBeat() {
-	setInterval(updateHeartRate, 1000); // 每秒更新一次
+let heartBeatInterval = null; // 记录当前心率更新的定时器
+function setHeartBeat(min, max) {
+    if (heartBeatInterval) {
+        clearInterval(heartBeatInterval);
+    }
+    heartBeatInterval = setInterval(() => updateHeartRate(min, max), 1000);
 }
 
 // 事件监听
@@ -252,8 +256,24 @@ function hideLoadingGif() {
 	elements.optionsContainer.innerHTML = ''; // 清空内容
 }
 
+function handlerParmas(params){
+	if(params?.music){
+		playMusicV1(params.music,true,0.5);
+		cachedData.last_music = params.music;
+		localStorage.setItem("saveData", JSON.stringify(cachedData));
+	}
+
+	if(params?.heart_rate){
+		console.log("被触发的心跳[" + params.heart_rate[0] + "," +params.heart_rate[1]+"]");
+		setHeartBeat(params.heart_rate[0],params.heart_rate[1]);
+		cachedData.heart_rate = params.heart_rate;
+		localStorage.setItem("saveData", JSON.stringify(cachedData));
+	}
+
+}
+
 // 显示选项的Promise封装
-function showOptions(options) {
+function showOptions(options,params) {
 	return new Promise((resolve) => {
 		const optionsContainer = document.getElementById('player-options-container');
 		optionsContainer.innerHTML = ''; // 清空旧选项
@@ -264,6 +284,7 @@ function showOptions(options) {
 			optionElement.textContent = option;
 
 			optionElement.addEventListener('click', () => {
+				handlerParmas(params);
 				addMessage(option, true);
 				// // declare 测试
 				// playMusicV1("./res/music/Asher Monroe - Try.mp3",false,0.5);
@@ -480,12 +501,17 @@ const replySound = new Howl({
  * @param {Boolean} isLoop 
  * @param {Float} volume 
  */
+let musicInstance = null;
 function playMusicV1(src,isLoop,volume){
-	new Howl({
+	if(musicInstance){
+		musicInstance.stop();
+	}
+	musicInstance = new Howl({
 		src:[src],
 		loop:isLoop,
 		volume:volume
-	}).play();
+	});
+	musicInstance.play();
 }
 
 // todo 抽离方法进行简化
@@ -494,7 +520,6 @@ function playMusicV1(src,isLoop,volume){
  */
 async function loadMessages() {
 	const data = await loadModule.loadDialogueData();
-	cachedData = loadModule.resume();
 	var cacheOptionList = cachedData.optionsChoiceList;
 	var sendFromUser = false;
 	if(!dialogueDto){
@@ -526,7 +551,7 @@ async function loadMessages() {
 					}
 					// debugger; 当前应是具体流程
 					if (message.type === 'player_options') {
-						const choiceIndex = await showOptions(message.content);
+						const choiceIndex = await showOptions(message.content,message.params);
 						lastUserMsg = message.content[choiceIndex];
 						cacheOptionList.push(choiceIndex);
 						cachedData.optionsChoiceList = cacheOptionList;
@@ -730,7 +755,7 @@ function loadCacheData(dialogueDto,cacheOptionList,message,currentMessageIndex){
 }
 
 /**
- * 
+ *  todo 这边写的不好 可读性太差后续维护比较高，待更新;
  * @param {String} content 玩家的option选项;根据其是否是null来判断当前处于是load状态还是play状态  null为加载状态
  * @param {JSON} message 剧情文本
  */
@@ -747,6 +772,7 @@ function sendMsg(content,message){
 	}
 	if(isLoad == false){
 		// debugger;
+		handlerParmas(message.params);
 		replySound.play();
 	}
 }
@@ -836,11 +862,42 @@ function playMusic() {
 
 }
 
-function saveInit() {
+/**
+ * 加载默认配置
+ */
+function loadConstConifg(){
+	cachedData = loadModule.resume();
+	loadResBarConifg(cachedData.resouce.oxgen,
+		cachedData.resouce.water,
+		cachedData.resouce.eng);
+	const heartRate = cachedData.heart_rate;
+	setHeartBeat(heartRate[0],heartRate[1]);
+	playMusicV1(cachedData.last_music,true,0.5);
+}
+/**
+ * 更新氧气 水 能量的高度
+ * @param {Float} oxgen 氧气
+ * @param {Float} water 水
+ * @param {Float} eng  燃料能量
+ */
+function loadResBarConifg(oxgen,water,eng){
+    const oxgenBar = document.querySelector('.bar.OO');
+    const waterBar = document.querySelector('.bar.HOO');
+    const engBar = document.querySelector('.bar.ENG');
 
+    if (oxgenBar) {
+        oxgenBar.style.height = oxgen  + '%'; 
+    }
+    if (waterBar) {
+        waterBar.style.height = water + '%'; 
+    }
+    if (engBar) {
+        engBar.style.height =  eng + '%';
+    }
 }
 
 function resumeInit() {
+	loadConstConifg();
 	loadMessages();
 }
 
