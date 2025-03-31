@@ -16,6 +16,7 @@ function saveUsername() {
 		// closeModal();
 		alert('用户名已保存！');
 		savedUsername = localStorage.getItem('AliyaCalledMe');
+		closeInputDialog();
 		// location.reload()
 	} else {
 		alert('请输入有效的用户名');
@@ -33,7 +34,7 @@ function showInputDialog() {
         document.getElementById("save-btn").onclick = function () {
             saveUsername();
 			resolve(); 
-			closeInputDialog();
+			// closeInputDialog();
         };
     });
 }
