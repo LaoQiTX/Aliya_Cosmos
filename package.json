@@ -1,0 +1,15 @@
+{
+  "name": "web_aliya_cosmos",
+  "version": "1.0.0",
+  "description": "本项目是基于《彼方的她》游戏二创，截至目前暂未完成所有功能\r 有bug和建议欢迎反馈",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "electron": "^35.1.2"
+  }
+}

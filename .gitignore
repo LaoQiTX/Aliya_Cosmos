@@ -1,2 +1,4 @@
 .history/
 *.docx
+node_modules/
+dist/
