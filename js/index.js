@@ -105,7 +105,7 @@ function createMessage(text, isUser = true) {
 	return div;
 }
 
-function handleTimeMsg(startTime){
+function handleTimeMsg(startTime,isLoad){
     let timeMsg = startTime != null ? startTime : Date.now();
     timeMsg = new Date(timeMsg);
 		// startTime = Date.now();
@@ -119,8 +119,11 @@ function handleTimeMsg(startTime){
 		hour12: false // 24小时制
 	}).replace(/\//g, '-'); // 处理 `/` 变成 `-`
 	createTimeMsg(timeString);
-	cachedData.everyStartTimeList.push(timeMsg);
-	localStorage.setItem("saveData", JSON.stringify(cachedData));
+	// 非存档状态下存储数据
+	if(!isLoad){
+		cachedData.everyStartTimeList.push(timeMsg);
+		localStorage.setItem("saveData", JSON.stringify(cachedData));
+	}
 }
 
 /**
@@ -242,16 +245,16 @@ export function closeModal() {
 	$('#operationModal').css("display", "none")
 }
 
-if (localStorage.getItem("AliyaCalledMe") == null) {
-	$("#settingspop").css('display', 'flex')
-	localStorage.setItem('AliyaCalledMe', 'cosmos');
-	// $(".messages").html(`<div class="message user-message">
-	// 					--建议到setting中设置aliya对你的称呼哦--
-	// 				</div>`)
+// if (localStorage.getItem("AliyaCalledMe") == null) {
+// 	$("#settingspop").css('display', 'flex')
+// 	localStorage.setItem('AliyaCalledMe', 'cosmos');
+// 	// $(".messages").html(`<div class="message user-message">
+// 	// 					--建议到setting中设置aliya对你的称呼哦--
+// 	// 				</div>`)
 
-} else {
-	closeModal()
-}
+// } else {
+// 	closeModal()
+// }
 
 // 可选：添加关闭模态框的点击外部区域功能
 document.querySelector('.modal-overlay').addEventListener('click', function (e) {
@@ -570,7 +573,7 @@ async function loadMessages() {
 					const message = dialogue.messages[currentMessageIndex];
 					if(currentMessageIndex === 0 && !hasSendTime ){
 						// debugger;
-						handleTimeMsg(cachedData.everyStartTimeList[timeStage])
+						handleTimeMsg(cachedData.everyStartTimeList[timeStage],dialogueDto.getIsLoad())
 						hasSendTime = true;
 						console.log("已经输出过时间了");
 					}
@@ -990,15 +993,30 @@ function saveDataBeforeQuit(){
 	cachedData.resouce  = resouce;
 }
 
+let shouldSaveData = true;
 document.addEventListener('DOMContentLoaded', () => {
+	shouldSaveData = true;
     window.addEventListener('beforeunload', (event) => {
 		debugger;
-		saveDataBeforeQuit()
-		localStorage.setItem("saveData", JSON.stringify(cachedData));
+		if(shouldSaveData){
+			saveDataBeforeQuit()
+			localStorage.setItem("saveData", JSON.stringify(cachedData));
+		}
     });
 });
 
-
+Object.defineProperty(window, 'shouldSaveData', {
+	set: function(value) {
+		shouldSaveData = value;
+		if (value === false) {
+			cachedData = {}
+			location.reload();
+		}
+	},
+	get: function() {
+		return shouldSaveData;
+	}
+});
 
 // 启动应用
 init();
