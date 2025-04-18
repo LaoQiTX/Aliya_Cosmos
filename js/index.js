@@ -523,7 +523,7 @@ class DialogueStateDto {
 }
 
 const replySound = new Howl({
-	src: ['./res/music/reply_test_sound.mp3'], 
+	src: ['./res/music/msg.mp3'], 
     loop: false, // 让背景音乐循环
     volume: 1 // 调整音量
 })
