@@ -21,7 +21,8 @@
               0,
               0
             ],
-            "nessecery_op": 0
+            "nessecery_op": 0,
+            "need_action":true
           }
         },
         {
@@ -2980,7 +2981,10 @@
           "content": [
             "[Aliya，我喜欢你哦]",
             "[Aliya，现在的我对你没有这样的情感......] todo 待做处理"
-          ]
+          ],
+          "params": {
+            "nessecery_op": 0
+          }
         },
         {
           "type": "player_options",

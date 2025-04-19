@@ -240,7 +240,7 @@ document.querySelectorAll('.switch').forEach(switchElement => {
 });
 
 // console.log(localStorage.getItem("AliyaCalledMe"))
-export function closeModal() {
+function closeModal() { // 移除 export
 	document.querySelector('.modal-overlay').style.display = 'none';
 	$('#operationModal').css("display", "none")
 }
@@ -306,7 +306,7 @@ function handlerParmas(params){
 }
 
 // 显示选项的Promise封装
-function showOptions(options,params) {
+function showOptions(options, params) { // params 包含 nessecery_op 等信息
 	return new Promise((resolve) => {
 		const optionsContainer = document.getElementById('player-options-container');
 		optionsContainer.innerHTML = ''; // 清空旧选项
@@ -317,13 +317,23 @@ function showOptions(options,params) {
 			optionElement.textContent = option;
 
 			optionElement.addEventListener('click', () => {
+				// 检查 nessecery_op
+				if (params && params.hasOwnProperty('nessecery_op')) {
+					const requiredOptionIndex = params.nessecery_op;
+					if (index !== requiredOptionIndex) {
+						console.error(`必要操作检查失败：需要选项 ${requiredOptionIndex}，但选择了 ${index}。正在发送退出请求...`); // 改为 console.error
+						window.electronAPI.sendQuitRequest(); // 发送退出请求
+						return; // 阻止后续操作
+					} else {
+						console.log(`必要操作检查通过：选择了正确的选项 ${index}`); // 保留 console.log 用于成功情况
+					}
+				}
+
 				handlerParmas(params);
 				addMessage(option, true);
-				// // declare 测试
-				// playMusicV1("./res/music/Asher Monroe - Try.mp3",false,0.5);
 				optionsContainer.innerHTML = ''; // 选择后立即清除选项
 				console.log("玩家选择了btn->" + index);
-				resolve(index);
+				resolve(index); // 只有在检查通过或不需要检查时才 resolve
 			});
 
 			optionsContainer.appendChild(optionElement);
@@ -697,8 +707,8 @@ async function loadMessages() {
 			timeStage = dialogueDto.getTimeStage();
 		}
 	} catch (error) {
-		console.error('Error:', error);
-	} 
+		console.error('加载消息时发生错误 (Error in loadMessages):', error); // 添加更详细的错误日志
+	}
 }
 
 /**
@@ -1022,3 +1032,5 @@ Object.defineProperty(window, 'shouldSaveData', {
 init();
 // loadMessages();
 // playMusic(); // 在页面加载时播放音乐
+
+export{closeModal}

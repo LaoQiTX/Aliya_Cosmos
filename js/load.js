@@ -1,21 +1,4 @@
 
-
-// /**
-//  * 加载数据
-//  * @returns {JSON} 返回存档数据 
-//  */
-// function loadGameProgress() {
-//     const saveData = localStorage.getItem("gameSave");
-//     if (!saveData) return null;
-
-//     const data = JSON.parse(saveData);
-
-//     const timeAway = (Date.now() - data.lastExitTime) / 1000; // 计算玩家离开的时间
-//     data.elapsedTime += timeAway; // 让 elapsedTime 继续增长
-
-//     return data;
-// }
-
 function getCache() {
     return JSON.parse(localStorage.getItem("saveData") || "{}");
 }
@@ -81,61 +64,4 @@ function firstLoad(data){
     return data;
 }
 
-
-
-
-// /**
-//  * 恢复数据
-//  * @param {JSON} dialogue 剧情数据 
-//  * @returns 
-//  */
-// function resumeGame(dialogue, lastRuntime, lastOptionIndex) {
-//     // const savedData = loadGameProgress();
-//     // if (!savedData) {
-//     //     startGame(dialogue, 0);
-//     //     return;
-//     // }
-
-//     // 用修正后的 elapsedTime 查找存档点
-//     const { timeStage, optionIndex } = findResumePoint(dialogue, lastRuntime, lastOptionIndex);
-//     return { timeStage, optionIndex };
-//     // startGame(savedData.gameData, index, optionIndex);
-// }
-
-
-// /**
-//  *  查找存档点 
-//  * @param {*} dialogue 剧情数据
-//  * @param {*} lastRuntime 上次运行时间
-//  * @param {*} lastOptionIndex 上次的选项索引
-//  * @returns 
-//  */
-// function findResumePoint(dialogue, lastRuntime, lastOptionIndex) {
-//     // 当前的时间阶段;
-//     let timeStage = 0;
-
-//     for (let i = 0; i < dialogue.length; i++) {
-//         if (dialogue[i].timestamp < lastRuntime) {
-//             timeStage = i; // 找到最接近 `elapsedTime` 的时间戳
-//         } else {
-//             break;
-//         }
-//     }
-
-//     const messages = dialogue[index].messages;
-
-//     // 如果存档点正好是 `player_options`，直接返回
-//     if (messages[lastOptionIndex] && messages[lastOptionIndex].type === "player_options") {
-//         return { timeStage, optionIndex: lastOptionIndex };
-//     }
-
-//     // 否则，寻找下一个 `player_options`
-//     for (let i = lastOptionIndex + 1; i < messages.length; i++) {
-//         if (messages[i].type === "player_options") {
-//             return { timeStage, optionIndex: i };
-//         }
-//     }
-//     // 如果没有找到则说明上个阶段的剧情已经结束，应检查进入下个阶段
-//     return { timeStage: timeStage + 1, optionIndex: 0 };
-// }
 export { getCache, loadDialogueData, resume};
