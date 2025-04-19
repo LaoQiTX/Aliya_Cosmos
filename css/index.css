@@ -1,5 +1,7 @@
 html {
 	background-color: #202020;
+	scrollbar-width: thin;
+    scrollbar-color: #5d5d5d #363636;
 }
 
 header {
@@ -370,11 +372,11 @@ body {
 /* 开关核心样式 */
 .switch {
 	width: 5rem;
-	height: 3.5rem;
+	height: 3.6rem;
 	background: #202020;
 	border-radius: 6px;
 	position: relative;
-	top: 6px;
+	top: 4px;
 	cursor: pointer;
 	margin: 20px auto;
 	transition: all 0.3s cubic-bezier(0.4, 0, 0, 0.2);
@@ -390,7 +392,7 @@ body {
 	height: 4rem;
 	background: #646464;
 	position: absolute;
-	top: -4px;
+	top: -3.5px;
 	left: 0px;
 	border-radius: 4px;
 	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
