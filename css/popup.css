@@ -87,7 +87,6 @@
     /* background-color: #363636; */
     display: flex;
     flex-direction: column;
-    border: red solid 1px;
     min-height: 41px;
     flex-grow: 1;
     gap: 10px;
