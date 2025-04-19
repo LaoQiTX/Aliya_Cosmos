@@ -21,8 +21,7 @@
               0,
               0
             ],
-            "nessecery_op": 0,
-            "need_action":true
+            "nessecery_op": 0
           }
         },
         {
@@ -410,16 +409,13 @@
           ]
         },
         {
-          "type": "system",
-          "content": [
-            "（未完成操作接坠机剧情） todo 更新结局逻辑"
-          ]
-        },
-        {
           "type": "player_options",
           "content": [
             "[为什么你好像很兴奋？]"
-          ]
+          ],
+          "params": {
+            "need_action":true
+          }
         },
         {
           "type": "aliya",

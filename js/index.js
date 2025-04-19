@@ -235,6 +235,8 @@ document.querySelectorAll('.switch').forEach(switchElement => {
 
 		if (ehSwitch.classList.contains('active')) {
 			EHBtnActive = true;
+			const event = new Event('eh-switch-on');
+			document.dispatchEvent(event);
 		}
 	});
 });
@@ -348,65 +350,6 @@ async function pointAnimation() {
 	hideLoadingGif();
 	await wait(100);
 }
-
-/*** todo: 逻辑重构优化*/
-
-// async function loadMessages(timeStage = 0, currentMessageIndex = 0) {
-// 	try {
-// 		while (timeStage < data.dialogue.length) {
-// 			const dialogue = data.dialogue[timeStage];
-
-// 			while (currentMessageIndex < dialogue.messages.length) {
-// 				const message = dialogue.messages[currentMessageIndex];
-
-// 				if (message.type === 'player_options') {
-// 					isWaitingForChoice = true;
-// 					await showOptions(message.content);
-// 					isWaitingForChoice = false;
-// 					currentMessageIndex++;
-// 					await pointAnimation();
-// 					continue;
-// 				} else if (message.type === 'player_input') {
-// 					isWaitingForChoice = true;
-// await showInputDialog();
-// 					isWaitingForChoice = false;
-// 					await closeInputDialog();
-// 					currentMessageIndex++;
-// 					console.log(currentMessageIndex);
-// 					await wait(1000);
-// 					continue;
-// 				}
-
-// 				if (message.image_url && message.type === 'aliya') {
-// 					addImageMessage(message.image_url, false);
-// 				} else {
-// 					addMessage(message.content, message.type !== 'aliya');
-// 				}
-
-// 				currentMessageIndex++;
-// 				await pointAnimation();
-// 			}
-
-// 			// todo 判断当前时间戳是否到达了下个剧情的时间戳检查点
-// 			if (hasReachedNextCheckpoint(Date.now(), dialogue.timestamp)) {
-// 				timeStage++;
-// 				currentMessageIndex = 0;
-// 				continue;
-// 			} 
-// 			await wait(60000);
-
-// 			// 处理完当前对话，移动到下一个
-// 			// currentMessageIndex = 0;
-// 			// timeStage++;
-// 		}
-// 	} catch (error) {
-// 		console.error('Error:', error);
-// 	}
-// }
-
-// function hasReachedNextCheckpoint(currentTime, nextCheckpointTime) {
-// 	return (currentTime - lastExitTime) >= nextCheckpointTime;
-// }
 
 /**
  * 剧情循环中的DTO类;
@@ -592,6 +535,10 @@ async function loadMessages() {
 						currentMessageIndex = loadCacheData(dialogueDto,cacheOptionList,message,currentMessageIndex);
 						continue;
 					}
+					// 等待action
+					if (message.params && message.params.need_action) {
+						await waitForEHSwitch();
+					}					
 					// debugger; 当前应是具体流程
 					if (message.type === 'player_options') {
 						const choiceIndex = await showOptions(message.content,message.params);
@@ -840,15 +787,6 @@ function createImageMessage(imageUrl, isUser = true) {
 	return div;
 }
 
-// function addImageMessage(imageUrl, isUser = true, needNotify = true) {
-// 	hideLoadingGif();
-// 	const messageElement = createImageMessage(imageUrl, isUser);
-// 	elements.container.appendChild(messageElement);
-// 	checkAutoScroll();
-// 	if (needNotify) {
-// 		checkNotification("[图片消息]", isUser);
-// 	}
-// }
 
 function addImageMessage(imageUrl, isUser = true, needNotify = true) {
     hideLoadingGif();
@@ -984,6 +922,51 @@ function stopResourceDecay() {
         resourceInterval = null; // 清除定时器实例
     }
 }
+
+/**
+ * 等待EH触发
+ * @returns 
+ */
+function waitForEHSwitch() {
+    return new Promise(resolve => {
+        const ehSwitch = document.getElementById('eh-switch-btn');
+        if (!ehSwitch) {
+            alert("找不到 EH 开关按钮！");
+            resolve();
+            return;
+        }
+        const onEHClicked = async () => {
+            // 判断是否是开启操作
+            const isActive = ehSwitch.classList.contains('active');
+            if (!isActive) return; // 只处理开启的情况
+            // 移除监听，避免重复触发
+            ehSwitch.removeEventListener('click', onEHClicked);
+            alert("EH 开关已开启，请保持 15 秒...");
+            // 禁用点击（方式1：屏蔽点击）
+            ehSwitch.style.pointerEvents = 'none';
+            ehSwitch.style.opacity = '0.6'; // 可选视觉反馈
+            // 倒计时 15 秒
+            setTimeout(() => {
+                // 自动关闭开关
+                ehSwitch.classList.remove('active');
+                // 同时切换状态文字
+                const labels = ehSwitch.closest('.switch-wrapper').querySelector('.status-labels');
+                labels.querySelector('.on')?.classList.remove('active');
+                labels.querySelector('.off')?.classList.add('active');
+                // 恢复点击
+                ehSwitch.style.pointerEvents = '';
+                ehSwitch.style.opacity = '';
+                alert("EH 关闭，剧情继续");
+                resolve();
+            }, 15000);
+        };
+        // 等待玩家主动开启
+        alert("请点击右侧 EH 开关以继续剧情（开启后将自动保持 15 秒）");
+        ehSwitch.addEventListener('click', onEHClicked);
+    });
+}
+
+
 
 
 function resumeInit() {
