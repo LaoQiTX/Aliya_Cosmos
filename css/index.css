@@ -1,7 +1,7 @@
 html {
 	background-color: #202020;
 	scrollbar-width: thin;
-    scrollbar-color: #5d5d5d #363636;
+	scrollbar-color: #5d5d5d #363636;
 }
 
 header {
@@ -225,7 +225,7 @@ body {
 .heart-rate {
 	width: 100%;
 	/* 占据全部宽度 */
-	background-image: url('../res/animation/heart_beat/heart_beat_0.gif');
+	/* background-image: url('../res/animation/heart_beat/heart_beat_0.gif'); */
 	/* 替换为你的心跳图 URL */
 	mix-blend-mode: lighten;
 	/* 混合模式 */
@@ -247,6 +247,7 @@ body {
 .bpm {
 	color: #5d5d5d;
 	font-size: 6em;
+	z-index: 9;
 }
 
 .label {
@@ -412,8 +413,8 @@ body {
 	font-size: 17px;
 	letter-spacing: 1px;
 	position: absolute;
-	left: 35px;
-	top: 107px;
+	left: 30px;
+	top: 100px;
 }
 
 .cosmos-right-switch {
@@ -510,6 +511,13 @@ body {
 	.cosmos-right {
 		margin-top: 10px;
 	}
+
+	.player-options-container{
+		min-width: 97%;
+        position: relative;
+        left: 50%;
+        transform: translate(-50%);
+	}
 }
 
 @media only screen and (max-width: 650px) {
@@ -544,6 +552,10 @@ body {
 	/* 如果内容超出，显示垂直滚动条 */
 	padding: 10px;
 	/* 为容器添加一些内边距，防止内容贴着边缘 */
+
+	width: 436px;
+	word-wrap: break-word;
+	word-break: normal;
 }
 
 .player-options-container button {
@@ -553,6 +565,8 @@ body {
 	border-radius: 10px;
 	font-size: 1.2em;
 	cursor: pointer;
+	/* width: 436px; */
+
 }
 
 .chat-image {

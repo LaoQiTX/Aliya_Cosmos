@@ -24,21 +24,7 @@ let EHBtnActive = false;
 
 // 初始化
 function init() {
-	// loadModule.loadDialogueData()
-	// 	.then((res) => {
-	// 		data = res;  // 将返回的数据存储到全局变量data
-	// 		// loadMessages();  // 调用loadMessages()来处理数据
-	// 	})
-	// 	.catch((error) => {
-	// 		console.error('Error loading dialogue data:', error);  // 捕获并处理错误
-	// 	});
-
-
-	// setupEventListeners();
-	// setupLayout();
 	requestNotificationPermission();
-	// loadSampleMessages();
-	// startSystemMessages();
 	// 定期更新心率
 	resumeInit();
 }
@@ -47,7 +33,6 @@ function init() {
 const elements = {
 	container: document.getElementById('messages-container'),
 	input: document.getElementById('message-input'),
-	// sendBtn: document.getElementById('send-button'),
 	inputContainer: document.querySelector('.input-container'),
 	optionsContainer: document.getElementById('player-options-container')
 };
@@ -72,16 +57,6 @@ function setHeartBeat(min, max) {
     }
     heartBeatInterval = setInterval(() => updateHeartRate(min, max), 1000);
 }
-
-// 事件监听
-// function setupEventListeners() {
-// 	elements.sendBtn.addEventListener('click', function() {
-// 		sendUserMessage();
-// 	});
-// 	// elements.input.addEventListener('keypress', e => e.key === 'Enter' && sendUserMessage());
-// 	window.addEventListener('resize', updateMessagesPadding);
-// 	new ResizeObserver(updateMessagesPadding).observe(elements.inputContainer);
-// }
 
 // 布局相关
 function setupLayout() {
@@ -198,18 +173,12 @@ function sendUserMessage() {
 	elements.input.value = '';
 }
 
-// 系统功能
-function loadSampleMessages() {
-	['Hi！你在吗？', '我是Aliya！'].forEach(msg =>
-		addMessage(msg, false)
-	);
-}
-
-function startSystemMessages() {
-	setInterval(() => {
-		addMessage(`系统时间：${new Date().toLocaleTimeString()}`, false);
-	}, CONFIG.systemMsgInterval);
-}
+// 定义开关音效对象
+const switchSound = new Howl({
+    src: ['../res/music/switch.wav'], 
+    loop: false, 
+    volume: 1 
+});
 
 // On/Off切换
 document.querySelectorAll('.switch').forEach(switchElement => {
@@ -225,9 +194,9 @@ document.querySelectorAll('.switch').forEach(switchElement => {
 		const ehSwitch = document.getElementById('eh-switch-btn');
 		// 检查 HRM 是否为 on 状态
 		if (hrmSwitch.classList.contains('active')) {
-			heartRateElement.style.display = 'flex'; 
+			heartRateElement.style.opacity = 0.5; 
 		} else {
-			heartRateElement.style.display = 'none'; 
+			heartRateElement.style.opacity = 0; 
 		}
 
 		if (eogSwitch.classList.contains('active')) {
@@ -239,6 +208,9 @@ document.querySelectorAll('.switch').forEach(switchElement => {
 			const event = new Event('eh-switch-on');
 			document.dispatchEvent(event);
 		}
+
+		// 播放开关音效
+        switchSound.play();
 	});
 });
 
@@ -248,17 +220,6 @@ function closeModal() { // 移除 export
 	$('#operationModal').css("display", "none")
 }
 
-// if (localStorage.getItem("AliyaCalledMe") == null) {
-// 	$("#settingspop").css('display', 'flex')
-// 	localStorage.setItem('AliyaCalledMe', 'cosmos');
-// 	// $(".messages").html(`<div class="message user-message">
-// 	// 					--建议到setting中设置aliya对你的称呼哦--
-// 	// 				</div>`)
-
-// } else {
-// 	closeModal()
-// }
-
 // 可选：添加关闭模态框的点击外部区域功能
 document.querySelector('.modal-overlay').addEventListener('click', function (e) {
 	if (e.target === this) {
@@ -266,14 +227,7 @@ document.querySelector('.modal-overlay').addEventListener('click', function (e) 
 	}
 });
 
-// 获取聊天区域背景颜色
-function getChatBackgroundColor() {
-	const chatElement = document.querySelector('.cosmos-chat');
-	if (chatElement) {
-		return window.getComputedStyle(chatElement).backgroundColor;
-	}
-	return '#4f4f4f'; // 默认值
-}
+
 // wait 
 function wait(ms) {
 	return new Promise(resolve => setTimeout(resolve, ms));
@@ -861,7 +815,7 @@ function loadConstConifg(){
 
 
 
-/**
+/** 
  * 更新氧气 水 能量的高度
  * @param {Float} oxgen 氧气
  * @param {Float} water 水
@@ -887,15 +841,22 @@ function startResourceDecay() {
     if (resourceInterval || isPaused) return; // 如果已有定时器或已暂停则不重复启动
     resourceInterval = setInterval(() => {
 		// todo 待加按钮是否打开判断
-        if (oxgen > 5 && EOHBtnActive) {
-            oxgen -= 0.1;
-        }
-        if (water > 5 && EOHBtnActive) {
-            water -= 0.1;
-        }
-        if (eng > 5 && EHBtnActive) {
+		if (EOHBtnActive) {
+			oxgen += 0.1;
+			water += 0.1;
+		}
+		 if (eng > 5 && EHBtnActive) {
             eng -= 0.1;
         }
+        // if (oxgen > 5 && EOHBtnActive) {
+        //     oxgen -= 0.1;
+        // }
+        // if (water > 5 && EOHBtnActive) {
+        //     water -= 0.1;
+        // }
+        // if (eng > 5 && EHBtnActive) {
+        //     eng -= 0.1;
+        // }
         updateResBarConifg(oxgen,water,eng);
     }, 60000); // 每分钟更新
 }
@@ -1011,6 +972,10 @@ Object.defineProperty(window, 'shouldSaveData', {
 		return shouldSaveData;
 	}
 });
+
+// 开关音效
+
+
 
 // 启动应用
 init();

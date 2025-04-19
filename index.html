@@ -45,6 +45,8 @@
 					<div class="Aliya">ALIYA</div>
 					<div class="heart-rate">
 						<div class="bpm">72</div>
+						<canvas id="ecgCanvas" style="position: fixed;"></canvas>
+						
 					</div>
 					<div class="label">
 						<!-- <span style="margin-bottom: 5px;">HEART RATE</span> -->
@@ -70,7 +72,7 @@
 					</div>
 
 					<div class="metric">
-						<div class="bars" style="">
+						<div class="bars">
 							<div class="bar ENG" style="height: 15%; ">
 							</div>
 						</div>
@@ -218,5 +220,160 @@
 <script src="./js/operation_closeWindow.js"></script>
 <script src="./js/settings.js"></script>
 <script>
+const canvas = document.getElementById('ecgCanvas');
+        const ctx = canvas.getContext('2d', { willReadFrequently: true });
+        // const heartRateDisplay = document.getElementById('heart-rate-display');
+        const calmButton = document.getElementById('calm');
+        const slightlyNervousButton = document.getElementById('slightly-nervous');
+        const highlyNervousButton = document.getElementById('highly-nervous');
 
+        // 设置画布分辨率
+        canvas.width = 260;
+        canvas.height = 200;
+
+        // 心电图关键点坐标（通用，不区分心率）
+        const ecgPoints = [
+            { x: 0, y: 100 },
+            { x: 80, y: 100 },
+            { x: 90, y: 90 },
+            { x: 95, y: 110 },
+            { x: 100, y: 70 },
+            { x: 110, y: 130 },
+            { x: 130, y: 40 },
+            { x: 150, y: 160 },
+            { x: 170, y: 70 },
+            { x: 180, y: 130 },
+            { x: 185, y: 90 },
+            { x: 190, y: 120 },
+            { x: 200, y: 100 },
+            { x: 260, y: 100 }
+        ];
+
+        // 不同心率的速度和显示数字
+        const heartRates = {
+            calm: { speed: 2, rate: 60 },
+            slightlyNervous: { speed: 4, rate: 80 },
+            highlyNervous: { speed: 6, rate: 100 }
+        };
+
+        // 动态参数
+        let currentIndex = 0;
+        let currentPos = 0;
+        let currentSpeed = heartRates.calm.speed;
+        let currentHeartRate = heartRates.calm.rate;
+        const tailPoints = [];
+        const tailMaxLength = 60;
+
+        // 新增：路径重置标记
+        let isLooping = false;
+
+        // ==== 修复1：调整透明度计算参数 ====
+        const GRADIENT_FALLOFF = 0.03;  // 从0.015调整为0.02，增强渐变效果
+        function drawTrailWithGradient() {
+            let previousPoint = null;
+
+            // ==== 修复1：反转拖尾点遍历顺序 ====
+            const reversedPoints = [...tailPoints].reverse(); // 反向遍历实现尾部渐隐
+
+            ctx.globalCompositeOperation = 'screen';
+
+            reversedPoints.forEach((point, index) => { // 从新到旧遍历
+                if (!point) {
+                    previousPoint = null;
+                    return;
+                }
+
+                // ==== 修复2：调整透明度衰减方向 ====
+                const alpha = Math.max(0, 1 - index * GRADIENT_FALLOFF); // 最新点alpha最高
+
+                if (previousPoint) {
+                    // ==== 修复3：反转渐变方向 ====
+                    const gradient = ctx.createLinearGradient(
+                        point.x, point.y,          // 起点：当前点（最新）
+                        previousPoint.x, previousPoint.y // 终点：前一点（更旧）
+                    );
+                    gradient.addColorStop(0, `rgba(255,255,255,${alpha})`);
+                    gradient.addColorStop(1, `rgba(255,255,255,${alpha * 1})`);
+
+                    ctx.beginPath();
+                    ctx.moveTo(point.x, point.y);
+                    ctx.lineTo(previousPoint.x, previousPoint.y);
+                    ctx.strokeStyle = gradient;
+                    ctx.lineWidth = 2;
+                    ctx.stroke();
+                }
+                previousPoint = point;
+            });
+
+            ctx.globalCompositeOperation = 'source-over';
+        }
+
+        function draw() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            const startPoint = ecgPoints[currentIndex];
+            const endPoint = ecgPoints[currentIndex + 1];
+            const dx = endPoint.x - startPoint.x;
+            const dy = endPoint.y - startPoint.y;
+
+            const progress = Math.min(currentPos / Math.sqrt(dx * dx + dy * dy), 1);
+            const x = startPoint.x + dx * progress;
+            const y = startPoint.y + dy * progress;
+
+            // 当接近终点时插入断开标记
+            if (currentIndex === ecgPoints.length - 2 && progress > 0.95) {
+                if (!isLooping) {
+                    tailPoints.push(null); // 插入路径断开标记
+                    isLooping = true;
+                }
+            } else {
+                isLooping = false;
+            }
+
+            tailPoints.push({ x, y });
+            if (tailPoints.length > tailMaxLength) tailPoints.shift();
+
+            drawTrailWithGradient();  // 先绘制拖尾
+
+            // 绘制移动点（保持不变）
+            ctx.beginPath();
+            ctx.arc(x, y, 1, 0, Math.PI * 2);
+            ctx.fillStyle = '#fff';
+            ctx.fill();
+
+            // 更新位置
+            currentPos += currentSpeed;
+            if (currentPos >= Math.sqrt(dx * dx + dy * dy)) {
+                currentPos = 0;
+                currentIndex = (currentIndex + 1) % (ecgPoints.length - 1);
+
+                // 重置时插入断开标记
+                if (currentIndex === 0) {
+                    tailPoints.push(null);
+                }
+            }
+
+            requestAnimationFrame(draw);
+        }
+
+        function setHeartRate(rateType) {
+            console.log('切换心率状态:', rateType);
+            if (heartRates.hasOwnProperty(rateType)) {
+                currentSpeed = heartRates[rateType].speed;
+                currentHeartRate = heartRates[rateType].rate;
+                console.log('更新后的心率:', currentHeartRate);
+                // heartRateDisplay.textContent = `心率: ${currentHeartRate}`;
+                currentIndex = 0;
+                currentPos = 0;
+                tailPoints.length = 0;
+            } else {
+                console.error('无效的心率类型:', rateType);
+            }
+        }
+
+        // calmButton.addEventListener('click', () => setHeartRate('calm'));
+        // slightlyNervousButton.addEventListener('click', () => setHeartRate('slightlyNervous'));
+        // highlyNervousButton.addEventListener('click', () => setHeartRate('highlyNervous'));
+
+        draw();
 </script>

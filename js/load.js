@@ -51,8 +51,8 @@ function firstLoad(data){
 
     if(data.resouce == null){
         data.resouce={
-            "oxgen":50.0,
-            "water":50.0,
+            "oxgen":70.0,
+            "water":60.0,
             "eng":50.0
         }
     }
