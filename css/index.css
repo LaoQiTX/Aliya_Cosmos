@@ -1,235 +1,246 @@
 html {
- 	background-color: #202020;
- }
+	background-color: #202020;
+}
 
- header {
- 	/* width: 100%; */
- 	padding: 10px;
- }
+header {
+	padding: 10px;
+}
 
- .nav {
- 	width: 100%;
- 	box-sizing: border-box;
- 	line-height: 2rem;
- 	background-color: #363636;
- 	color: white;
- 	border-radius: 15px;
- 	display: flex;
- 	justify-content: space-between;
- 	align-items: center;
- }
+.nav {
+	width: 100%;
+	box-sizing: border-box;
+	line-height: 2rem;
+	background-color: #363636;
+	color: white;
+	border-radius: 15px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
 
- .nav-item {
- 	cursor: pointer;
- 	line-height: 2.5rem;
- 	font-size: 1.5rem;
- 	width: 8rem;
- 	text-align: center;
- 	background-color: #3f3f3f;
- 	margin: 5px 10px;
- 	border-radius: 10px;
- 	white-space: nowrap;
- 	padding: 0 10px;
- 	user-select: none;
- }
+.nav-item {
+	cursor: pointer;
+	line-height: 2.5rem;
+	font-size: 1.5rem;
+	width: 8rem;
+	text-align: center;
+	background-color: #3f3f3f;
+	margin: 5px 10px;
+	border-radius: 10px;
+	white-space: nowrap;
+	padding: 0 10px;
+	user-select: none;
+}
 
- .warning {
- 	margin-left: auto;
- }
+.warning {
+	margin-left: auto;
+}
 
- .text-disabled {
- 	color: #5d5d5d;
- }
+.text-disabled {
+	color: #5d5d5d;
+}
 
- /* 聊天框样式 */
- :root {
- 	--input-height: 80px;
- }
+/* 聊天框样式 */
+:root {
+	--input-height: 80px;
+}
 
- .cosmos-body {
- 	display: flex;
- 	flex-direction: row; /* 水平布局 */
- 	height: calc(100vh - 5rem);
-	column-gap: 10px;
- 	/* 减去 header 的高度 */
- 	padding: 10px;
- 	box-sizing: border-box;
- 	width: 100%; /* 占据全部宽度 */
- }
-
- .cosmos-chat {
- 	flex: 1; /* 占据剩余宽度 */
- 	display: flex;
- 	flex-direction: column;
- 	background-color: #363636;
- 	border-radius: 20px;
- 	overflow: hidden;
-    width: 100%; /* 占据全部宽度 */
-    height: 100%; /* 占据全部高度 */
- }
-
- .messages {
- 	flex: 1;
- 	overflow-y: auto;
- 	padding: 20px;
- 	display: flex;
- 	flex-direction: column;
- 	align-items: flex-start;
- 	gap: 15px;
- 	/* padding-bottom: var(--input-height); */
- }
-
- .messages::-webkit-scrollbar {
- 	width: 8px;
- 	height: 8px;
- }
-
- .messages::-webkit-scrollbar-track {
- 	background: #363636;
- 	border-radius: 4px;
- }
-
- .messages::-webkit-scrollbar-thumb {
- 	background: #5d5d5d;
- 	border-radius: 4px;
- 	transition: background 0.3s;
- }
-
- .messages::-webkit-scrollbar-thumb:hover {
- 	background: #3f3f3f;
- }
-
- .messages {
- 	scrollbar-width: thin;
- 	scrollbar-color: #5d5d5d #363636;
- }
-
- .message {
- 	max-width: 70%;
- 	width: max-content;
- 	padding: 12px 20px;
- 	border-radius: 20px;
- 	background: #5d5d5d;
- 	color: #fff;
- 	word-break: break-word;
- 	animation: fadeIn 0.3s ease-in;
- }
-
- .message.user-message {
- 	background: #3f3f3f;
- 	align-self: flex-end;
- }
-
- .message.time-msg{
-    align-self: center;
-    text-align: center;
-    color: gray;
-    font-size: 18px;
-	background-color: transparent;
- }
-
- .input-container {
- 	position: sticky;
- 	bottom: 0;
- 	background: #363636;
- 	padding: 20px;
- 	box-shadow: 0 -5px 15px rgba(0, 0, 0, 0.2);
- 	display: flex;
- 	gap: 10px;
- }
-
- #message-input {
- 	flex: 1;
- 	padding: 15px;
- 	border: none;
- 	border-radius: 25px;
- 	background: #5d5d5d;
- 	color: #fff;
- 	font-size: 16px;
- }
-
- #send-button {
- 	padding: 15px 30px;
- 	border: none;
- 	border-radius: 25px;
- 	background: #3f3f3f;
- 	color: #fff;
- 	cursor: pointer;
- 	transition: background 0.3s;
- }
-
- #send-button:hover {
- 	background: #5d5d5d;
- }
-
- @keyframes fadeIn {
- 	from {
- 		opacity: 0;
- 		transform: translateY(10px);
- 	}
-
- 	to {
- 		opacity: 1;
- 		transform: translateY(0);
- 	}
- }
-
-
- body {
- 	margin: 0;
- }
-
- .name {
- 	width: 50%;
- 	height: 1vh;
-
- }
-
- .cosmos-right {
- 	flex: 0 0 30rem; /* 不允许放大，不允许缩小，初始宽度为 30rem */
- 	display: flex;
- 	flex-direction: column; /* 垂直布局 */
-	/* padding: 10px; */
-	box-sizing: border-box; /* 包含 padding */
- }
-
- .dashboard {
+.cosmos-body {
 	display: flex;
 	flex-direction: row;
-	/* padding: 40px; */
+	/* 水平布局 */
+	height: calc(100vh - 5rem);
+	column-gap: 10px;
+	/* 减去 header 的高度 */
+	padding: 10px;
+	box-sizing: border-box;
+	width: 100%;
+	/* 占据全部宽度 */
+}
+
+.cosmos-chat {
+	flex: 1;
+	/* 占据剩余宽度 */
+	display: flex;
+	flex-direction: column;
+	background-color: #363636;
+	border-radius: 20px;
+	overflow: hidden;
+	width: 100%;
+	/* 占据全部宽度 */
+	height: 100%;
+	/* 占据全部高度 */
+}
+
+.messages {
+	flex: 1;
+	overflow-y: auto;
+	padding: 20px;
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	gap: 15px;
+	/* padding-bottom: var(--input-height); */
+}
+
+.messages::-webkit-scrollbar {
+	width: 8px;
+	height: 8px;
+}
+
+.messages::-webkit-scrollbar-track {
+	background: #363636;
+	border-radius: 4px;
+}
+
+.messages::-webkit-scrollbar-thumb {
+	background: #5d5d5d;
+	border-radius: 4px;
+	transition: background 0.3s;
+}
+
+.messages::-webkit-scrollbar-thumb:hover {
+	background: #3f3f3f;
+}
+
+.messages {
+	scrollbar-width: thin;
+	scrollbar-color: #5d5d5d #363636;
+}
+
+.message {
+	max-width: 70%;
+	width: max-content;
+	padding: 12px 20px;
+	border-radius: 20px;
+	background: #5d5d5d;
+	color: #fff;
+	word-break: break-word;
+	animation: fadeIn 0.3s ease-in;
+}
+
+.message.user-message {
+	background: #3f3f3f;
+	align-self: flex-end;
+}
+
+.message.time-msg {
+	align-self: center;
+	text-align: center;
+	color: gray;
+	font-size: 18px;
+	background-color: transparent;
+}
+
+.input-container {
+	position: sticky;
+	bottom: 0;
+	background: #363636;
+	padding: 20px;
+	box-shadow: 0 -5px 15px rgba(0, 0, 0, 0.2);
+	display: flex;
+	gap: 10px;
+}
+
+#message-input {
+	flex: 1;
+	padding: 15px;
+	border: none;
+	border-radius: 25px;
+	background: #5d5d5d;
+	color: #fff;
+	font-size: 16px;
+}
+
+#send-button {
+	padding: 15px 30px;
+	border: none;
+	border-radius: 25px;
+	background: #3f3f3f;
+	color: #fff;
+	cursor: pointer;
+	transition: background 0.3s;
+}
+
+#send-button:hover {
+	background: #5d5d5d;
+}
+
+@keyframes fadeIn {
+	from {
+		opacity: 0;
+		transform: translateY(10px);
+	}
+
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+body {
+	margin: 0;
+}
+
+.name {
+	width: 50%;
+	height: 1vh;
+}
+
+.cosmos-right {
+	display: flex;
+	flex-direction: column;
+	/* 垂直布局 */
+	box-sizing: border-box;
+	/* 包含 padding */
+	height: 100%;
+	/* 确保 cosmos-right 高度撑满父元素 */
+}
+
+.dashboard {
+	display: flex;
+	flex-direction: row;
 	width: 100%;
 	height: 100%;
-	column-gap:10px;
+	column-gap: 10px;
 	justify-content: space-between;
-	border: aqua 2px solid;
+	/* border: aqua 2px solid; */
 	max-height: fit-content;
-    min-height: fit-content;
- }
+	min-height: fit-content;
+}
 
 .heart-section {
 	flex: 1;
 	display: flex;
-	flex-direction: column; /* 水平布局 */
+	flex-direction: column;
+	/* 水平布局 */
 	justify-content: space-between;
 	align-items: stretch;
-	/* border-right: 2px solid #333; */
 	width: 73%;
 	row-gap: 13px;
-	/* max-height: 30vh; */
 }
 
 .heart-rate {
-	width: 100%; /* 占据全部宽度 */
-	background-image: url('../res/animation/heart_beat/heart_beat_0.gif'); /* 替换为你的心跳图 URL */
-	background-size: cover; /* 覆盖整个区域 */
- 	background-position: center; /* 居中显示 */
- 	display: flex;
- 	justify-content: center; /* 垂直居中 */
- 	align-items: center; /* 水平居中 */
- 	border: red 0.125rem solid; /* 2px / 16px */
- 	opacity: 0.5; /* 设置透明度 */
- 	box-sizing: border-box; /* 包含 border */
- }
+	width: 100%;
+	/* 占据全部宽度 */
+	background-image: url('../res/animation/heart_beat/heart_beat_0.gif');
+	/* 替换为你的心跳图 URL */
+	mix-blend-mode: lighten;
+	/* 混合模式 */
+	background-size: cover;
+	/* 覆盖整个区域 */
+	background-position: center;
+	/* 居中显示 */
+	display: flex;
+	justify-content: center;
+	/* 垂直居中 */
+	align-items: center;
+	/* 水平居中 */
+	opacity: 0.5;
+	/* 设置透明度 */
+	box-sizing: border-box;
+	/* 包含 border */
+}
 
 .bpm {
 	color: #5d5d5d;
@@ -241,299 +252,313 @@ html {
 	min-height: 40px;
 	color: white;
 	font-size: 1.5em;
-	border: green 2px solid;
-	background-image: url('../res/img/heart_rate.png'); 
-	background-size: 100% 100%; /* 图片自适应宽和高 */
-	background-repeat: no-repeat; /* 防止图片重复 */
+	background-image: url('../res/img/heart_rate.png');
+	background-size: 100% 100%;
+	/* 图片自适应宽和高 */
+	background-repeat: no-repeat;
+	/* 防止图片重复 */
 }
 
- .metrics {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    width: 30%;
-    height: 100%;
-    align-items: stretch;
- }
-
- .metric {
- 	text-align: center;
-	height: auto;
-	flex: 1; /* 占据剩余高度 */
+.metrics {
 	display: flex;
-	flex-direction: column;
-	justify-content: space-between;
+	flex-direction: row;
+	justify-content: center;
+	width: 30%;
+	height: 100%;
+	align-items: stretch;
+}
+
+.metric {
+	text-align: center;
+	height: auto;
+	flex: 1;
+	display: flex;
 	padding-left: 3px;
-    padding-top: 3px;
- }
+	padding-top: 3px;
+	flex-direction: column;
+	align-items: center;
+}
 
- .bars {
- 	margin: 0 8px;
- 	width: 25px;
- 	height: 100%;
- 	background: #2d2d2d;
- 	border-radius: 8px;
- 	position: relative;
- 	overflow: hidden;
- }
+.bars {
+	margin: 0 8px;
+	width: 25px;
+	height: 100%;
+	background: #2d2d2d;
+	border-radius: 8px;
+	position: relative;
+	overflow: hidden;
+}
 
- .bar {
- 	bottom: 0;
- 	background-color: #2d2d2d;
- 	width: 100%;
- 	position: absolute;
- 	transition: height 0.8s cubic-bezier(0.4, 0, 0.2, 1);
- }
+.bar {
+	bottom: 0;
+	background-color: #2d2d2d;
+	width: 100%;
+	position: absolute;
+	transition: height 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
 
- /* 三个柱状图 */
- .OO {
- 	background-color: #78a074;
- }
+/* 三个柱状图 */
+.OO {
+	background-color: #78a074;
+}
 
- .HOO {
- 	background-color: #6d98a1;
- }
+.HOO {
+	background-color: #6d98a1;
+}
 
- .ENG {
- 	background-color: darkgoldenrod;
- }
+.ENG {
+	background-color: darkgoldenrod;
+}
 
- /*  */
- .metric-label {
- 	color: #fff;
- 	font-size: 0.8em;
- 	text-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+/*  */
+.metric-label {
+	color: #fff;
+	font-size: 0.8em;
+	text-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
 	line-height: 24px;
 	text-align: center;
 	display: inline-flex;
 	justify-content: center;
- }
+}
 
- @keyframes pulse {
+@keyframes pulse {
 
- 	0%,
- 	100% {
- 		transform: scale(1);
- 		opacity: 0.9;
- 	}
+	0%,
+	100% {
+		transform: scale(1);
+		opacity: 0.9;
+	}
 
- 	50% {
- 		transform: scale(1.02);
- 		opacity: 1;
- 	}
- }
+	50% {
+		transform: scale(1.02);
+		opacity: 1;
+	}
+}
 
- .Aliya {
- 	color: white;
- 	/* width: 90%; */
- 	border-radius: 10px;
- 	font-size: 1.5rem;
- 	padding: 0 0 0 15px;
- 	/* position: absolute; */
- 	top: 0;
- 	background: #454545;
- }
+.Aliya {
+	color: white;
+	border-radius: 10px;
+	font-size: 1.5rem;
+	padding: 0 0 0 15px;
+	top: 0;
+	background: #454545;
+}
 
- /* right */
+/* right */
 
- .status-labels {
- 	position: absolute;
- 	top: 7px;
- 	left: 0px;
- 	width: 100%;
- 	display: flex;
- 	justify-content: space-around;
- 	color: #ecf0f1;
- 	font-family: Arial, sans-serif;
- 	font-size: 14px;
- }
+.status-labels {
+	position: absolute;
+	top: 6px;
+	left: 0px;
+	width: 100%;
+	display: flex;
+	justify-content: space-around;
+	color: #ecf0f1;
+	font-family: Arial, sans-serif;
+	font-size: 14px;
+}
 
- .status-label {
- 	opacity: 0.3;
- 	transition: opacity 0.3s;
- }
+.status-label {
+	opacity: 0.3;
+	transition: opacity 0.3s;
+}
 
- .status-label.active {
- 	opacity: 1;
- }
+.status-label.active {
+	opacity: 1;
+}
 
- /* 开关核心样式 */
- .switch {
- 	width: 5rem;
- 	height: 3.5rem;
- 	background: #202020;
- 	border-radius: 6px;
- 	position: relative;
- 	top: 6px;
- 	cursor: pointer;
- 	margin: 20px auto;
- 	transition: all 0.3s cubic-bezier(0.4, 0, 0, 0.2);
- }
+/* 开关核心样式 */
+.switch {
+	width: 5rem;
+	height: 3.5rem;
+	background: #202020;
+	border-radius: 6px;
+	position: relative;
+	top: 6px;
+	cursor: pointer;
+	margin: 20px auto;
+	transition: all 0.3s cubic-bezier(0.4, 0, 0, 0.2);
+}
 
- .switch.active {
- 	background: #464646;
- 	/* 开启状态颜色 */
- }
+.switch.active {
+	background: #464646;
+	/* 开启状态颜色 */
+}
 
- .switch-button {
- 	width: 2.5rem;
- 	height: 4rem;
- 	background: #646464;
- 	position: absolute;
- 	top: -4px;
- 	left: 0px;
- 	border-radius: 4px;
- 	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
- 	transition: inherit;
- 	/* 继承父级过渡效果 */
- }
+.switch-button {
+	width: 2.5rem;
+	height: 4rem;
+	background: #646464;
+	position: absolute;
+	top: -4px;
+	left: 0px;
+	border-radius: 4px;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+	transition: inherit;
+	/* 继承父级过渡效果 */
+}
 
- .switch.active .switch-button {
- 	left: calc(100% - 40px);
- }
+.switch.active .switch-button {
+	left: calc(100% - 40px);
+}
 
- .s-label {
- 	/* background-color: #454545; */
- 	width: 55px;
- 	/* height: 21px; */
- 	text-align: center;
- 	color: #ecf0f1;
- 	font-family: Arial, sans-serif;
- 	font-size: 17px;
- 	letter-spacing: 1px;
- 	position: absolute;
+.s-label {
+	width: 55px;
+	text-align: center;
+	color: #ecf0f1;
+	font-family: Arial, sans-serif;
+	font-size: 17px;
+	letter-spacing: 1px;
+	position: absolute;
 	left: 35px;
 	top: 107px;
- }
+}
 
- .cosmos-right-switch {
-	width: 97%;
+.cosmos-right-switch {
+	/* width: 97%; */
+	height: 298px;
 	background: #454545;
 	border-radius: 13px;
-	/* height: 30vh; */
 	margin-top: 10px;
 	padding: 1vh;
-	/* margin-left: auto; */
-	/* margin-right: auto; */
+	/* flex: 1; 让按钮部分自适应剩余高度 */
+}
+
+.switch-right-bg {
+	position: relative;
+	height: 100%;
+	/* 让背景图高度撑满父元素 */
+	background-image: url(../res/img/cosmos_console.png);
+	background-size: contain;
+	/* 修改为 contain 以保持图片比例 */
+	background-position: center;
+	background-repeat: no-repeat;
+	/* 防止图片重复 */
+}
+
+.switch-bg {
+	width: 6rem;
+	height: 4.2rem;
+	border-radius: 8px;
+	margin-bottom: 1px;
+}
+
+.switch-wrapper {
+	position: relative;
+	border-radius: 10px;
+	padding: 7px;
+}
+
+.switch-container {
+	position: relative;
+	top: -9px;
+	display: grid;
+	grid-template-columns: repeat(3, 5fr);
+	gap: 1.6rem;
+	padding: 0.5rem;
+	border-radius: 15px;
+	justify-items: center;
+	align-items: center;
+}
+
+.switch-wrapper:nth-child(4) {
+	grid-row: 2 / 3;
+	grid-column: 3 / 4;
+	margin-top: -7px;
+	justify-self: flex-end;
+}
+
+#switch-bg {
+	width: 380px;
+	margin: 10px;
+}
+
+/* 适用于所有移动设备 */
+@media only screen and (max-width: 850px) {
+
+	/* 在这里编写适用于移动设备的 CSS */
+	.not-moble {
+		display: none;
 	}
 
 	.switch-right-bg {
-		position: relative;
-		/* width: 100%; */
-		/* height: 30vh; */
-		height: 310px;
-		background-image: url(../res/img/cosmos_console.png);
-		background-size: cover;
+		width: max-content;
+		background-size: contain;
 		background-position: center;
+		position: relative;
+		left: 50%;
+		transform: translate(-50%);
 	}
 
- .switch-bg {
- 	/* background: #2c2c2c; */
- 	width: 6rem;
- 	height: 4.2rem;
- 	border-radius: 8px;
- 	margin-bottom: 1px;
- }
+	.label {
+		height: 4rem;
+	}
 
- .switch-wrapper {
- 	position: relative;
- 	/* border: 2px #202020 solid; */
- 	border-radius: 10px;
- 	padding: 7px;
- }
+	.cosmos-body {
+		width: 100%;
+		flex-direction: column;
+		/* 垂直布局 */
+		/* height: auto; */
+	}
 
+	.cosmos-chat {
+		min-height: 300px;
+	}
 
- .switch-container {
- 	position: relative;
- 	top: -13px;
- 	/* right: -5px; */
- 	display: grid;
- 	/* 启用 Grid 布局 */
- 	grid-template-columns: repeat(3, 1fr);
- 	/* 关键新增：定义三列 */
- 	grid-auto-rows: auto,auto;
- 	/* 自动行高（可选） */
-	justify-content: space-around;
-	/* display: flex; */
-	gap: 1.6rem;
-	padding: 0.5rem;
- 	border-radius: 15px;
- }
+	.cosmos-right {
+		margin-top: 10px;
+	}
+}
 
- .switch-wrapper:nth-child(4) {
- 	grid-row: 2 / 3;
- 	/* 第二行 */
- 	grid-column: 3 / 4;
- 	/* 第三列 */
- 	margin-top: 5px;
-	justify-self: flex-end;
- }
+@media only screen and (max-width: 650px) {
+	.warning {
+		display: none;
+	}
+}
 
+@media only screen and (max-width: 500px) {
+	.text-disabled {
+		display: none;
+	}
+}
 
- #switch-bg {
- 	width: 380px;
- 	margin: 10px;
- }
-
- /* 适用于所有移动设备 */
- @media only screen and (max-width: 850px) {
-
- 	/* 在这里编写适用于移动设备的 CSS */
- 	.not-moble {
- 		display: none;
- 	}
-
- 	.cosmos-body {
- 		width: 100%;
- 	}
- }
-
- img {
- 	-webkit-user-drag: none;
- }
-
- @media only screen and (max-width: 650px) {
- 	.warning {
- 		display: none;
- 	}
- }
-
- @media only screen and (max-width: 500px) {
- 	.text-disabled {
- 		display: none;
- 	}
- }
-
- .player-options-container {
- 	flex: 1; /* 占据剩余高度 */
- 	background-color: #363636;
- 	border-radius: 20px;
- 	margin-top: 10px;
-    display: flex; /* 使用 Flexbox 布局 */
-    justify-content: center; /* 均匀分布按钮 */
-    align-items: center; /* 垂直居中按钮 */
+.player-options-container {
+	flex: 1;
+	/* 占据剩余高度 */
+	background-color: #444444;
+	border-radius: 20px;
+	margin-top: 10px;
+	display: flex;
+	/* 使用 Flexbox 布局 */
+	justify-content: center;
+	/* 均匀分布按钮 */
+	align-items: center;
+	/* 垂直居中按钮 */
 	background-repeat: no-repeat;
 	background-position: center;
 	background-size: contain;
-	max-height: 300px; /* 设置容器的最大高度，超过这个高度时会出现滚动 */
-	overflow-y: auto; /* 如果内容超出，显示垂直滚动条 */
-	padding: 10px; /* 为容器添加一些内边距，防止内容贴着边缘 */
- }
+	/* max-height: 300px; 设置容器的最大高度，超过这个高度时会出现滚动 */
+	overflow-y: auto;
+	/* 如果内容超出，显示垂直滚动条 */
+	padding: 10px;
+	/* 为容器添加一些内边距，防止内容贴着边缘 */
+}
 
- .player-options-container button {
-    background-color: #5d5d5d;
-    color: #fff;
-    border: none;
-    border-radius: 10px;
-    font-size: 1.2em;
-    cursor: pointer;
- }
+.player-options-container button {
+	background-color: #5d5d5d;
+	color: #fff;
+	border: none;
+	border-radius: 10px;
+	font-size: 1.2em;
+	cursor: pointer;
+}
 
- .chat-image {
-	max-width: 200px; /* 限制最大宽度 */
-	max-height: 200px; /* 限制最大高度 */
+.chat-image {
+	max-width: 200px;
+	/* 限制最大宽度 */
+	max-height: 200px;
+	/* 限制最大高度 */
 	border-radius: 10px;
 	display: block;
 	margin: 5px 0;
-  }
-  
+}

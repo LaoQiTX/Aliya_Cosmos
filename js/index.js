@@ -281,7 +281,7 @@ function wait(ms) {
 // 显示加载点点点的GIF
 function showPointLoadingGif() {
 	elements.optionsContainer.style.backgroundImage = "url('../res/animation/wait/donet_waiting.gif')";
-	elements.optionsContainer.style.backgroundSize = 'cover';
+	// elements.optionsContainer.style.backgroundSize = 'cover';
 	elements.optionsContainer.innerHTML = ''; // 隐藏选项
 }
 
