@@ -1439,10 +1439,10 @@
         {
           "type": "aliya",
           "content": [
-            "嗯，其实 todo 缺少music tell me"
+            "嗯，其实"
           ],
           "params": {
-            "music": "./res/music/lack.mp3",
+            "music": "./res/music/BeliveMe.mp3",
             "heart_rate": [
               50,
               70

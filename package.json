@@ -4,12 +4,23 @@
   "description": "本项目是基于《彼方的她》游戏二创，截至目前暂未完成所有功能\r 有bug和建议欢迎反馈",
   "main": "main.js",
   "scripts": {
-    "start": "electron ."
+    "start": "electron .",
+    "build": "electron-builder"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "electron": "^35.1.2"
+  },
+  "build": {
+    "appId": "com.qdw.yae",
+    "productName": "QDW_demo", 
+    "win": {
+      "target": "nsis"
+    },
+    "directories": {
+      "output": "dist_electron" 
+    }
   }
 }
