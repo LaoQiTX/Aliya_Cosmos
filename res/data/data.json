@@ -4,13 +4,6 @@
       "timestamp": 900000,
       "messages": [
         {
-          "type": "aliya",
-          "content": [
-            "[发送图片]"
-          ],
-          "image_url": "./res/img/encode_coop.jpg"
-        },
-        {
           "type": "player_options",
           "content": [
             "Aliya..."
@@ -1373,18 +1366,6 @@
           "type": "aliya",
           "content": [
             "帮我把制氧开关打开吧"
-          ]
-        },
-        {
-          "type": "player_action",
-          "content": [
-            "（打开制氧开关）"
-          ]
-        },
-        {
-          "type": "system",
-          "content": [
-            "（制氧开关在水量条几乎耗尽时自动关闭）"
           ]
         },
         {

@@ -26,7 +26,7 @@ laoqi_young@foxmail.com
 项目启动:
 
 1.open Server live
-2.npx start (起应用)
+2.npm start (起应用)
 
 3.npx electron-packager . MyApp --platform=win32 --arch=x64 --out=dist --overwrite --icon=QDW.ico
 参数:
