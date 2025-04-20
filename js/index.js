@@ -72,9 +72,6 @@ function updateMessagesPadding() {
 // todo 发送通知时显示用户名有问题 
 function createMessage(text, isUser = true) {
 	// debugger;
-	if (text.includes("$userName$")) {
-		text = text.replace("$userName$", savedUsername)
-	}
 	const div = document.createElement('div');
 	div.className = `message ${isUser ? 'user-message' : ''}`;
 	div.textContent = text;
@@ -116,6 +113,9 @@ function createTimeMsg(text){
 function addMessage(text, isUser = true, needNotify = true) {
 	// 如果options的动画还没结束就再次触发来进行结束
 	hideLoadingGif();
+	if (text.includes("$userName$")) {
+		text = text.replace("$userName$", savedUsername)
+	}
 	const messageElement = createMessage(text, isUser);
 	elements.container.appendChild(messageElement);
 	checkAutoScroll();
