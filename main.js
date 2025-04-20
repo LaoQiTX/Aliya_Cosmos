@@ -26,7 +26,9 @@ logMessage("应用启动了！");
 function createWindow() {
     let win = new BrowserWindow({
         width: 1024,
-        height: 800,
+        height: 900,
+        minWidth: 900,
+        minHeight: 800,
         icon: path.join(__dirname, 'QDW.ico'),
         webPreferences: {
             preload: path.join(__dirname, 'preload.js'), // 指定 preload 脚本
@@ -36,7 +38,7 @@ function createWindow() {
     });
 
     win.loadFile('index.html');
-    win.webContents.openDevTools(); // 添加这行来自动打开开发者工具
+    // win.webContents.openDevTools(); // 添加这行来自动打开开发者工具
 }
 
 console.log("主进程启动成功");

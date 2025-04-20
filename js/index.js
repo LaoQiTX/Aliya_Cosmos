@@ -175,7 +175,7 @@ function sendUserMessage() {
 
 // 定义开关音效对象
 const switchSound = new Howl({
-    src: ['../res/music/switch.wav'], 
+    src: ['./res/music/switch.wav'], 
     loop: false, 
     volume: 1 
 });
@@ -493,7 +493,7 @@ async function loadMessages() {
 					// 等待action
 					if (message.params && message.params.need_action) {
 						await waitForEHSwitch();
-					}					
+					}
 					// debugger; 当前应是具体流程
 					if (message.type === 'player_options') {
 						const choiceIndex = await showOptions(message.content,message.params);
@@ -809,6 +809,11 @@ function loadConstConifg(){
 	eng = cachedData.resouce.eng;
 	updateResBarConifg(oxgen,water,eng);
 	const heartRate = cachedData.heart_rate;
+	console.log(heartRate);
+	if(heartRate[0] == 0 && heartRate[1] == 0){
+		document.querySelector('.heart-rate').style.backgroundImage = "url('./res/animation/heart_beat/heart_beat_0.gif')";	
+		document.querySelector('#ecgCanvas').style.display = "none";
+	}
 	setHeartBeat(heartRate[0],heartRate[1]);
 	playMusicV1(cachedData.last_music,true,0.5);
 }
@@ -841,9 +846,10 @@ function startResourceDecay() {
     if (resourceInterval || isPaused) return; // 如果已有定时器或已暂停则不重复启动
     resourceInterval = setInterval(() => {
 		// todo 待加按钮是否打开判断
-		if (EOHBtnActive) {
+		// 开启制氧机时水减少，氧气增加
+		if (water>0 && EOHBtnActive) {
 			oxgen += 0.1;
-			water += 0.1;
+			water -= 0.1;
 		}
 		 if (eng > 5 && EHBtnActive) {
             eng -= 0.1;
@@ -973,7 +979,6 @@ Object.defineProperty(window, 'shouldSaveData', {
 	}
 });
 
-// 开关音效
 
 
 

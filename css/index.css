@@ -469,6 +469,7 @@ body {
 	grid-column: 3 / 4;
 	margin-top: -7px;
 	justify-self: flex-end;
+	pointer-events: none;
 }
 
 #switch-bg {
@@ -577,4 +578,13 @@ body {
 	border-radius: 10px;
 	display: block;
 	margin: 5px 0;
+}
+
+.radio-pin{
+	height: 35px;
+    position: relative;
+    z-index: 9;
+    top: -52px;
+    left: 69px;
+	pointer-events: none;
 }

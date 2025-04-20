@@ -561,7 +561,10 @@
           "type": "player_action",
           "content": [
             "（打开制氧开关）"
-          ]
+          ],
+          "params": {
+            "need_action":true
+          }
         },
         {
           "type": "system",
