@@ -146,8 +146,17 @@ function checkAutoScroll() {
 // 通知系统
 function requestNotificationPermission() {
 	if (Notification.permission === 'granted') return;
-	Notification.requestPermission();
+
+	Notification.requestPermission().then(permission => {
+		if (permission === 'granted') {
+			console.log("用户允许了通知");
+			// 可以执行通知相关逻辑
+		} else {
+			console.warn("用户拒绝了通知");
+		}
+	});
 }
+
 // todo 加变量来区分当前是处于加载状态还是正常状态
 function checkNotification(text, isUser) {
 	if (!isUser && !document.hasFocus() && Notification.permission === 'granted') {
@@ -706,15 +715,15 @@ function loadCacheData(dialogueDto,cacheOptionList,message,currentMessageIndex){
  * @param {JSON} message 剧情文本
  */
 function sendMsg(content,message){
-	var isLoad = content == null?false:true;
+	var isLoad = content != null;
 	if(message.image_url){
-		addImageMessage(message.image_url, false,isLoad);
+		addImageMessage(message.image_url, false,!isLoad);
 	}else{
 		// 如果aliya发送的消息不是img的时候 则需要把他的content更新到content进行输出
 		if(message.type == 'aliya'){
 			content = message.content[0];
 		}
-		addMessage(content, message.type !== 'aliya', isLoad);
+		addMessage(content, message.type !== 'aliya', !isLoad);
 	}
 	if(isLoad == false){
 		// debugger;
@@ -979,6 +988,13 @@ Object.defineProperty(window, 'shouldSaveData', {
 	}
 });
 
+
+window.addEventListener('load', () => {
+	setTimeout(() => {
+		alert("为了完整体验，请允许通知权限哦！");
+		requestNotificationPermission();
+	}, 1000);
+});
 
 
 

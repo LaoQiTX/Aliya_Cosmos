@@ -38,7 +38,7 @@ function createWindow() {
     });
 
     win.loadFile('index.html');
-    // win.webContents.openDevTools(); // 添加这行来自动打开开发者工具
+    win.webContents.openDevTools(); // 添加这行来自动打开开发者工具
 }
 
 console.log("主进程启动成功");
