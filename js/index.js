@@ -111,6 +111,11 @@ function createTimeMsg(text){
 }
 
 function addMessage(text, isUser = true, needNotify = true) {
+	// 如果text为null或undefined，跳过处理
+	if (typeof text !== 'string') {
+		console.warn('⚠️ 试图添加空文本消息，已跳过:', text);
+		return;
+	}
 	// 如果options的动画还没结束就再次触发来进行结束
 	hideLoadingGif();
 	if (text.includes("$userName$")) {
@@ -494,15 +499,24 @@ async function loadMessages() {
 						hasSendTime = true;
 						console.log("已经输出过时间了");
 					}
-
+					
 					if (dialogueDto.getIsLoad()) {
 						currentMessageIndex = loadCacheData(dialogueDto,cacheOptionList,message,currentMessageIndex);
 						continue;
 					}
 					// 等待action
 					if (message.params && message.params.need_action) {
-						await waitForEHSwitch();
-					}
+						if (message.content[0].includes('燃料')) {
+                            // 当玩家需要打开燃料开关时，调用等待函数
+                            await waitForEHSwitch();
+                        }
+                        if (message.content[0].includes('制氧')) {
+                            // 当玩家需要打开氧气开关时，调用等待函数
+                            await waitForEOGSwitch();
+                        }
+						
+                    }
+					console.log("当前的消息是" + message.content[0]);
 					// debugger; 当前应是具体流程
 					if (message.type === 'player_options') {
 						const choiceIndex = await showOptions(message.content,message.params);
@@ -935,11 +949,41 @@ function waitForEHSwitch() {
                 ehSwitch.style.opacity = '';
                 alert("EH 关闭，剧情继续");
                 resolve();
+				
             }, 15000);
         };
         // 等待玩家主动开启
         alert("请点击右侧 EH 开关以继续剧情（开启后将自动保持 15 秒）");
         ehSwitch.addEventListener('click', onEHClicked);
+    });
+}
+
+// 等待EOG开关激活
+function waitForEOGSwitch() {
+    return new Promise(resolve => {
+        const eogSwitch = document.getElementById('eog-switch-btn');
+        if (!eogSwitch) {
+            alert("找不到 EOG 开关按钮！");
+            resolve();
+            return;
+        }
+
+		setTimeout(() => {
+        const onEOGClicked = () => {
+            // 判断是否是开启操作
+            const isActive = eogSwitch.classList.contains('active');
+            if (!isActive) return; // 只处理开启的情况
+
+            // 移除监听，避免重复触发
+            eogSwitch.removeEventListener('click', onEOGClicked);
+            alert("EOG 开关已开启，剧情继续");
+
+            resolve(); // 开关激活后继续剧情
+        };
+		}, 10000);
+        // 等待玩家主动开启
+        alert("请点击右侧 EOG 开关以继续剧情");
+        eogSwitch.addEventListener('click', onEOGClicked);
     });
 }
 

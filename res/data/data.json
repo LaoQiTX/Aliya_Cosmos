@@ -640,16 +640,16 @@
           "type": "player_action",
           "content": [
             "（打开燃料阀）（燃料阀约15秒后手动关闭，氧气和燃料条随之下降） todo 资源交互逻辑"
-          ]
+          ],
+          "params": {
+            "need_action": true
+          }
         },
         {
           "type": "player_options",
           "content": [
             "[为什么你好像很兴奋？]"
-          ],
-          "params": {
-            "need_action": true
-          }
+          ]
         },
         {
           "type": "aliya",
