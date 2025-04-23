@@ -51,7 +51,7 @@ function updateHeartRate(min,max) {
 	const randomHeartRate = getRandomHeartRate(min, max); // 设置心率范围
 	if (min>0 || max>0) {
 		document.querySelector('.heart-rate').style.backgroundImage = "none";	
-		document.querySelector('#ecgCanvas').style.display = "block";
+		// document.querySelector('#ecgCanvas').style.display = "block";
 	}
 	bpmElement.textContent = randomHeartRate;
 }
