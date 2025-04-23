@@ -1,5 +1,7 @@
 // import * as saveModule from './save.js';
 import * as loadModule from './load.js';
+import { ActionEnum } from './enums/action_enum.js';
+
 // import { Howl } from 'howler';
 
 // 配置参数
@@ -506,15 +508,22 @@ async function loadMessages() {
 					}
 					// 等待action
 					if (message.params && message.params.need_action) {
-						if (message.content[0].includes('燃料')) {
-                            // 当玩家需要打开燃料开关时，调用等待函数
-                            await waitForEHSwitch();
-                        }
-                        if (message.content[0].includes('制氧')) {
-                            // 当玩家需要打开氧气开关时，调用等待函数
-                            await waitForEOGSwitch();
-                        }
-						
+						// if (message.content[0].includes('燃料')) {
+                        //     // 当玩家需要打开燃料开关时，调用等待函数
+                        //     await waitForEHSwitch();
+                        // }
+                        // if (message.content[0].includes('制氧')) {
+                        //     // 当玩家需要打开氧气开关时，调用等待函数
+                        //     await waitForEOGSwitch();
+                        // }
+						switch(message.params.need_action){
+							case ActionEnum.EOH:
+								await waitForEOGSwitch();
+								break;
+							case ActionEnum.EH:
+								await waitForEHSwitch();
+								break;
+						}
                     }
 					console.log("当前的消息是" + message.content[0]);
 					// debugger; 当前应是具体流程

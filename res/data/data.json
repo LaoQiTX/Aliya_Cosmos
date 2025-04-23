@@ -637,19 +637,13 @@
           ]
         },
         {
-          "type": "player_action",
-          "content": [
-            "（打开燃料阀）（燃料阀约15秒后手动关闭，氧气和燃料条随之下降） todo 资源交互逻辑"
-          ],
-          "params": {
-            "need_action": true
-          }
-        },
-        {
           "type": "player_options",
           "content": [
             "[为什么你好像很兴奋？]"
-          ]
+          ],
+          "params": {
+            "need_action": "eh" 
+          }
         },
         {
           "type": "aliya",
@@ -799,25 +793,13 @@
           ]
         },
         {
-          "type": "player_action",
-          "content": [
-            "（打开制氧开关）"
-          ],
-          "params": {
-            "need_action": true
-          }
-        },
-        {
-          "type": "system",
-          "content": [
-            "（比昨天更低的水量条继续下降，在下降到较低的水平时制氧开关自动关闭了）"
-          ]
-        },
-        {
           "type": "aliya",
           "content": [
             "诶？为什么没充满"
-          ]
+          ],
+          "params": {
+            "need_action": "eho"
+          }
         },
         {
           "type": "aliya",
