@@ -49,6 +49,10 @@ function updateHeartRate(min,max) {
 	const bpmElement = document.querySelector('.bpm');
 	// debugger;
 	const randomHeartRate = getRandomHeartRate(min, max); // 设置心率范围
+	if (min>0 || max>0) {
+		document.querySelector('.heart-rate').style.backgroundImage = "none";	
+		document.querySelector('#ecgCanvas').style.display = "block";
+	}
 	bpmElement.textContent = randomHeartRate;
 }
 
@@ -57,6 +61,7 @@ function setHeartBeat(min, max) {
     if (heartBeatInterval) {
         clearInterval(heartBeatInterval);
     }
+	
     heartBeatInterval = setInterval(() => updateHeartRate(min, max), 1000);
 }
 
