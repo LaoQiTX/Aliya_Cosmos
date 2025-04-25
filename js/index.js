@@ -26,6 +26,8 @@ let EHBtnActive = false;
 
 // 初始化
 function init() {
+	window.electronAPI.getAppAsarMD5();
+	debugger;
 	requestNotificationPermission();
 	// 定期更新心率
 	resumeInit();

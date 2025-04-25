@@ -11,9 +11,10 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "electron": "^35.2.0"
+    "electron": "^35.1.2"
   },
   "build": {
+    "asar": true,
     "appId": "com.qdw.yae",
     "productName": "QDW_demo",
     "win": {
@@ -22,5 +23,9 @@
     "directories": {
       "output": "dist_electron"
     }
+  },
+  "dependencies": {
+    "@electron/asar": "^3.4.1",
+    "original-fs": "^1.2.0"
   }
 }
