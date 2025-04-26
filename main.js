@@ -3,7 +3,7 @@ const fs = require('fs');
 const path = require('path');
 const os = require('os');
 const crypto = require('crypto');
-const asar = require('@electron/asar');
+// const asar = require('@electron/asar');
 const originalFs = require('original-fs');
 
 
