@@ -113,7 +113,7 @@ console.log("主进程启动成功");
 
 // app.whenReady().then(createWindow);
 app.whenReady().then(()=>{
-    originGetMd5(targetFile);
+    // originGetMd5(targetFile);
     createWindow();
     // calculateExternalAsarMD5(targetFile).then((md5) => {
     //     console.log('Asar hash:', md5);
