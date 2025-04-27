@@ -5,23 +5,39 @@
   "main": "main.js",
   "scripts": {
     "start": "electron .",
-    "build": "electron-builder"
+    "build": "electron-builder --win --x64",
+    "ele_pack": "npx electron-packager . QDW_demo --platform=win32 --arch=x64 --out=dist --overwrite --icon=QDW.ico --asar"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "electron": "^35.1.2"
+    "electron": "^35.1.2",
+    "electron-builder": "^26.0.12"
   },
   "build": {
     "asar": true,
     "appId": "com.qdw.yae",
     "productName": "QDW_demo",
     "win": {
-      "target": "nsis"
+      "target": "nsis",
+      "icon":"./QDW.ico",
+      "sign":false
     },
     "directories": {
       "output": "dist_electron"
+    },
+    "files": [
+      {
+        "from": ".",
+        "filter": ["**/*"]
+      }
+    ],
+    "nsis": {
+      "oneClick": true,
+      "perMachine": false,
+      "allowElevation": true,
+      "allowToChangeInstallationDirectory": true
     }
   },
   "dependencies": {
