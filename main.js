@@ -37,13 +37,8 @@ function createWindow() {
     },
   });
 
-<<<<<<< HEAD
-    win.loadFile('index.html');
-    // win.webContents.openDevTools(); // 添加这行来自动打开开发者工具
-=======
   win.loadFile("index.html");
   win.webContents.openDevTools(); // 添加这行来自动打开开发者工具
->>>>>>> 725582218479c0d43358d186f4c42c0eff50faa2
 }
 
 // app.whenReady().then(createWindow);
