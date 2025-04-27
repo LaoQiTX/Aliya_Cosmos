@@ -4,12 +4,13 @@ const path = require("path");
 const crypto = require("crypto");
 const asar = require("@electron/asar");
 const originalFs = require("original-fs");
+const logger = require("./js/utils/clientUtils/logger.js")
 
 // 获取当前 exe 所在目录
 const appPath = path.dirname(process.execPath);
 
 // 设置日志文件夹路径
-const logDir = path.join(appPath, "log");
+const logDir = path.join(appPath, "logs");
 if (!fs.existsSync(logDir)) {
   fs.mkdirSync(logDir); // 如果不存在，创建 log 文件夹
 }
@@ -49,14 +50,11 @@ function originGetMd5(asarPath) {
   try {
     const data = originalFs.readFileSync(asarPath);
     const md5 = crypto.createHash("md5").update(data).digest("hex");
-    logMessage("MD5->" + md5);
+    logger.info("MD5->" + md5);
   } catch (e) {
-    logMessage(e);
+    logger.error(e);
   }
 }
-
-// 例子：记录应用启动日志
-logMessage("QDW demo start complete");
 
 function createWindow() {
   let win = new BrowserWindow({
@@ -76,13 +74,12 @@ function createWindow() {
   win.webContents.openDevTools(); // 添加这行来自动打开开发者工具
 }
 
-console.log("主进程启动成功");
-
 // app.whenReady().then(createWindow);
 app.whenReady().then(() => {
+    logger.info("QDW demo start complete");
   if (app.isPackaged) {
     const asarPath = path.join(appPath, "resources", "app.asar");
-    logMessage("asar->" + asarPath);
+    logger.info("asar->" + asarPath);
     originGetMd5(asarPath);
   }
   createWindow();
@@ -90,7 +87,6 @@ app.whenReady().then(() => {
 
 // 监听来自渲染进程的退出请求
 ipcMain.on("quit-app-on-condition", () => {
-  logMessage("收到条件退出请求，正在退出应用...");
-  console.log("收到条件退出请求，正在退出应用...");
+    logger.info("收到条件退出请求，正在退出应用...");
   app.quit();
 });

@@ -4,9 +4,9 @@
   "description": "本项目是基于《彼方的她》游戏二创，截至目前暂未完成所有功能\r 有bug和建议欢迎反馈",
   "main": "main.js",
   "scripts": {
-    "start": "electron .",
+    "start": "set NODE_ENV=dev && electron .",
     "build": "electron-builder --win --x64",
-    "ele_pack": "npx electron-packager . QDW_demo --platform=win32 --arch=x64 --out=dist --overwrite --icon=QDW.ico --asar"
+    "ele_pack": "set NODE_ENV=prod && npx electron-packager . QDW_demo --platform=win32 --arch=x64 --out=dist --overwrite --icon=QDW.ico --asar"
   },
   "keywords": [],
   "author": "",

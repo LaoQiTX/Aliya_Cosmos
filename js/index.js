@@ -1,6 +1,7 @@
 // import * as saveModule from './save.js';
 import * as loadModule from './load.js';
 import { ActionEnum } from './enums/action_enum.js';
+import { loggerInfo, loggerDebug, loggerError } from './utils/webUtils/logger.js';
 
 // import { Howl } from 'howler';
 
@@ -26,6 +27,7 @@ let EHBtnActive = false;
 
 // 初始化
 function init() {
+	loggerInfo("测试测试");
 	requestNotificationPermission();
 	// 定期更新心率
 	resumeInit();
@@ -119,7 +121,7 @@ function createTimeMsg(text) {
 function addMessage(text, isUser = true, needNotify = true) {
 	// 如果text为null或undefined，跳过处理
 	if (typeof text !== 'string') {
-		console.warn('⚠️ 试图添加空文本消息，已跳过:', text);
+		loggerInfo('⚠️ 试图添加空文本消息，已跳过:' +  text);
 		return;
 	}
 	// 如果options的动画还没结束就再次触发来进行结束
@@ -160,11 +162,12 @@ function requestNotificationPermission() {
 
 	Notification.requestPermission().then(permission => {
 		if (permission === 'granted') {
-			console.log("用户允许了通知");
+			loggerInfo("用户允许了通知");
 			// 可以执行通知相关逻辑
-		} else {
-			console.warn("用户拒绝了通知");
-		}
+			return;
+		} 
+		loggerInfo("用户拒绝了通知");
+
 	});
 }
 
@@ -274,7 +277,7 @@ function handlerParmas(params) {
 	}
 
 	if (params?.heart_rate) {
-		console.log("被触发的心跳[" + params.heart_rate[0] + "," + params.heart_rate[1] + "]");
+		loggerInfo("被触发的心跳[" + params.heart_rate[0] + "," + params.heart_rate[1] + "]");
 		setHeartBeat(params.heart_rate[0], params.heart_rate[1]);
 		cachedData.heart_rate = params.heart_rate;
 		// localStorage.setItem("saveData", JSON.stringify(cachedData));
@@ -298,18 +301,18 @@ function showOptions(options, params) { // params 包含 nessecery_op 等信息
 				if (params && params.hasOwnProperty('nessecery_op')) {
 					const requiredOptionIndex = params.nessecery_op;
 					if (index !== requiredOptionIndex) {
-						console.error(`必要操作检查失败：需要选项 ${requiredOptionIndex}，但选择了 ${index}。正在发送退出请求...`); // 改为 console.error
+						loggerError(`必要操作检查失败：需要选项 ${requiredOptionIndex}，但选择了 ${index}。正在发送退出请求...`); 
 						window.electronAPI.sendQuitRequest(); // 发送退出请求
 						return; // 阻止后续操作
 					} else {
-						console.log(`必要操作检查通过：选择了正确的选项 ${index}`); // 保留 console.log 用于成功情况
+						loggerInfo(`必要操作检查通过：选择了正确的选项 ${index}`); // 保留 console.log 用于成功情况
 					}
 				}
 
 				handlerParmas(params);
 				addMessage(option, true);
 				optionsContainer.innerHTML = ''; // 选择后立即清除选项
-				console.log("玩家选择了btn->" + index);
+				loggerInfo("玩家选择了btn->" + index);
 				resolve(index); // 只有在检查通过或不需要检查时才 resolve
 			});
 
@@ -491,7 +494,7 @@ async function loadMessages() {
 	var timeStage = dialogueDto.getTimeStage();
 	// 玩家发送的上一条的信息
 	var lastUserMsg = "";
-	console.log("开始load中");
+	loggerInfo("开始load中");
 	try {
 		while (timeStage < data.dialogue.length) {
 			const dialogue = data.dialogue[timeStage];
@@ -503,7 +506,7 @@ async function loadMessages() {
 						// debugger;
 						handleTimeMsg(cachedData.everyStartTimeList[timeStage], dialogueDto.getIsLoad())
 						hasSendTime = true;
-						console.log("已经输出过时间了");
+						loggerInfo("已经输出过时间了");
 					}
 
 					if (dialogueDto.getIsLoad()) {
@@ -529,7 +532,7 @@ async function loadMessages() {
 								break;
 						}
 					}
-					console.log("当前的消息是" + message.content[0]);
+					loggerInfo("当前的消息是" + message.content[0]);
 					// debugger; 当前应是具体流程
 					if (message.type === 'player_options') {
 						const choiceIndex = await showOptions(message.content, message.params);
@@ -581,7 +584,7 @@ async function loadMessages() {
 					}
 					if (dialogueDto.getIsLoad()) {
 						isEnd = true;
-						console.log("需要进行存档");
+						loggerInfo("需要进行存档");
 					}
 				}
 				// 此时说明当前阶段剧情已经结束 更新下个剧情的时间戳检查点
@@ -591,7 +594,7 @@ async function loadMessages() {
 					isEnd = false;
 					readyForNextStage = false;
 					currentMessageIndex = 0;
-					console.log("更新时间戳成功");
+					loggerInfo("更新时间戳成功");
 					if (timeStage + 1 !== data.dialogue.length - 1) {
 						document.addEventListener('keydown', handleKeyPress);
 					}
@@ -623,7 +626,7 @@ async function loadMessages() {
 					// }
 					if (checkForNextStage(dialogueDto)) {
 						currentMessageIndex = 0;
-						console.log("listner 里的currentMessageIndex被初始化");
+						loggerInfo("listner 里的currentMessageIndex被初始化");
 					}
 					document.removeEventListener('wakeUp', wakeUpListener);
 					if (timeOutId) {
@@ -645,7 +648,7 @@ async function loadMessages() {
 			timeStage = dialogueDto.getTimeStage();
 		}
 	} catch (error) {
-		console.error('加载消息时发生错误 (Error in loadMessages):', error); // 添加更详细的错误日志
+		loggerError('加载消息时发生错误 (Error in loadMessages):' +  error); // 添加更详细的错误日志
 	}
 }
 
@@ -692,7 +695,7 @@ function checkForNextStage(dialogueDto) {
 	if (hasReachedNextCheckpoint(Date.now(), cachedData.nextStageTime)) {
 		dialogueDto.setTimeStage(dialogueDto.getTimeStage() + 1)
 		dialogueDto.setReadyForNextStage(true);
-		console.log("已经准备好进入下一阶段");
+		loggerInfo("已经准备好进入下一阶段");
 		return true;
 	}
 	return false;
@@ -711,7 +714,7 @@ function loadCacheData(dialogueDto, cacheOptionList, message, currentMessageInde
 	// 只有当cache里面的数组遍历完的时候才算load完成;
 	if (index > cacheOptionList.length - 1) {
 		dialogueDto.setIsLoad(false);
-		console.log("load完成");
+		loggerInfo("load完成");
 		startResourceDecay();
 		return currentMessageIndex;
 	}
@@ -801,13 +804,13 @@ document.getElementById('close-popup').addEventListener('click', () => {
 
 // 键盘事件监听器
 function handleKeyPress(event) {
-	console.log("按键事件触发" + event.key);
+	loggerInfo("按键事件触发" + event.key);
 	if (event.key === 'Shift') {
 		cachedData.nextStageTime = Date.now();
 		// debugger;
 		localStorage.setItem("saveData", JSON.stringify(cachedData));
-		console.log(cachedData);
-		console.log("nextStageTime 已更新为当前时间");
+		loggerInfo(cachedData);
+		loggerInfo("nextStageTime 已更新为当前时间");
 		// 触发自定义事件以唤醒 wait
 		document.dispatchEvent(new Event('wakeUp'));
 	}
@@ -817,9 +820,9 @@ function playMusic() {
 	document.addEventListener("click", function () {
 		const musicPlayer = document.getElementById("bg-music");
 		if (musicPlayer.paused) {
-			musicPlayer.play().catch(error => console.error("播放失败:", error));
+			musicPlayer.play().catch(error => loggerError("播放失败:", error));
 		} else {
-			console.log("播放音乐成功");
+			loggerInfo("播放音乐成功");
 		}
 
 	}, { once: true }); // 确保只触发一次
@@ -836,7 +839,7 @@ function loadConstConifg() {
 	eng = cachedData.resouce.eng;
 	updateResBarConifg(oxgen, water, eng);
 	const heartRate = cachedData.heart_rate;
-	console.log(heartRate);
+	loggerInfo(heartRate);
 	if (heartRate[0] == 0 && heartRate[1] == 0) {
 		document.querySelector('.heart-rate').style.backgroundImage = "url('./res/animation/heart_beat/heart_beat_0.gif')";
 		document.querySelector('#ecgCanvas').style.display = "none";
