@@ -45,8 +45,10 @@ function getRandomHeartRate(min, max) {
 // 更新心率函数
 function updateHeartRate(min,max) {
 	const bpmElement = document.querySelector('.bpm');
-	if (min>0 && max>0) {
-		document.querySelector('#ecgCanvas').style.display = "block";
+	if (max>min && min>0) {
+		// debugger;
+		document.querySelector('#ecgCanvas').style.display = "flex";
+		document.querySelector('.bpm').style.position = "absolute";
 		document.querySelector('.heart-rate').style.backgroundImage = "none"
 	}
 	// debugger;

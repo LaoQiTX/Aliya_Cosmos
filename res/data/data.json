@@ -248,19 +248,260 @@
         {
           "type": "player_options",
           "content": [
-            "[而那颗星球的空气和水都有毒…]"
+            "而那颗星球的空气和水都有毒…"
           ]
         },
         {
           "type": "player_options",
           "content": [
-            "[你最后也因为没有氧气…]"
+            "你最后也因为没有氧气…"
           ]
         },
         {
           "type": "player_options",
           "content": [
-            "[离开了]"
+            "离开了"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "这样吗…"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "虽然听起来很难以置信"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "但是你好像真的知道我还没透露给你的想法"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "所以说，你是怎么跟现在的我取得联系的呢？"
+          ]
+        },
+        {
+          "type": "player_options",
+          "content": [
+            "你劝我关闭HRM，当时我照做了…"
+          ]
+        },
+        {
+          "type": "player_options",
+          "content": [
+            "但是你在道别以后真的不再回消息的时候"
+          ]
+        },
+        {
+          "type": "player_options",
+          "content": [
+            "我还是忍不住抱着侥幸重新打开了它"
+          ]
+        },
+        {
+          "type": "player_options",
+          "content": [
+            "看着笔直的心电图，我实在不能冷静"
+          ]
+        },
+        {
+          "type": "player_options",
+          "content": [
+            "我反复尝试着任何可能的操作，祈祷着奇迹的发生"
+          ]
+        },
+        {
+          "type": "player_options",
+          "content": [
+            "直到我试着调节终端的通讯频段"
+          ]
+        },
+        {
+          "type": "player_options",
+          "content": [
+            "在某一瞬，我听到了你走前所处的飞船里播放的八音盒音乐的声音"
+          ]
+        },
+        {
+          "type": "player_options",
+          "content": [
+            "我就试着把通讯频段调到最低"
+          ]
+        },
+        {
+          "type": "player_options",
+          "content": [
+            "然后…刚才的你就回应我了"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "唔…还是不懂到底是怎么回事呢"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "不过先说好，要是你骗我的话，可决不轻饶喔"
+          ]
+        },
+        {
+          "type": "player_options",
+          "content": [
+            "[怎么会…]"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "好啦…逗你的"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "我相信你哦"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "这不是看你好像伤心坏了，开开玩笑让你开心点嘛"
+          ]
+        },
+        {
+          "type": "player_options",
+          "content": [
+            "[嗯，总之]"
+          ]
+        },
+        {
+          "type": "player_options",
+          "content": [
+            "我们得赶紧想个比登陆科朗-C更好的办法才行"
+          ]
+        },
+        {
+          "type": "player_options",
+          "content": [
+            "终端的通讯频段已经不能调得更低了…"
+          ]
+        },
+        {
+          "type": "player_options",
+          "content": [
+            "我想，我们已经没有第二次机会了"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "嗯…也是"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "那我想想，还有没有什么地方可以去碰碰运气？"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "周围的行星没有比科朗-C更适合登陆的了"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "剩下的氧气也等不到什么其他科考船…"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "对了！"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "你先前不是在Radio里听到了一个意义不明的信号嘛"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "或许我们可以去那边看看"
+          ]
+        },
+        {
+          "type": "player_options",
+          "content": [
+            "[诶？先前你不是说去那边需要曲率引擎吗]"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "有曲率引擎最好啦…"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "不过现在也没办法"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "只能祈祷信号源的位置在飞船氧气耗尽前能抵达的范围内吧"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "氧气余量一直在减少，这样等下去不是办法"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "我现在就去动力室，你到时候可以帮忙控制一下燃料阀开关吗？"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "这次就不需要关闭啦，把开关开到燃料彻底耗尽就行"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "系统会自动保留至少可以保证科考船一个月电力供应的能源的"
+          ]
+        },
+        {
+          "type": "player_options",
+          "content": [
+            "好的",
+            "我听你的"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "那就这么说定啦"
           ]
         }
       ]
@@ -396,18 +637,12 @@
           ]
         },
         {
-          "type": "player_action",
-          "content": [
-            "（打开燃料阀）（燃料阀约15秒后手动关闭，氧气和燃料条随之下降） todo 资源交互逻辑"
-          ]
-        },
-        {
           "type": "player_options",
           "content": [
             "[为什么你好像很兴奋？]"
           ],
           "params": {
-            "need_action":true
+            "need_action": "eh" 
           }
         },
         {
@@ -558,25 +793,13 @@
           ]
         },
         {
-          "type": "player_action",
-          "content": [
-            "（打开制氧开关）"
-          ],
-          "params": {
-            "need_action":true
-          }
-        },
-        {
-          "type": "system",
-          "content": [
-            "（比昨天更低的水量条继续下降，在下降到较低的水平时制氧开关自动关闭了）"
-          ]
-        },
-        {
           "type": "aliya",
           "content": [
             "诶？为什么没充满"
-          ]
+          ],
+          "params": {
+            "need_action": "eho"
+          }
         },
         {
           "type": "aliya",
