@@ -242,6 +242,7 @@ body {
 	/* 设置透明度 */
 	box-sizing: border-box;
 	/* 包含 border */
+	min-height:100px;
 }
 
 .bpm {

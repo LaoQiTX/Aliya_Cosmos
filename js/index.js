@@ -24,6 +24,8 @@ let eng = 0;
 // 按钮
 let EOHBtnActive = false;
 let EHBtnActive = false;
+// 记录当前心率更新的定时器
+let heartBeatInterval = null; 
 
 // 初始化
 function init() {
@@ -45,25 +47,28 @@ function getRandomHeartRate(min, max) {
 	return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-// 更新心率函数
-function updateHeartRate(min, max) {
-	const bpmElement = document.querySelector('.bpm');
-	// debugger;
-	const randomHeartRate = getRandomHeartRate(min, max); // 设置心率范围
-	if (max >= min && min > 0) {
-		document.querySelector('.heart-rate').style.backgroundImage = "none";
-		// document.querySelector('#ecgCanvas').style.display = "block";
-	}
-	bpmElement.textContent = randomHeartRate;
-}
-
-let heartBeatInterval = null; // 记录当前心率更新的定时器
 function setHeartBeat(min, max) {
 	if (heartBeatInterval) {
 		clearInterval(heartBeatInterval);
 	}
 
 	heartBeatInterval = setInterval(() => updateHeartRate(min, max), 1000);
+}
+
+// 更新心率函数
+function updateHeartRate(min, max) {
+	const bpmElement = document.querySelector('.bpm');
+	// debugger;
+	const randomHeartRate = getRandomHeartRate(min, max); // 设置心率范围
+	if (max > min && min > 0) {
+		document.querySelector('.heart-rate').style.backgroundImage = "none";
+		document.querySelector('#ecgCanvas').style.display = "block";
+	} else if(max === min && min ===0){
+		document.querySelector('.heart-rate').style.display = "flex";
+		document.querySelector('.heart-rate').style.backgroundImage = "url('./res/animation/heart_beat/heart_beat_0.gif')";
+		document.querySelector('#ecgCanvas').style.display = "none";
+	}
+	bpmElement.textContent = randomHeartRate;
 }
 
 // 布局相关
@@ -569,17 +574,18 @@ async function loadMessages() {
 				// todo 更新timer Gif 的URL
 				const timerGifUrl = "url('./res/img/open_engine.png')"
 				showLoadingGif(timerGifUrl);
-				// debugger;
-				if (currentMessageIndex >= dialogue.messages.length && !dialogueDto.getIsLoad()) {
+
+				if (!dialogueDto.getIsLoad()) {
 					// 业务新需求 当不处在倒数第二个阶段的时候 允许玩家进行跳过
 					if (timeStage + 1 != data.dialogue.length - 1) {
 						document.removeEventListener('keydown', handleKeyPress);
 						document.addEventListener('keydown', handleKeyPress);
 					}
-					if (dialogueDto.getIsLoad()) {
-						isEnd = true;
-						loggerInfo("需要进行存档");
-					}
+					isEnd = true;
+					// if (dialogueDto.getIsLoad()) {
+					// 	isEnd = true;
+					// 	loggerInfo("需要进行存档");
+					// }
 				}
 				// 此时说明当前阶段剧情已经结束 更新下个剧情的时间戳检查点
 				if (isEnd) {
@@ -594,15 +600,6 @@ async function loadMessages() {
 					}
 				}
 			}
-
-			// 判断当前时间戳是否到达了下个剧情的时间戳检查点
-			// if (hasReachedNextCheckpoint(Date.now(), cachedData.nextStageTime)) {
-			// 	timeStage++;
-			// 	readyForNextStage = true;
-			// 	currentMessageIndex = 0;
-			// 	document.removeEventListener('keydown', handleKeyPress);
-			// 	continue;
-			// }
 
 			// 如果已经准备好进入下个阶段时 则直接进入循环;
 			if (checkForNextStage(dialogueDto)) {
@@ -831,10 +828,6 @@ function loadConstConifg() {
 	updateResBarConifg(oxgen, water, eng);
 	const heartRate = cachedData.heart_rate;
 	loggerInfo(heartRate);
-	if (heartRate[0] == 0 && heartRate[1] == 0) {
-		document.querySelector('.heart-rate').style.backgroundImage = "url('./res/animation/heart_beat/heart_beat_0.gif')";
-		document.querySelector('#ecgCanvas').style.display = "none";
-	}
 	setHeartBeat(heartRate[0], heartRate[1]);
 	playMusicV1(cachedData.last_music, true, 0.5);
 }
