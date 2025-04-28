@@ -75,7 +75,6 @@ function updateMessagesPadding() {
 }
 
 // 消息处理
-// todo 发送通知时显示用户名有问题 
 function createMessage(text, isUser = true) {
 	// debugger;
 	const div = document.createElement('div');

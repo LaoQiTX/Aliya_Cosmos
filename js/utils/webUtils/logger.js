@@ -15,7 +15,7 @@ function loggerInfo(msg){
  * @param {String} msg 
  */
 function loggerDebug(msg){
-    window.electronAPI.debug(msg);
+    window.electronAPI.log.debug(msg);
 }
 
 /**
@@ -23,7 +23,7 @@ function loggerDebug(msg){
  * @param {String} msg 
  */
 function loggerError(msg){
-    window.electronAPI.error(msg);
+    window.electronAPI.log.error(msg);
 }
 
 export { loggerInfo, loggerDebug, loggerError };
