@@ -44,7 +44,7 @@
 				<div class="heart-section">
 					<div class="Aliya">ALIYA</div>
 					<div class="heart-rate">
-						<div class="bpm" style="position: relative; ">72</div>
+						<div class="bpm" style="position: relative;">72</div>
 						<canvas id="ecgCanvas"></canvas>
 						
 					</div>
@@ -282,7 +282,7 @@ const canvas = document.getElementById('ecgCanvas');
                     ctx.moveTo(point.x, point.y);
                     ctx.lineTo(previousPoint.x, previousPoint.y);
                     ctx.strokeStyle = gradient;
-                    ctx.lineWidth = 2;
+                    ctx.lineWidth = 2.3;
                     ctx.stroke();
                 }
                 previousPoint = point;

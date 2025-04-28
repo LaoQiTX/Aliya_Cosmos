@@ -244,15 +244,13 @@ body {
 	z-index: 9;
 
 }
-
+#ecgCanvas{
+	z-index: 10;
+}
 .bpm {
 	color: #5d5d5d;
 	font-size: 6em;
-	z-index: 1;
-}
-
-#ecgCanvas{
-	z-index: 9;
+	/* z-index: 9; */
 }
 
 .label {

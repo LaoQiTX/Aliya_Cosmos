@@ -1,8 +1,5 @@
 // import * as saveModule from './save.js';
 import * as loadModule from './load.js';
-import { ActionEnum } from './enums/action_enum.js';
-import { loggerInfo, loggerDebug, loggerError } from './utils/webUtils/logger.js';
-
 // import { Howl } from 'howler';
 
 
@@ -25,14 +22,13 @@ let eng = 0;
 // 按钮
 let EOHBtnActive = false;
 let EHBtnActive = false;
-// 记录当前心率更新的定时器
-let heartBeatInterval = null;
 
 // 控制是否允许跳过
 let isSkippable = true;
 
 // 初始化
 function init() {
+	console.log("我是merge测试");
 	requestNotificationPermission();
 	// 定期更新心率
 	resumeInit();
@@ -55,17 +51,15 @@ function getRandomHeartRate(min, max) {
 	return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-function setHeartBeat(min, max) {
-	if (heartBeatInterval) {
-		clearInterval(heartBeatInterval);
-	}
-
-	heartBeatInterval = setInterval(() => updateHeartRate(min, max), 1000);
-}
-
 // 更新心率函数
-function updateHeartRate(min, max) {
+function updateHeartRate(min,max) {
 	const bpmElement = document.querySelector('.bpm');
+	if (max>min && min>0) {
+		// debugger;
+		document.querySelector('#ecgCanvas').style.display = "flex";
+		document.querySelector('.bpm').style.position = "absolute";
+		document.querySelector('.heart-rate').style.backgroundImage = "none"
+	}
 	// debugger;
 	const randomHeartRate = getRandomHeartRate(min, max); // 设置心率范围
 	if (max > min && min > 0) {
@@ -78,6 +72,14 @@ function updateHeartRate(min, max) {
 		document.querySelector('#ecgCanvas').style.display = "none";
 	}
 	bpmElement.textContent = randomHeartRate;
+}
+
+let heartBeatInterval = null; // 记录当前心率更新的定时器
+function setHeartBeat(min, max) {
+    if (heartBeatInterval) {
+        clearInterval(heartBeatInterval);
+    }
+    heartBeatInterval = setInterval(() => updateHeartRate(min, max), 1000);
 }
 
 // 布局相关
@@ -99,11 +101,11 @@ function createMessage(text, isUser = true) {
 	return div;
 }
 
-function handleTimeMsg(startTime, isLoad) {
-	let timeMsg = startTime != null ? startTime : Date.now();
-	timeMsg = new Date(timeMsg);
-	// startTime = Date.now();
-	// const timeMsg = new Date(Math.min((startTime + timeStamp),Date.now()));
+function handleTimeMsg(startTime,isLoad){
+    let timeMsg = startTime != null ? startTime : Date.now();
+    timeMsg = new Date(timeMsg);
+		// startTime = Date.now();
+		// const timeMsg = new Date(Math.min((startTime + timeStamp),Date.now()));
 	const timeString = timeMsg.toLocaleString('zh-CN', {
 		year: 'numeric',
 		month: '2-digit',
@@ -114,7 +116,7 @@ function handleTimeMsg(startTime, isLoad) {
 	}).replace(/\//g, '-'); // 处理 `/` 变成 `-`
 	createTimeMsg(timeString);
 	// 非存档状态下存储数据
-	if (!isLoad) {
+	if(!isLoad){
 		cachedData.everyStartTimeList.push(timeMsg);
 		localStorage.setItem("saveData", JSON.stringify(cachedData));
 	}
@@ -124,7 +126,7 @@ function handleTimeMsg(startTime, isLoad) {
  * 时间
  * @param {String} text 
  */
-function createTimeMsg(text) {
+function createTimeMsg(text){
 	const div = document.createElement('div');
 	div.className = `message time-msg`;
 	div.textContent = text;
@@ -175,7 +177,7 @@ function requestNotificationPermission() {
 
 	Notification.requestPermission().then(permission => {
 		if (permission === 'granted') {
-			loggerInfo("用户允许了通知");
+			console.log("用户允许了通知");
 			// 可以执行通知相关逻辑
 			return;
 		}
@@ -211,9 +213,9 @@ function sendUserMessage() {
 
 // 定义开关音效对象
 const switchSound = new Howl({
-	src: ['./res/music/switch.wav'],
-	loop: false,
-	volume: 1
+    src: ['./res/music/switch.wav'], 
+    loop: false, 
+    volume: 1 
 });
 
 // On/Off切换
@@ -230,9 +232,9 @@ document.querySelectorAll('.switch').forEach(switchElement => {
 		const ehSwitch = document.getElementById('eh-switch-btn');
 		// 检查 HRM 是否为 on 状态
 		if (hrmSwitch.classList.contains('active')) {
-			heartRateElement.style.opacity = 0.5;
+			heartRateElement.style.opacity = 0.5; 
 		} else {
-			heartRateElement.style.opacity = 0;
+			heartRateElement.style.opacity = 0; 
 		}
 
 		if (eogSwitch.classList.contains('active')) {
@@ -246,7 +248,7 @@ document.querySelectorAll('.switch').forEach(switchElement => {
 		}
 
 		// 播放开关音效
-		switchSound.play();
+        switchSound.play();
 	});
 });
 
@@ -277,10 +279,8 @@ function wait(ms) {
 }
 
 // 显示加载点点点的GIF
-function showLoadingGif(url) {
-	// elements.optionsContainer.style.backgroundImage = "url('./res/animation/wait/donet_waiting.gif')";
-	elements.optionsContainer.style.backgroundImage = url;
-
+function showPointLoadingGif() {
+	elements.optionsContainer.style.backgroundImage = "url('./res/animation/wait/donet_waiting.gif')";
 	// elements.optionsContainer.style.backgroundSize = 'cover';
 	elements.optionsContainer.innerHTML = ''; // 隐藏选项
 }
@@ -303,9 +303,9 @@ function handlerParmas(params) {
 		}
 	}
 
-	if (params?.heart_rate) {
-		loggerInfo("被触发的心跳[" + params.heart_rate[0] + "," + params.heart_rate[1] + "]");
-		setHeartBeat(params.heart_rate[0], params.heart_rate[1]);
+	if(params?.heart_rate){
+		console.log("被触发的心跳[" + params.heart_rate[0] + "," +params.heart_rate[1]+"]");
+		setHeartBeat(params.heart_rate[0],params.heart_rate[1]);
 		cachedData.heart_rate = params.heart_rate;
 		// localStorage.setItem("saveData", JSON.stringify(cachedData));
 	}
@@ -332,14 +332,14 @@ function showOptions(options, params) { // params 包含 nessecery_op 等信息
 						window.electronAPI.sendQuitRequest(); // 发送退出请求
 						return; // 阻止后续操作
 					} else {
-						loggerInfo(`必要操作检查通过：选择了正确的选项 ${index}`); // 保留 console.log 用于成功情况
+						console.log(`必要操作检查通过：选择了正确的选项 ${index}`); // 保留 console.log 用于成功情况
 					}
 				}
 
 				handlerParmas(params);
 				addMessage(option, true);
 				optionsContainer.innerHTML = ''; // 选择后立即清除选项
-				// loggerInfo("玩家选择了btn->" + index);
+				console.log("玩家选择了btn->" + index);
 				resolve(index); // 只有在检查通过或不需要检查时才 resolve
 			});
 
@@ -365,22 +365,22 @@ async function pointAnimation(curIndex = -1, targetIndex = 0) {
  * 剧情循环中的DTO类;
  */
 class DialogueStateDto {
-	constructor() {
-		if (!DialogueStateDto.instance) {
+    constructor() {
+        if (!DialogueStateDto.instance) {
 			this.#init();
-			DialogueStateDto.instance = this;
-		}
-		return DialogueStateDto.instance;
-	}
+            DialogueStateDto.instance = this; 
+        }
+        return DialogueStateDto.instance; 
+    }
 
-	static getInstance() {
-		if (!DialogueStateDto.instance) {
-			DialogueStateDto.instance = new DialogueStateDto();
-		}
-		return DialogueStateDto.instance;
-	}
+    static getInstance() {
+        if (!DialogueStateDto.instance) {
+            DialogueStateDto.instance = new DialogueStateDto();
+        }
+        return DialogueStateDto.instance;
+    }
 
-	#init() {
+	#init(){
 		// 剧情阶段
 		this.timeStage = 0;
 		// 当前剧情阶段索引
@@ -390,105 +390,105 @@ class DialogueStateDto {
 		this.isEnd = false;
 		this.readyForNextStage = true;
 	}
-
-	setTimeStage(stage) {
-		if (typeof stage != 'number') {
+	
+	setTimeStage(stage){
+		if(typeof stage != 'number'){
 			throw new Error("传入的应该是number类型")
 		}
 		this.timeStage = stage;
 	}
 
-	getTimeStage() {
+	getTimeStage(){
 		return this.timeStage;
 	}
-
-	getIsLoad() {
+	
+	getIsLoad(){
 		return this.isLoad;
 	}
 
-	setIsLoad(boolValue) {
-		if (typeof boolValue != 'boolean') {
+	setIsLoad(boolValue){
+		if(typeof boolValue != 'boolean'){
 			throw new Error("传入的应是bool类型")
 		}
 		this.isLoad = boolValue;
 	}
-
-	// ========== currentMessageIndex ==========
+	
+	 // ========== currentMessageIndex ==========
 	setCurrentMessageIndex(index) {
 		if (typeof index !== 'number') {
 			throw new Error("传入的应该是 number 类型");
 		}
 		this.currentMessageIndex = index;
-	}
+    }
 
-	getCurrentMessageIndex() {
-		return this.currentMessageIndex;
-	}
+    getCurrentMessageIndex() {
+        return this.currentMessageIndex;
+    }
 
 
-	// ========== cacheOptionIndex ==========
-	setCacheOptionIndex(index) {
-		if (typeof index !== 'number') {
-			throw new Error("传入的应该是 number 类型");
-		}
-		this.cacheOptionIndex = index;
-	}
+	 // ========== cacheOptionIndex ==========
+	 setCacheOptionIndex(index) {
+        if (typeof index !== 'number') {
+            throw new Error("传入的应该是 number 类型");
+        }
+        this.cacheOptionIndex = index;
+    }
 
-	getCacheOptionIndex() {
-		return this.cacheOptionIndex;
-	}
+    getCacheOptionIndex() {
+        return this.cacheOptionIndex;
+    }
 
-	// ========== isEnd ==========
-	setIsEnd(boolValue) {
-		if (typeof boolValue !== 'boolean') {
-			throw new Error("传入的应该是 boolean 类型");
-		}
-		this.isEnd = boolValue;
-	}
+    // ========== isEnd ==========
+    setIsEnd(boolValue) {
+        if (typeof boolValue !== 'boolean') {
+            throw new Error("传入的应该是 boolean 类型");
+        }
+        this.isEnd = boolValue;
+    }
 
-	getIsEnd() {
-		return this.isEnd;
-	}
+    getIsEnd() {
+        return this.isEnd;
+    }
 
-	// ========== readyForNextStage ==========
-	setReadyForNextStage(boolValue) {
-		if (typeof boolValue !== 'boolean') {
-			throw new Error("传入的应该是 boolean 类型");
-		}
-		this.readyForNextStage = boolValue;
-	}
+    // ========== readyForNextStage ==========
+    setReadyForNextStage(boolValue) {
+        if (typeof boolValue !== 'boolean') {
+            throw new Error("传入的应该是 boolean 类型");
+        }
+        this.readyForNextStage = boolValue;
+    }
 
-	getReadyForNextStage() {
-		return this.readyForNextStage;
-	}
-
+    getReadyForNextStage() {
+        return this.readyForNextStage;
+    }
+	
 	// other methods
-	convertIsLoad() {
+	convertIsLoad(){
 		this.isLoad = !this.isLoad;
 		return this.isLoad;
 	}
-
-	convertIsEnd() {
+	
+	convertIsEnd(){
 		this.isEnd = !this.isEnd;
 		return this.isEnd;
 	}
 
-	nextStage() {
-		this.timeStage++;
-	}
+    nextStage() {
+        this.timeStage++;
+    }
 
-	nextMessage() {
-		this.currentMessageIndex++;
-	}
-	nextCacheOptionIndex() {
+    nextMessage() {
+        this.currentMessageIndex++;
+    }
+	nextCacheOptionIndex(){
 		this.cacheOptionIndex++;
 	}
 }
 
 const replySound = new Howl({
-	src: ['./res/music/msg.mp3'],
-	loop: false, // 让背景音乐循环
-	volume: 1 // 调整音量
+	src: ['./res/music/msg.mp3'], 
+    loop: false, // 让背景音乐循环
+    volume: 1 // 调整音量
 })
 
 /**
@@ -498,14 +498,14 @@ const replySound = new Howl({
  * @param {Float} volume 
  */
 let musicInstance = null;
-function playMusicV1(src, isLoop, volume) {
-	if (musicInstance) {
+function playMusicV1(src,isLoop,volume){
+	if(musicInstance){
 		musicInstance.stop();
 	}
 	musicInstance = new Howl({
-		src: [src],
-		loop: isLoop,
-		volume: volume
+		src:[src],
+		loop:isLoop,
+		volume:volume
 	});
 	musicInstance.play();
 }
@@ -519,7 +519,7 @@ async function loadMessages() {
 	const data = await loadModule.loadDialogueData();
 	var cacheOptionList = cachedData.optionsChoiceList;
 	var sendFromUser = false;
-	if (!dialogueDto) {
+	if(!dialogueDto){
 		var dialogueDto = DialogueStateDto.getInstance();
 	}
 	var isEnd = false;
@@ -527,40 +527,32 @@ async function loadMessages() {
 	var timeStage = dialogueDto.getTimeStage();
 	// 玩家发送的上一条的信息
 	var lastUserMsg = "";
-	loggerInfo("开始load中");
+	console.log("开始load中");
 	try {
 		while (timeStage < data.dialogue.length) {
 			const dialogue = data.dialogue[timeStage];
 			var hasSendTime = false;
-			if (dialogueDto.getReadyForNextStage()) {
+			if(dialogueDto.getReadyForNextStage()){
 				while (currentMessageIndex < dialogue.messages.length) {
 					const message = dialogue.messages[currentMessageIndex];
-					if (currentMessageIndex === 0 && !hasSendTime) {
+					if(currentMessageIndex === 0 && !hasSendTime ){
 						// debugger;
-						handleTimeMsg(cachedData.everyStartTimeList[timeStage], dialogueDto.getIsLoad())
+						handleTimeMsg(cachedData.everyStartTimeList[timeStage],dialogueDto.getIsLoad())
 						hasSendTime = true;
-						loggerInfo("已经输出过时间了");
+						console.log("已经输出过时间了");
 					}
 
 					if (dialogueDto.getIsLoad()) {
-						currentMessageIndex = loadCacheData(dialogueDto, cacheOptionList, message, currentMessageIndex);
+						currentMessageIndex = loadCacheData(dialogueDto,cacheOptionList,message,currentMessageIndex);
 						continue;
 					}
 					// 等待action
 					if (message.params && message.params.need_action) {
-						switch (message.params.need_action) {
-							case ActionEnum.EOH:
-								await waitForEOGSwitch();
-								break;
-							case ActionEnum.EH:
-								await waitForEHSwitch();
-								break;
-						}
+						await waitForEHSwitch();
 					}
-					// loggerInfo("当前的消息是" + message.content[0]);
 					// debugger; 当前应是具体流程
 					if (message.type === 'player_options') {
-						const choiceIndex = await showOptions(message.content, message.params);
+						const choiceIndex = await showOptions(message.content,message.params);
 						lastUserMsg = message.content[choiceIndex];
 						cacheOptionList.push(choiceIndex);
 						cachedData.optionsChoiceList = cacheOptionList;
@@ -582,14 +574,15 @@ async function loadMessages() {
 					// 	addMessage(message.content, message.type !== 'aliya');
 					// }
 					// 如果上一个消息是玩家发送的,那么需要让aliya进行判断等待;
-					if (sendFromUser) {
-						aliyaWaitingTime(lastUserMsg, true);
+					if(sendFromUser){
+						aliyaWaitingTime(lastUserMsg,true);
 						sendFromUser = false;
 					}
-					sendMsg(null, message);
+					sendMsg(null,message);
 					cacheOptionList.push(0);
 					cachedData.optionsChoiceList = cacheOptionList;
 					localStorage.setItem("saveData", JSON.stringify(cachedData));
+					
 					currentMessageIndex++;
 					await pointAnimation(currentMessageIndex, dialogue.messages.length);
 				}
@@ -623,37 +616,51 @@ async function loadMessages() {
 					// }
 				}
 			}
+			
+			// 判断当前时间戳是否到达了下个剧情的时间戳检查点
+			// if (hasReachedNextCheckpoint(Date.now(), cachedData.nextStageTime)) {
+			// 	timeStage++;
+			// 	readyForNextStage = true;
+			// 	currentMessageIndex = 0;
+			// 	document.removeEventListener('keydown', handleKeyPress);
+			// 	continue;
+			// }
 
 			// 如果已经准备好进入下个阶段时 则直接进入循环;
-			if (checkForNextStage(dialogueDto)) {
+			if(checkForNextStage(dialogueDto)){
 				currentMessageIndex = 0;
 				timeStage = dialogueDto.getTimeStage();
 				continue;
 			}
-			await new Promise(resolve => {
+            await new Promise(resolve => {
 				let timeOutId;
-				const wakeUpListener = () => {
-					if (checkForNextStage(dialogueDto)) {
+                const wakeUpListener = () => {
+					// if (hasReachedNextCheckpoint(Date.now(), cachedData.nextStageTime)) {
+					// 	timeStage++;
+					// 	readyForNextStage = true;
+					// 	currentMessageIndex = 0;
+					// }
+					if(checkForNextStage(dialogueDto)){
 						currentMessageIndex = 0;
-						loggerInfo("listner 里的currentMessageIndex被初始化");
+						console.log("listner 里的currentMessageIndex被初始化");
 					}
-					document.removeEventListener('wakeUp', wakeUpListener);
-					if (timeOutId) {
+                    document.removeEventListener('wakeUp', wakeUpListener);
+					if(timeOutId){
 						clearTimeout(timeOutId);
 						timeOutId = null;
 					}
-					resolve();
-				};
-				document.addEventListener('wakeUp', wakeUpListener);
+                    resolve();
+                };
+                document.addEventListener('wakeUp', wakeUpListener);
 				timeOutId = setTimeout(() => {
 					document.removeEventListener('wakeUp', wakeUpListener); // 确保超时后移除
-					if (checkForNextStage(dialogueDto)) {
+					if(checkForNextStage(dialogueDto)){
 						// debugger
 						currentMessageIndex = 0;
 					}
 					resolve();
 				}, 60000);
-			});
+            });
 			timeStage = dialogueDto.getTimeStage();
 		}
 	} catch (error) {
@@ -666,21 +673,20 @@ async function loadMessages() {
  * @param {boolean} [isTargetConvert=false] 是否进行了对话方的转换 
  * @param {String} userMsg 用户消息 
  */
-function aliyaWaitingTime(userMsg, isTargetConvert = false) {
+function aliyaWaitingTime(userMsg,isTargetConvert = false){
 	const msgLength = userMsg.length;
-	const waitGifUrl = "url('./res/animation/wait/donet_waiting.gif')";
-	showLoadingGif(waitGifUrl);
+	showPointLoadingGif();
 	// 如果是对话方互相转换时 额外增加1.2s
-	if (isTargetConvert) {
+	if(isTargetConvert){
 		wait(1200);
 	}
-	if (msgLength <= 6) {
+	if(msgLength <= 6){
 		wait(1200);
-	} else if (msgLength <= 12) {
+	}else if(msgLength<= 12){
 		wait(2400);
-	} else if (msgLength <= 18) {
+	}else if(msgLength <= 18){
 		wait(3600);
-	} else {
+	}else{
 		wait(4500);
 	}
 	// hideLoadingGif();
@@ -701,12 +707,12 @@ function hasReachedNextCheckpoint(currentTime, nextCheckpointTime) {
  * @param {DialogueStateDto} dialogueDto 
  * @returns {Boolean} true:已经准备好进入下一个剧情阶段;
  */
-function checkForNextStage(dialogueDto) {
+function checkForNextStage(dialogueDto){
 	// debugger;
 	if (hasReachedNextCheckpoint(Date.now(), cachedData.nextStageTime)) {
-		dialogueDto.setTimeStage(dialogueDto.getTimeStage() + 1)
+		dialogueDto.setTimeStage(dialogueDto.getTimeStage()+1)
 		dialogueDto.setReadyForNextStage(true);
-		loggerInfo("已经准备好进入下一阶段");
+		console.log("已经准备好进入下一阶段");
 		return true;
 	}
 	return false;
@@ -719,13 +725,13 @@ function checkForNextStage(dialogueDto) {
  * @param {JSON} message 剧情文本信息
  * @returns 
  */
-function loadCacheData(dialogueDto, cacheOptionList, message, currentMessageIndex) {
+function loadCacheData(dialogueDto,cacheOptionList,message,currentMessageIndex){
 	// debugger;
 	var index = dialogueDto.getCacheOptionIndex();
 	// 只有当cache里面的数组遍历完的时候才算load完成;
 	if (index > cacheOptionList.length - 1) {
 		dialogueDto.setIsLoad(false);
-		loggerInfo("load完成");
+		console.log("load完成");
 		startResourceDecay();
 		return currentMessageIndex;
 	}
@@ -736,9 +742,18 @@ function loadCacheData(dialogueDto, cacheOptionList, message, currentMessageInde
 	} else if (message.type === 'aliya') {
 		option = message.content[0];
 	}
-	dialogueDto.setCacheOptionIndex(index += 1);
-	sendMsg(option, message)
-	return currentMessageIndex += 1;
+	dialogueDto.setCacheOptionIndex(index+=1);
+
+	// todo 暂时修复，后续应该更新data.json 应新增data类型,使其能适配aliya_img类型;及应将[aliya]类型下的Content统一改成数组
+	// if(message.image_url){
+	// 	addImageMessage(message.image_url, false,false);
+	// }else{
+	// 	addMessage(option, message.type !== 'aliya', false);
+	// }
+	sendMsg(option,message)
+	return currentMessageIndex+=1;
+	// cacheOptionIndex++;
+	// currentMessageIndex++;
 }
 
 /**
@@ -746,18 +761,18 @@ function loadCacheData(dialogueDto, cacheOptionList, message, currentMessageInde
  * @param {String} content 玩家的option选项;根据其是否是null来判断当前处于是load状态还是play状态  null为加载状态
  * @param {JSON} message 剧情文本
  */
-function sendMsg(content, message) {
+function sendMsg(content,message){
 	var isLoad = content != null;
-	if (message.image_url) {
-		addImageMessage(message.image_url, false, !isLoad);
-	} else {
+	if(message.image_url){
+		addImageMessage(message.image_url, false,!isLoad);
+	}else{
 		// 如果aliya发送的消息不是img的时候 则需要把他的content更新到content进行输出
-		if (message.type == 'aliya') {
+		if(message.type == 'aliya'){
 			content = message.content[0];
 		}
 		addMessage(content, message.type !== 'aliya', !isLoad);
 	}
-	if (isLoad == false) {
+	if(isLoad == false){
 		// debugger;
 		handlerParmas(message.params);
 		replySound.play();
@@ -785,43 +800,43 @@ function createImageMessage(imageUrl, isUser = true) {
 
 
 function addImageMessage(imageUrl, isUser = true, needNotify = true) {
-	hideLoadingGif();
-	const messageElement = createImageMessage(imageUrl, isUser);
-	elements.container.appendChild(messageElement);
-	checkAutoScroll();
+    hideLoadingGif();
+    const messageElement = createImageMessage(imageUrl, isUser);
+    elements.container.appendChild(messageElement);
+    checkAutoScroll();
 
-	// 添加点击事件监听器
-	messageElement.addEventListener('click', () => {
-		showImagePopup(imageUrl);
-	});
+    // 添加点击事件监听器
+    messageElement.addEventListener('click', () => {
+        showImagePopup(imageUrl);
+    });
 
-	if (needNotify) {
-		checkNotification("[图片消息]", isUser);
-	}
+    if (needNotify) {
+        checkNotification("[图片消息]", isUser);
+    }
 }
 
 function showImagePopup(imageUrl) {
-	const popup = document.getElementById('image-popup');
-	const popupImage = document.getElementById('popup-image');
+    const popup = document.getElementById('image-popup');
+    const popupImage = document.getElementById('popup-image');
 
-	popupImage.src = imageUrl;
-	popup.style.display = 'block';
+    popupImage.src = imageUrl;
+    popup.style.display = 'block';
 }
 
 // 关闭弹出框
 document.getElementById('close-popup').addEventListener('click', () => {
-	document.getElementById('image-popup').style.display = 'none';
+    document.getElementById('image-popup').style.display = 'none';
 });
 
 // 键盘事件监听器
 function handleKeyPress(event) {
-	loggerInfo("按键事件触发" + event.key);
-	if (event.key === 'Shift' && isSkippable) {
+	console.log("按键事件触发"+event.key);
+	if (event.key === 'Shift') {
 		cachedData.nextStageTime = Date.now();
 		// debugger;
 		localStorage.setItem("saveData", JSON.stringify(cachedData));
-		loggerInfo(cachedData);
-		loggerInfo("nextStageTime 已更新为当前时间");
+		console.log(cachedData);
+		console.log("nextStageTime 已更新为当前时间");
 		// 触发自定义事件以唤醒 wait
 		document.dispatchEvent(new Event('wakeUp'));
 		document.removeEventListener('keydown', handleKeyPress);
@@ -832,9 +847,9 @@ function playMusic() {
 	document.addEventListener("click", function () {
 		const musicPlayer = document.getElementById("bg-music");
 		if (musicPlayer.paused) {
-			musicPlayer.play().catch(error => loggerError("播放失败:", error));
+			musicPlayer.play().catch(error => console.error("播放失败:", error));
 		} else {
-			loggerInfo("播放音乐成功");
+			console.log("播放音乐成功");
 		}
 
 	}, { once: true }); // 确保只触发一次
@@ -844,16 +859,20 @@ function playMusic() {
 /**
  * 加载默认配置
  */
-function loadConstConifg() {
+function loadConstConifg(){
 	cachedData = loadModule.resume();
 	oxgen = cachedData.resouce.oxgen;
 	water = cachedData.resouce.water;
 	eng = cachedData.resouce.eng;
-	updateResBarConifg(oxgen, water, eng);
+	updateResBarConifg(oxgen,water,eng);
 	const heartRate = cachedData.heart_rate;
-	loggerInfo(heartRate);
-	setHeartBeat(heartRate[0], heartRate[1]);
-	playMusicV1(cachedData.last_music, true, 0.5);
+	console.log(heartRate);
+	if(heartRate[0] == 0 && heartRate[1] == 0){
+		document.querySelector('.heart-rate').style.backgroundImage = "url('./res/animation/heart_beat/heart_beat_0.gif')";	
+		document.querySelector('#ecgCanvas').style.display = "none";
+	}
+	setHeartBeat(heartRate[0],heartRate[1]);
+	playMusicV1(cachedData.last_music,true,0.5);
 }
 
 
@@ -864,69 +883,69 @@ function loadConstConifg() {
  * @param {Float} water 水
  * @param {Float} eng  燃料能量
  */
-function updateResBarConifg(oxgen, water, eng) {
-	const oxgenBar = document.querySelector('.bar.OO');
-	const waterBar = document.querySelector('.bar.HOO');
-	const engBar = document.querySelector('.bar.ENG');
+function updateResBarConifg(oxgen,water,eng){
+    const oxgenBar = document.querySelector('.bar.OO');
+    const waterBar = document.querySelector('.bar.HOO');
+    const engBar = document.querySelector('.bar.ENG');
 
-	if (oxgenBar) {
-		oxgenBar.style.height = oxgen + '%';
-	}
-	if (waterBar) {
-		waterBar.style.height = water + '%';
-	}
-	if (engBar) {
-		engBar.style.height = eng + '%';
-	}
+    if (oxgenBar) {
+        oxgenBar.style.height = oxgen  + '%'; 
+    }
+    if (waterBar) {
+        waterBar.style.height = water + '%'; 
+    }
+    if (engBar) {
+        engBar.style.height =  eng + '%';
+    }
 }
 
 function startResourceDecay() {
-	if (resourceInterval || isPaused) return; // 如果已有定时器或已暂停则不重复启动
-	resourceInterval = setInterval(() => {
+    if (resourceInterval || isPaused) return; // 如果已有定时器或已暂停则不重复启动
+    resourceInterval = setInterval(() => {
 		// todo 待加按钮是否打开判断
 		// 开启制氧机时水减少，氧气增加
-		if (water > 0 && EOHBtnActive) {
+		if (water>0 && EOHBtnActive) {
 			oxgen += 0.1;
 			water -= 0.1;
 		}
-		if (eng > 5 && EHBtnActive) {
-			eng -= 0.1;
-		}
-		// if (oxgen > 5 && EOHBtnActive) {
-		//     oxgen -= 0.1;
-		// }
-		// if (water > 5 && EOHBtnActive) {
-		//     water -= 0.1;
-		// }
-		// if (eng > 5 && EHBtnActive) {
-		//     eng -= 0.1;
-		// }
-		updateResBarConifg(oxgen, water, eng);
-	}, 60000); // 每分钟更新
+		 if (eng > 5 && EHBtnActive) {
+            eng -= 0.1;
+        }
+        // if (oxgen > 5 && EOHBtnActive) {
+        //     oxgen -= 0.1;
+        // }
+        // if (water > 5 && EOHBtnActive) {
+        //     water -= 0.1;
+        // }
+        // if (eng > 5 && EHBtnActive) {
+        //     eng -= 0.1;
+        // }
+        updateResBarConifg(oxgen,water,eng);
+    }, 60000); // 每分钟更新
 }
 
 // 暂停资源衰减
 function pauseResourceDecay() {
-	if (resourceInterval) {
-		clearInterval(resourceInterval);
-		isPaused = true;
-	}
+    if (resourceInterval) {
+        clearInterval(resourceInterval); 
+        isPaused = true; 
+    }
 }
 
 // 恢复资源衰减
 function resumeResourceDecay() {
-	if (isPaused) {
-		isPaused = false; // 标记为恢复
-		startDecay(); // 恢复定时器
-	}
+    if (isPaused) {
+        isPaused = false; // 标记为恢复
+        startDecay(); // 恢复定时器
+    }
 }
 
 // 停止资源衰减
 function stopResourceDecay() {
-	if (resourceInterval) {
-		clearInterval(resourceInterval); // 停止定时器
-		resourceInterval = null; // 清除定时器实例
-	}
+    if (resourceInterval) {
+        clearInterval(resourceInterval); // 停止定时器
+        resourceInterval = null; // 清除定时器实例
+    }
 }
 
 /**
@@ -941,90 +960,35 @@ function waitForEHSwitch() {
             resolve();
             return;
         }
-
-        // 在函数作用域内声明变量
-        let autoOpenTimeout = null;
-        
-        // 重置自动打开定时器
-        const resetAutoOpenTimer = () => {
-            if (autoOpenTimeout) {
-                clearTimeout(autoOpenTimeout);
-            }
-            autoOpenTimeout = setTimeout(() => {
-                if (!ehSwitch.classList.contains('active')) {
-                    ehSwitch.click(); // 自动触发点击事件
-                }
-            }, 15000);
-        };
-
         const onEHClicked = async () => {
+            // 判断是否是开启操作
             const isActive = ehSwitch.classList.contains('active');
-            if (!isActive) return;
-            
-            // 清除自动打开定时器
-            if (autoOpenTimeout) {
-                clearTimeout(autoOpenTimeout);
-                autoOpenTimeout = null;
-            }
-            
-            // 移除监听器
+            if (!isActive) return; // 只处理开启的情况
+            // 移除监听，避免重复触发
             ehSwitch.removeEventListener('click', onEHClicked);
-            document.removeEventListener('mousemove', resetAutoOpenTimer);
-            document.removeEventListener('keydown', resetAutoOpenTimer);
-            
             alert("EH 开关已开启，请保持 15 秒...");
+            // 禁用点击（方式1：屏蔽点击）
             ehSwitch.style.pointerEvents = 'none';
-            
+            ehSwitch.style.opacity = '0.6'; // 可选视觉反馈
+            // 倒计时 15 秒
             setTimeout(() => {
+                // 自动关闭开关
                 ehSwitch.classList.remove('active');
+                // 同时切换状态文字
                 const labels = ehSwitch.closest('.switch-wrapper').querySelector('.status-labels');
                 labels.querySelector('.on')?.classList.remove('active');
                 labels.querySelector('.off')?.classList.add('active');
+                // 恢复点击
                 ehSwitch.style.pointerEvents = '';
                 ehSwitch.style.opacity = '';
                 alert("EH 关闭，剧情继续");
                 resolve();
             }, 15000);
         };
-
-        alert("请点击右侧 EH 开关以继续剧情（开启后将自动保持 15 秒），或等待15秒自动开启");
+        // 等待玩家主动开启
+        alert("请点击右侧 EH 开关以继续剧情（开启后将自动保持 15 秒）");
         ehSwitch.addEventListener('click', onEHClicked);
-        
-        // 添加鼠标移动和键盘事件监听
-        document.addEventListener('mousemove', resetAutoOpenTimer);
-        document.addEventListener('keydown', resetAutoOpenTimer);
-        
-        // 初始化自动打开定时器
-        resetAutoOpenTimer();
     });
-}
-// 等待EOG开关激活
-function waitForEOGSwitch() {
-	return new Promise(resolve => {
-		const eogSwitch = document.getElementById('eog-switch-btn');
-		if (!eogSwitch) {
-			alert("找不到 EOG 开关按钮！");
-			resolve();
-			return;
-		}
-
-		setTimeout(() => {
-			const onEOGClicked = () => {
-				// 判断是否是开启操作
-				const isActive = eogSwitch.classList.contains('active');
-				if (!isActive) return; // 只处理开启的情况
-
-				// 移除监听，避免重复触发
-				eogSwitch.removeEventListener('click', onEOGClicked);
-				alert("EOG 开关已开启，剧情继续");
-
-				resolve(); // 开关激活后继续剧情
-			};
-		}, 10000);
-		// 等待玩家主动开启
-		alert("请点击右侧 EOG 开关以继续剧情");
-		eogSwitch.addEventListener('click', onEOGClicked);
-	});
 }
 
 
@@ -1038,36 +1002,36 @@ function resumeInit() {
 /**
  * 在destroy之前保存数据
  */
-function saveDataBeforeQuit() {
-	var resouce = {
-		"oxgen": oxgen,
-		"water": water,
-		"eng": eng
+function saveDataBeforeQuit(){
+	var resouce={
+		"oxgen":oxgen,
+		"water":water,
+		"eng":eng
 	}
-	cachedData.resouce = resouce;
+	cachedData.resouce  = resouce;
 }
 
 let shouldSaveData = true;
 document.addEventListener('DOMContentLoaded', () => {
 	shouldSaveData = true;
-	window.addEventListener('beforeunload', (event) => {
+    window.addEventListener('beforeunload', (event) => {
 		debugger;
-		if (shouldSaveData) {
+		if(shouldSaveData){
 			saveDataBeforeQuit()
 			localStorage.setItem("saveData", JSON.stringify(cachedData));
 		}
-	});
+    });
 });
 
 Object.defineProperty(window, 'shouldSaveData', {
-	set: function (value) {
+	set: function(value) {
 		shouldSaveData = value;
 		if (value === false) {
 			cachedData = {}
 			location.reload();
 		}
 	},
-	get: function () {
+	get: function() {
 		return shouldSaveData;
 	}
 });
@@ -1075,7 +1039,7 @@ Object.defineProperty(window, 'shouldSaveData', {
 
 window.addEventListener('load', () => {
 	setTimeout(() => {
-		// alert("为了完整体验，请允许通知权限哦！");
+		alert("为了完整体验，请允许通知权限哦！");
 		requestNotificationPermission();
 	}, 1000);
 });
@@ -1087,4 +1051,4 @@ init();
 // loadMessages();
 // playMusic(); // 在页面加载时播放音乐
 
-export { closeModal }
+export{closeModal}
