@@ -241,13 +241,17 @@ body {
 	opacity: 0.5;
 	/* 设置透明度 */
 	box-sizing: border-box;
-	/* 包含 border */
-	min-height:100px;
+	z-index: 9;
+
 }
 
 .bpm {
 	color: #5d5d5d;
 	font-size: 6em;
+	z-index: 1;
+}
+
+#ecgCanvas{
 	z-index: 9;
 }
 
@@ -537,7 +541,7 @@ body {
 .player-options-container {
 	flex: 1;
 	/* 占据剩余高度 */
-	background-color: #444444;
+	background-color: #434343;
 	border-radius: 20px;
 	margin-top: 10px;
 	display: flex;
@@ -589,3 +593,4 @@ body {
     left: 25px;
 	pointer-events: none;
 }
+

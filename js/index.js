@@ -5,6 +5,7 @@ import { loggerInfo, loggerDebug, loggerError } from './utils/webUtils/logger.js
 
 // import { Howl } from 'howler';
 
+
 // 配置参数
 const CONFIG = {
 	scrollThreshold: 100,
@@ -25,14 +26,21 @@ let eng = 0;
 let EOHBtnActive = false;
 let EHBtnActive = false;
 // 记录当前心率更新的定时器
-let heartBeatInterval = null; 
+let heartBeatInterval = null;
+
+// 控制是否允许跳过
+let isSkippable = true;
 
 // 初始化
 function init() {
 	requestNotificationPermission();
 	// 定期更新心率
 	resumeInit();
+	// 添加键盘事件监听
+    document.addEventListener('keydown', handleKeyPress);
 }
+
+
 
 // DOM元素引用
 const elements = {
@@ -63,7 +71,8 @@ function updateHeartRate(min, max) {
 	if (max > min && min > 0) {
 		document.querySelector('.heart-rate').style.backgroundImage = "none";
 		document.querySelector('#ecgCanvas').style.display = "block";
-	} else if(max === min && min ===0){
+		document.querySelector('#ecgCanvas').style.position = "absolute";
+	} else if (max === min && min === 0) {
 		document.querySelector('.heart-rate').style.display = "flex";
 		document.querySelector('.heart-rate').style.backgroundImage = "url('./res/animation/heart_beat/heart_beat_0.gif')";
 		document.querySelector('#ecgCanvas').style.display = "none";
@@ -125,7 +134,7 @@ function createTimeMsg(text) {
 function addMessage(text, isUser = true, needNotify = true) {
 	// 如果text为null或undefined，跳过处理
 	if (typeof text !== 'string') {
-		loggerInfo('⚠️ 试图添加空文本消息，已跳过:' +  text);
+		loggerInfo('⚠️ 试图添加空文本消息，已跳过:' + text);
 		return;
 	}
 	// 如果options的动画还没结束就再次触发来进行结束
@@ -169,7 +178,7 @@ function requestNotificationPermission() {
 			loggerInfo("用户允许了通知");
 			// 可以执行通知相关逻辑
 			return;
-		} 
+		}
 		loggerInfo("用户拒绝了通知");
 
 	});
@@ -243,9 +252,11 @@ document.querySelectorAll('.switch').forEach(switchElement => {
 
 // console.log(localStorage.getItem("AliyaCalledMe"))
 function closeModal() { // 移除 export
-	document.querySelector('.modal-overlay').style.display = 'none';
 	$('#operationModal').css("display", "none")
 }
+$("#closeWindow").on("click", function () {
+	closeModal()
+});
 
 // 可选：添加关闭模态框的点击外部区域功能
 document.querySelector('.modal-overlay').addEventListener('click', function (e) {
@@ -254,6 +265,11 @@ document.querySelector('.modal-overlay').addEventListener('click', function (e) 
 	}
 });
 
+// 关闭图片弹出
+document.getElementById('image-popup').addEventListener('click', function(e) {
+    // 点击任何区域都关闭弹出框
+    this.style.display = 'none';
+});
 
 // wait 
 function wait(ms) {
@@ -277,9 +293,14 @@ function hideLoadingGif() {
 
 function handlerParmas(params) {
 	if (params?.music) {
-		playMusicV1(params.music, true, 0.5);
-		cachedData.last_music = params.music;
-		// localStorage.setItem("saveData", JSON.stringify(cachedData));
+		if (params.music == cachedData.last_music) {
+			loggerInfo("当前音乐和上一次播放的一样，不播放");
+		} else {
+			playMusicV1(params.music, true, 0.5);
+			cachedData.last_music = params.music;
+			loggerInfo("播放音乐" + params.music);
+			// localStorage.setItem("saveData", JSON.stringify(cachedData));
+		}
 	}
 
 	if (params?.heart_rate) {
@@ -307,7 +328,7 @@ function showOptions(options, params) { // params 包含 nessecery_op 等信息
 				if (params && params.hasOwnProperty('nessecery_op')) {
 					const requiredOptionIndex = params.nessecery_op;
 					if (index !== requiredOptionIndex) {
-						loggerError(`必要操作检查失败：需要选项 ${requiredOptionIndex}，但选择了 ${index}。正在发送退出请求...`); 
+						loggerError(`必要操作检查失败：需要选项 ${requiredOptionIndex}，但选择了 ${index}。正在发送退出请求...`);
 						window.electronAPI.sendQuitRequest(); // 发送退出请求
 						return; // 阻止后续操作
 					} else {
@@ -329,8 +350,8 @@ function showOptions(options, params) { // params 包含 nessecery_op 等信息
 
 // 在 wait 之前显示 GIF 并隐藏选项
 // todo 目前这个是当信息是最后一个的时候就直接变成了timer的图片;如果需要先加载点点点就把这边的return删去，并把参数和调用时传入的参数去掉即可
-async function pointAnimation(curIndex = -1,targetIndex = 0) {
-	if(curIndex === targetIndex){
+async function pointAnimation(curIndex = -1, targetIndex = 0) {
+	if (curIndex === targetIndex) {
 		return;
 	}
 	const waitGifUrl = "url('./res/animation/wait/donet_waiting.gif')";
@@ -489,6 +510,7 @@ function playMusicV1(src, isLoop, volume) {
 	musicInstance.play();
 }
 
+
 // todo 抽离方法进行简化
 /**
  * 往聊天框内加载信息 该方法中已整合存档和正常游玩功能;
@@ -545,7 +567,7 @@ async function loadMessages() {
 						localStorage.setItem("saveData", JSON.stringify(cachedData));
 						currentMessageIndex++;
 						sendFromUser = true;
-						await pointAnimation(currentMessageIndex,dialogue.messages.length);
+						await pointAnimation(currentMessageIndex, dialogue.messages.length);
 						continue;
 					} else if (message.type === 'player_input') {
 						await showInputDialog();
@@ -569,26 +591,26 @@ async function loadMessages() {
 					cachedData.optionsChoiceList = cacheOptionList;
 					localStorage.setItem("saveData", JSON.stringify(cachedData));
 					currentMessageIndex++;
-					await pointAnimation(currentMessageIndex,dialogue.messages.length);
+					await pointAnimation(currentMessageIndex, dialogue.messages.length);
 				}
-				// todo 更新timer Gif 的URL
-				const timerGifUrl = "url('./res/img/open_engine.png')"
+
+				const timerGifUrl = "url('./res/img/timer.gif')"
 				showLoadingGif(timerGifUrl);
 
 				if (!dialogueDto.getIsLoad()) {
 					// 业务新需求 当不处在倒数第二个阶段的时候 允许玩家进行跳过
 					if (timeStage + 1 != data.dialogue.length - 1) {
-						document.removeEventListener('keydown', handleKeyPress);
-						document.addEventListener('keydown', handleKeyPress);
+						// 不需要重复添加和移除监听器，只需要设置一个标志位
+						isSkippable = true;
+					} else {
+						isSkippable = false;
 					}
 					isEnd = true;
-					// if (dialogueDto.getIsLoad()) {
-					// 	isEnd = true;
-					// 	loggerInfo("需要进行存档");
-					// }
 				}
+				
 				// 此时说明当前阶段剧情已经结束 更新下个剧情的时间戳检查点
 				if (isEnd) {
+					loggerInfo("当前的时间戳是" + dialogue.timestamp);
 					cachedData.nextStageTime = dialogue.timestamp + Date.now();
 					localStorage.setItem("saveData", JSON.stringify(cachedData));
 					isEnd = false;
@@ -636,7 +658,7 @@ async function loadMessages() {
 		}
 	} catch (error) {
 		console.error(error);
-		loggerError('加载消息时发生错误 (Error in loadMessages):' +  error);
+		loggerError('加载消息时发生错误 (Error in loadMessages):' + error);
 	}
 }
 
@@ -794,7 +816,7 @@ document.getElementById('close-popup').addEventListener('click', () => {
 // 键盘事件监听器
 function handleKeyPress(event) {
 	loggerInfo("按键事件触发" + event.key);
-	if (event.key === 'Shift') {
+	if (event.key === 'Shift' && isSkippable) {
 		cachedData.nextStageTime = Date.now();
 		// debugger;
 		localStorage.setItem("saveData", JSON.stringify(cachedData));
@@ -912,45 +934,70 @@ function stopResourceDecay() {
  * @returns 
  */
 function waitForEHSwitch() {
-	return new Promise(resolve => {
-		const ehSwitch = document.getElementById('eh-switch-btn');
-		if (!ehSwitch) {
-			alert("找不到 EH 开关按钮！");
-			resolve();
-			return;
-		}
-		const onEHClicked = async () => {
-			// 判断是否是开启操作
-			const isActive = ehSwitch.classList.contains('active');
-			if (!isActive) return; // 只处理开启的情况
-			// 移除监听，避免重复触发
-			ehSwitch.removeEventListener('click', onEHClicked);
-			alert("EH 开关已开启，请保持 15 秒...");
-			// 禁用点击（方式1：屏蔽点击）
-			ehSwitch.style.pointerEvents = 'none';
-			ehSwitch.style.opacity = '0.6'; // 可选视觉反馈
-			// 倒计时 15 秒
-			setTimeout(() => {
-				// 自动关闭开关
-				ehSwitch.classList.remove('active');
-				// 同时切换状态文字
-				const labels = ehSwitch.closest('.switch-wrapper').querySelector('.status-labels');
-				labels.querySelector('.on')?.classList.remove('active');
-				labels.querySelector('.off')?.classList.add('active');
-				// 恢复点击
-				ehSwitch.style.pointerEvents = '';
-				ehSwitch.style.opacity = '';
-				alert("EH 关闭，剧情继续");
-				resolve();
+    return new Promise(resolve => {
+        const ehSwitch = document.getElementById('eh-switch-btn');
+        if (!ehSwitch) {
+            alert("找不到 EH 开关按钮！");
+            resolve();
+            return;
+        }
 
-			}, 15000);
-		};
-		// 等待玩家主动开启
-		alert("请点击右侧 EH 开关以继续剧情（开启后将自动保持 15 秒）");
-		ehSwitch.addEventListener('click', onEHClicked);
-	});
+        // 在函数作用域内声明变量
+        let autoOpenTimeout = null;
+        
+        // 重置自动打开定时器
+        const resetAutoOpenTimer = () => {
+            if (autoOpenTimeout) {
+                clearTimeout(autoOpenTimeout);
+            }
+            autoOpenTimeout = setTimeout(() => {
+                if (!ehSwitch.classList.contains('active')) {
+                    ehSwitch.click(); // 自动触发点击事件
+                }
+            }, 15000);
+        };
+
+        const onEHClicked = async () => {
+            const isActive = ehSwitch.classList.contains('active');
+            if (!isActive) return;
+            
+            // 清除自动打开定时器
+            if (autoOpenTimeout) {
+                clearTimeout(autoOpenTimeout);
+                autoOpenTimeout = null;
+            }
+            
+            // 移除监听器
+            ehSwitch.removeEventListener('click', onEHClicked);
+            document.removeEventListener('mousemove', resetAutoOpenTimer);
+            document.removeEventListener('keydown', resetAutoOpenTimer);
+            
+            alert("EH 开关已开启，请保持 15 秒...");
+            ehSwitch.style.pointerEvents = 'none';
+            
+            setTimeout(() => {
+                ehSwitch.classList.remove('active');
+                const labels = ehSwitch.closest('.switch-wrapper').querySelector('.status-labels');
+                labels.querySelector('.on')?.classList.remove('active');
+                labels.querySelector('.off')?.classList.add('active');
+                ehSwitch.style.pointerEvents = '';
+                ehSwitch.style.opacity = '';
+                alert("EH 关闭，剧情继续");
+                resolve();
+            }, 15000);
+        };
+
+        alert("请点击右侧 EH 开关以继续剧情（开启后将自动保持 15 秒），或等待15秒自动开启");
+        ehSwitch.addEventListener('click', onEHClicked);
+        
+        // 添加鼠标移动和键盘事件监听
+        document.addEventListener('mousemove', resetAutoOpenTimer);
+        document.addEventListener('keydown', resetAutoOpenTimer);
+        
+        // 初始化自动打开定时器
+        resetAutoOpenTimer();
+    });
 }
-
 // 等待EOG开关激活
 function waitForEOGSwitch() {
 	return new Promise(resolve => {

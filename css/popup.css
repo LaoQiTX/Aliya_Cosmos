@@ -178,21 +178,12 @@
 
 .image-popup-content {
     position: relative;
-    width: 80%;
-    max-width: 600px;
-    margin: 10% auto;
-    background-color: #fff;
-    padding: 20px;
+    width: 100%;
+    margin:auto;
     border-radius: 5px;
     text-align: center;
-}
-
-.close-button {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    font-size: 20px;
-    cursor: pointer;
+    top: 50%;
+    transform: translateY(-50%);
 }
 
 #popup-image {
@@ -200,6 +191,7 @@
     max-height: 80vh;
     display: block;
     margin: 0 auto;
+
 }
 
 .image-controls {

@@ -44,7 +44,7 @@
 				<div class="heart-section">
 					<div class="Aliya">ALIYA</div>
 					<div class="heart-rate">
-						<div class="bpm" style="position: absolute;">72</div>
+						<div class="bpm" style="position: relative; ">72</div>
 						<canvas id="ecgCanvas"></canvas>
 						
 					</div>
@@ -171,7 +171,7 @@
 	<div class="modal-overlay" id="operationModal" style="display: none;">
 		<div class="operation-modal">
 			<div class="modal-header">
-				<h2>系统操作 <span id="closeWindow" onclick="closeModal()" style="cursor: pointer; float: right;">X</span>
+				<h2>系统操作 <span id="closeWindow" style="cursor: pointer; float: right;">&times;</span>
 				</h2>
 			</div>
 			<div class="button-group-vertical">
@@ -181,23 +181,6 @@
 			</div>
 		</div>
 	</div>
-	<!-- 配置接口
-	<div class="modal-overlay" id="settingURL" style="display: none;">
-		<div class="username-modal">
-			<div class="modal-header">
-				<h2>配置接口</h2>
-			</div>
-			<div class="input-group">
-				<input type="text" id="userURL" placeholder="输入URL">
-				<input type="text" id="userKey" placeholder="输入key">
-			</div>
-			<div class="button-group">
-				<button class="cancel-btn" onclick="closeWindow_URL()">取消</button>
-				<button class="save-btn" onclick="saveKey()">保存</button>
-			</div>
-		</div>
-	</div> -->
-
 	<!-- 图片弹出框 -->
 	<div id="image-popup" class="image-popup">
 		<div class="image-popup-content">
@@ -370,10 +353,6 @@ const canvas = document.getElementById('ecgCanvas');
                 console.error('无效的心率类型:', rateType);
             }
         }
-
-        // calmButton.addEventListener('click', () => setHeartRate('calm'));
-        // slightlyNervousButton.addEventListener('click', () => setHeartRate('slightlyNervous'));
-        // highlyNervousButton.addEventListener('click', () => setHeartRate('highlyNervous'));
 
         draw();
 </script>
