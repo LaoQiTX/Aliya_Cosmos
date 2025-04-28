@@ -24,6 +24,7 @@ let EHBtnActive = false;
 
 // 初始化
 function init() {
+	console.log("我是merge测试");
 	requestNotificationPermission();
 	// 定期更新心率
 	resumeInit();
