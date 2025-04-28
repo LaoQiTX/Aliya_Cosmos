@@ -567,12 +567,13 @@ async function loadMessages() {
 					cachedData.nextStageTime = dialogue.timestamp + Date.now();
 					localStorage.setItem("saveData", JSON.stringify(cachedData));
 					isEnd = false;
-					readyForNextStage = false;
+					dialogueDto.setReadyForNextStage(false);
+					// readyForNextStage = false;
 					currentMessageIndex = 0;
-					console.log("更新时间戳成功");
-					if(timeStage+1 !== data.dialogue.length-1){
-						document.addEventListener('keydown', handleKeyPress);
-					}
+					loggerInfo("更新时间戳成功");
+					// if (timeStage + 1 !== data.dialogue.length - 1) {
+					// 	document.addEventListener('keydown', handleKeyPress);
+					// }
 				}
 			}
 			
@@ -797,6 +798,7 @@ function handleKeyPress(event) {
 		console.log("nextStageTime 已更新为当前时间");
 		// 触发自定义事件以唤醒 wait
 		document.dispatchEvent(new Event('wakeUp'));
+		document.removeEventListener('keydown', handleKeyPress);
 	}
 }
 
