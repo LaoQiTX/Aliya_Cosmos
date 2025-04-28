@@ -256,8 +256,10 @@ function wait(ms) {
 }
 
 // 显示加载点点点的GIF
-function showPointLoadingGif() {
-	elements.optionsContainer.style.backgroundImage = "url('./res/animation/wait/donet_waiting.gif')";
+function showLoadingGif(url) {
+	// elements.optionsContainer.style.backgroundImage = "url('./res/animation/wait/donet_waiting.gif')";
+	elements.optionsContainer.style.backgroundImage = url;
+
 	// elements.optionsContainer.style.backgroundSize = 'cover';
 	elements.optionsContainer.innerHTML = ''; // 隐藏选项
 }
@@ -311,7 +313,7 @@ function showOptions(options, params) { // params 包含 nessecery_op 等信息
 				handlerParmas(params);
 				addMessage(option, true);
 				optionsContainer.innerHTML = ''; // 选择后立即清除选项
-				loggerInfo("玩家选择了btn->" + index);
+				// loggerInfo("玩家选择了btn->" + index);
 				resolve(index); // 只有在检查通过或不需要检查时才 resolve
 			});
 
@@ -321,8 +323,13 @@ function showOptions(options, params) { // params 包含 nessecery_op 等信息
 }
 
 // 在 wait 之前显示 GIF 并隐藏选项
-async function pointAnimation() {
-	showPointLoadingGif();
+// todo 目前这个是当信息是最后一个的时候就直接变成了timer的图片;如果需要先加载点点点就把这边的return删去，并把参数和调用时传入的参数去掉即可
+async function pointAnimation(curIndex = -1,targetIndex = 0) {
+	if(curIndex === targetIndex){
+		return;
+	}
+	const waitGifUrl = "url('./res/animation/wait/donet_waiting.gif')";
+	showLoadingGif(waitGifUrl);
 	await wait(2000);
 	hideLoadingGif();
 	await wait(100);
@@ -514,14 +521,6 @@ async function loadMessages() {
 					}
 					// 等待action
 					if (message.params && message.params.need_action) {
-						// if (message.content[0].includes('燃料')) {
-						//     // 当玩家需要打开燃料开关时，调用等待函数
-						//     await waitForEHSwitch();
-						// }
-						// if (message.content[0].includes('制氧')) {
-						//     // 当玩家需要打开氧气开关时，调用等待函数
-						//     await waitForEOGSwitch();
-						// }
 						switch (message.params.need_action) {
 							case ActionEnum.EOH:
 								await waitForEOGSwitch();
@@ -531,7 +530,7 @@ async function loadMessages() {
 								break;
 						}
 					}
-					loggerInfo("当前的消息是" + message.content[0]);
+					// loggerInfo("当前的消息是" + message.content[0]);
 					// debugger; 当前应是具体流程
 					if (message.type === 'player_options') {
 						const choiceIndex = await showOptions(message.content, message.params);
@@ -541,7 +540,7 @@ async function loadMessages() {
 						localStorage.setItem("saveData", JSON.stringify(cachedData));
 						currentMessageIndex++;
 						sendFromUser = true;
-						await pointAnimation();
+						await pointAnimation(currentMessageIndex,dialogue.messages.length);
 						continue;
 					} else if (message.type === 'player_input') {
 						await showInputDialog();
@@ -564,16 +563,12 @@ async function loadMessages() {
 					cacheOptionList.push(0);
 					cachedData.optionsChoiceList = cacheOptionList;
 					localStorage.setItem("saveData", JSON.stringify(cachedData));
-
 					currentMessageIndex++;
-					await pointAnimation();
-
-					// 此时阶段剧情已经结束 需要进行存档;
-					// if (currentMessageIndex >= dialogue.messages.length && !isLoad) {
-					// 	isEnd = true;
-					// 	console.log("需要进行存档");
-					// }
+					await pointAnimation(currentMessageIndex,dialogue.messages.length);
 				}
+				// todo 更新timer Gif 的URL
+				const timerGifUrl = "url('./res/img/open_engine.png')"
+				showLoadingGif(timerGifUrl);
 				// debugger;
 				if (currentMessageIndex >= dialogue.messages.length && !dialogueDto.getIsLoad()) {
 					// 业务新需求 当不处在倒数第二个阶段的时候 允许玩家进行跳过
@@ -618,11 +613,6 @@ async function loadMessages() {
 			await new Promise(resolve => {
 				let timeOutId;
 				const wakeUpListener = () => {
-					// if (hasReachedNextCheckpoint(Date.now(), cachedData.nextStageTime)) {
-					// 	timeStage++;
-					// 	readyForNextStage = true;
-					// 	currentMessageIndex = 0;
-					// }
 					if (checkForNextStage(dialogueDto)) {
 						currentMessageIndex = 0;
 						loggerInfo("listner 里的currentMessageIndex被初始化");
@@ -647,7 +637,8 @@ async function loadMessages() {
 			timeStage = dialogueDto.getTimeStage();
 		}
 	} catch (error) {
-		loggerError('加载消息时发生错误 (Error in loadMessages):' +  error); // 添加更详细的错误日志
+		console.error(error);
+		loggerError('加载消息时发生错误 (Error in loadMessages):' +  error);
 	}
 }
 
@@ -657,7 +648,8 @@ async function loadMessages() {
  */
 function aliyaWaitingTime(userMsg, isTargetConvert = false) {
 	const msgLength = userMsg.length;
-	showPointLoadingGif();
+	const waitGifUrl = "url('./res/animation/wait/donet_waiting.gif')";
+	showLoadingGif(waitGifUrl);
 	// 如果是对话方互相转换时 额外增加1.2s
 	if (isTargetConvert) {
 		wait(1200);
@@ -1041,7 +1033,7 @@ Object.defineProperty(window, 'shouldSaveData', {
 
 window.addEventListener('load', () => {
 	setTimeout(() => {
-		alert("为了完整体验，请允许通知权限哦！");
+		// alert("为了完整体验，请允许通知权限哦！");
 		requestNotificationPermission();
 	}, 1000);
 });
