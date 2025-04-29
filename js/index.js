@@ -594,7 +594,7 @@ async function loadMessages() {
 					await pointAnimation(currentMessageIndex, dialogue.messages.length);
 				}
 
-				const timerGifUrl = "url('./res/img/timer.gif')"
+				const timerGifUrl = "url('./res/img/wait/timer.gif')"
 				showLoadingGif(timerGifUrl);
 
 				if (!dialogueDto.getIsLoad()) {
