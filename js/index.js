@@ -31,15 +31,23 @@ let heartBeatInterval = null;
 // 控制是否允许跳过
 let isSkippable = true;
 
+let bpm = 0;
+
+// 存储待发送的通知
+let pendingNotifications = [];
 // 初始化
 function init() {
 	requestNotificationPermission();
 	// 定期更新心率
 	resumeInit();
 	// 添加键盘事件监听
-    document.addEventListener('keydown', handleKeyPress);
+	document.addEventListener('keydown', handleKeyPress);
+	window.addEventListener('focus', clearPendingNotifications);
 }
-
+// 页面重新聚焦时只清理队列，不发送
+function clearPendingNotifications() {
+    pendingNotifications = [];
+}
 
 
 // DOM元素引用
@@ -69,10 +77,12 @@ function updateHeartRate(min, max) {
 	// debugger;
 	const randomHeartRate = getRandomHeartRate(min, max); // 设置心率范围
 	if (max > min && min > 0) {
+		bpm = randomHeartRate;
 		document.querySelector('.heart-rate').style.backgroundImage = "none";
 		document.querySelector('#ecgCanvas').style.display = "block";
 		document.querySelector('#ecgCanvas').style.position = "absolute";
 	} else if (max === min && min === 0) {
+		bpm = 0;
 		document.querySelector('.heart-rate').style.display = "flex";
 		document.querySelector('.heart-rate').style.backgroundImage = "url('./res/animation/heart_beat/heart_beat_0.gif')";
 		document.querySelector('#ecgCanvas').style.display = "none";
@@ -186,16 +196,20 @@ function requestNotificationPermission() {
 
 // todo 加变量来区分当前是处于加载状态还是正常状态
 function checkNotification(text, isUser) {
-	if (!isUser && !document.hasFocus() && Notification.permission === 'granted') {
-		showNotification('Aliya发来了一条新消息哦', text);
-	}
+	if (!isUser && Notification.permission === 'granted' && !document.hasFocus()) {
+        showNotification('Aliya发来了一条新消息哦', text);
+    }
 }
 
 function showNotification(title, message) {
-	new Notification(title, {
-		body: message,
-		icon: CONFIG.notificationIcon
-	});
+	try {
+        new Notification(title, {
+            body: message,
+            icon: CONFIG.notificationIcon
+        });
+    } catch (e) {
+        loggerError("通知发送失败:", e);
+    }
 }
 
 // 用户交互
@@ -266,9 +280,9 @@ document.querySelector('.modal-overlay').addEventListener('click', function (e) 
 });
 
 // 关闭图片弹出
-document.getElementById('image-popup').addEventListener('click', function(e) {
-    // 点击任何区域都关闭弹出框
-    this.style.display = 'none';
+document.getElementById('image-popup').addEventListener('click', function (e) {
+	// 点击任何区域都关闭弹出框
+	this.style.display = 'none';
 });
 
 // wait 
@@ -607,7 +621,7 @@ async function loadMessages() {
 					}
 					isEnd = true;
 				}
-				
+
 				// 此时说明当前阶段剧情已经结束 更新下个剧情的时间戳检查点
 				if (isEnd) {
 					loggerInfo("当前的时间戳是" + dialogue.timestamp);
@@ -815,17 +829,14 @@ document.getElementById('close-popup').addEventListener('click', () => {
 
 // 键盘事件监听器
 function handleKeyPress(event) {
-	loggerInfo("按键事件触发" + event.key);
-	if (event.key === 'Shift' && isSkippable) {
-		cachedData.nextStageTime = Date.now();
-		// debugger;
-		localStorage.setItem("saveData", JSON.stringify(cachedData));
-		loggerInfo(cachedData);
-		loggerInfo("nextStageTime 已更新为当前时间");
-		// 触发自定义事件以唤醒 wait
-		document.dispatchEvent(new Event('wakeUp'));
-		document.removeEventListener('keydown', handleKeyPress);
-	}
+	loggerInfo("按键事件触发: " + event.key);
+    if (event.key === 'Shift' && isSkippable) {
+        cachedData.nextStageTime = Date.now();
+        localStorage.setItem("saveData", JSON.stringify(cachedData));
+        loggerInfo("nextStageTime 已更新为当前时间");
+        document.dispatchEvent(new Event('wakeUp'));
+        // 不再移除监听器，而是通过状态控制来避免重复触发
+    }
 }
 
 function playMusic() {
@@ -882,28 +893,56 @@ function updateResBarConifg(oxgen, water, eng) {
 
 function startResourceDecay() {
 	if (resourceInterval || isPaused) return; // 如果已有定时器或已暂停则不重复启动
+
+	// 设置一个每秒执行一次的定时器，用于更新资源状态
 	resourceInterval = setInterval(() => {
-		// todo 待加按钮是否打开判断
-		// 开启制氧机时水减少，氧气增加
-		if (water > 0 && EOHBtnActive) {
-			oxgen += 0.1;
-			water -= 0.1;
+		// 氧气消耗值
+		let prevOxgenConsumption = 0;
+
+		// 检查是否开启制氧机
+		if (bpm == 0) {
+			return;
+		} else if (water > 0 && EOHBtnActive) {
+			// 每秒增加氧气量，每15s增加 30 个单位，所以每秒增加 3/15 个单位
+			oxgen += 35 / 15;
+			// 每秒减少水量，每15s减少 40 个单位，所以每秒减少 40/15 个单位
+			water -= 40 / 15;
+			// 确保氧气值不超过 100
+			oxgen = Math.min(oxgen, 100);
+			// 确保水值不低于 0
+			water = Math.max(water, 0);
 		}
-		if (eng > 5 && EHBtnActive) {
-			eng -= 0.1;
+		// 若制氧机按钮未激活
+		else if (!EOHBtnActive) {
+			if (oxgen < 30) {
+				if (prevOxgenConsumption === 0) {
+					prevOxgenConsumption = 0.01;
+				}
+				// 消耗当前的氧气量
+				oxgen -= prevOxgenConsumption;
+				// 确保氧气值不低于 0
+				oxgen = Math.max(oxgen, 0);
+				// 下一次的消耗值变为当前消耗值的一半，实现消耗减半的效果
+				prevOxgenConsumption /= 2;
+			} else {
+				// 非制氧机激活状态下且氧气量不小于 30 时，每秒固定消耗 0.01 个单位的氧气
+				oxgen -= 0.01;
+				// 确保氧气值不低于 0
+				oxgen = Math.max(oxgen, 0);
+			}
 		}
-		// if (oxgen > 5 && EOHBtnActive) {
-		//     oxgen -= 0.1;
-		// }
-		// if (water > 5 && EOHBtnActive) {
-		//     water -= 0.1;
-		// }
-		// if (eng > 5 && EHBtnActive) {
-		//     eng -= 0.1;
-		// }
+
+		// 检查是否满足能源消耗条件：能源存量大于 5 且能源消耗按钮处于激活状态
+		if (eng > 2 && EHBtnActive) {
+			// 动态计算每秒消耗的能源量
+			eng -= (eng - 1) / 15;
+		}
+
+		// 调用更新资源条配置的函数，将当前的氧气、水和能源值传递进去
 		updateResBarConifg(oxgen, water, eng);
-	}, 60000); // 每分钟更新
+	}, 1000);
 }
+
 
 // 暂停资源衰减
 function pauseResourceDecay() {
@@ -934,97 +973,120 @@ function stopResourceDecay() {
  * @returns 
  */
 function waitForEHSwitch() {
-    return new Promise(resolve => {
-        const ehSwitch = document.getElementById('eh-switch-btn');
-        if (!ehSwitch) {
-            alert("找不到 EH 开关按钮！");
-            resolve();
-            return;
-        }
-
-        // 在函数作用域内声明变量
-        let autoOpenTimeout = null;
-        
-        // 重置自动打开定时器
-        const resetAutoOpenTimer = () => {
-            if (autoOpenTimeout) {
-                clearTimeout(autoOpenTimeout);
-            }
-            autoOpenTimeout = setTimeout(() => {
-                if (!ehSwitch.classList.contains('active')) {
-                    ehSwitch.click(); // 自动触发点击事件
-                }
-            }, 15000);
-        };
-
-        const onEHClicked = async () => {
-            const isActive = ehSwitch.classList.contains('active');
-            if (!isActive) return;
-            
-            // 清除自动打开定时器
-            if (autoOpenTimeout) {
-                clearTimeout(autoOpenTimeout);
-                autoOpenTimeout = null;
-            }
-            
-            // 移除监听器
-            ehSwitch.removeEventListener('click', onEHClicked);
-            document.removeEventListener('mousemove', resetAutoOpenTimer);
-            document.removeEventListener('keydown', resetAutoOpenTimer);
-            
-            alert("EH 开关已开启，请保持 15 秒...");
-            ehSwitch.style.pointerEvents = 'none';
-            
-            setTimeout(() => {
-                ehSwitch.classList.remove('active');
-                const labels = ehSwitch.closest('.switch-wrapper').querySelector('.status-labels');
-                labels.querySelector('.on')?.classList.remove('active');
-                labels.querySelector('.off')?.classList.add('active');
-                ehSwitch.style.pointerEvents = '';
-                ehSwitch.style.opacity = '';
-                alert("EH 关闭，剧情继续");
-                resolve();
-            }, 15000);
-        };
-
-        alert("请点击右侧 EH 开关以继续剧情（开启后将自动保持 15 秒），或等待15秒自动开启");
-        ehSwitch.addEventListener('click', onEHClicked);
-        
-        // 添加鼠标移动和键盘事件监听
-        document.addEventListener('mousemove', resetAutoOpenTimer);
-        document.addEventListener('keydown', resetAutoOpenTimer);
-        
-        // 初始化自动打开定时器
-        resetAutoOpenTimer();
-    });
-}
-// 等待EOG开关激活
-function waitForEOGSwitch() {
 	return new Promise(resolve => {
-		const eogSwitch = document.getElementById('eog-switch-btn');
-		if (!eogSwitch) {
-			alert("找不到 EOG 开关按钮！");
+		const ehSwitch = document.getElementById('eh-switch-btn');
+		if (!ehSwitch) {
+			alert("找不到 EH 开关按钮！");
 			resolve();
 			return;
 		}
 
-		setTimeout(() => {
-			const onEOGClicked = () => {
-				// 判断是否是开启操作
-				const isActive = eogSwitch.classList.contains('active');
-				if (!isActive) return; // 只处理开启的情况
+		// 在函数作用域内声明变量
+		let autoOpenTimeout = null;
 
-				// 移除监听，避免重复触发
-				eogSwitch.removeEventListener('click', onEOGClicked);
-				alert("EOG 开关已开启，剧情继续");
+		// 重置自动打开定时器
+		const resetAutoOpenTimer = () => {
+			if (autoOpenTimeout) {
+				clearTimeout(autoOpenTimeout);
+			}
+			autoOpenTimeout = setTimeout(() => {
+				if (!ehSwitch.classList.contains('active')) {
+					ehSwitch.click(); // 自动触发点击事件
+				}
+			}, 15000);
+		};
 
-				resolve(); // 开关激活后继续剧情
-			};
-		}, 10000);
-		// 等待玩家主动开启
-		alert("请点击右侧 EOG 开关以继续剧情");
-		eogSwitch.addEventListener('click', onEOGClicked);
+		const onEHClicked = async () => {
+			const isActive = ehSwitch.classList.contains('active');
+			if (!isActive) return;
+
+			// 清除自动打开定时器
+			if (autoOpenTimeout) {
+				clearTimeout(autoOpenTimeout);
+				autoOpenTimeout = null;
+			}
+
+			// 移除监听器
+			ehSwitch.removeEventListener('click', onEHClicked);
+			document.removeEventListener('mousemove', resetAutoOpenTimer);
+			document.removeEventListener('keydown', resetAutoOpenTimer);
+
+			alert("EH 开关已开启，请保持 15 秒...");
+			ehSwitch.style.pointerEvents = 'none';
+
+			setTimeout(() => {
+				ehSwitch.classList.remove('active');
+				const labels = ehSwitch.closest('.switch-wrapper').querySelector('.status-labels');
+				labels.querySelector('.on')?.classList.remove('active');
+				labels.querySelector('.off')?.classList.add('active');
+				ehSwitch.style.pointerEvents = '';
+				ehSwitch.style.opacity = '';
+				alert("EH 关闭，剧情继续");
+				EHBtnActive = false;
+				resolve();
+			}, 15000);
+		};
+
+		alert("请点击右侧 EH 开关以继续剧情（开启后将自动保持 15 秒），或等待15秒自动开启");
+		ehSwitch.addEventListener('click', onEHClicked);
+
+		// 添加鼠标移动和键盘事件监听
+		document.addEventListener('mousemove', resetAutoOpenTimer);
+		document.addEventListener('keydown', resetAutoOpenTimer);
+
+		// 初始化自动打开定时器
+		resetAutoOpenTimer();
 	});
+}
+// 等待EOG开关激活
+function waitForEOGSwitch() {
+	return new Promise(resolve => {
+        const eogSwitch = document.getElementById('eog-switch-btn');
+        if (!eogSwitch) {
+            alert("找不到 EOG 开关按钮！");
+            resolve();
+            return;
+        }
+
+        let autoActivateTimer;
+
+        // 点击回调：检测到开关被激活后，等待15秒再继续
+        const onEOGActivated = () => {
+            if (!eogSwitch.classList.contains('active')) return;  // 只在开启时处理
+
+            // 清除自动激活定时器
+            clearTimeout(autoActivateTimer);
+            // 移除监听，避免重复触发
+            eogSwitch.removeEventListener('click', onEOGActivated);
+
+            alert("EOG 开关已开启，请保持 15 秒...");
+
+            setTimeout(() => {
+                // 15 秒后自动关闭开关
+                eogSwitch.classList.remove('active');
+                const labels = eogSwitch.closest('.switch-wrapper').querySelector('.status-labels');
+                labels.querySelector('.on')?.classList.remove('active');
+                labels.querySelector('.off')?.classList.add('active');
+                
+                alert("15 秒已到，EOG 关闭，剧情继续");
+				EOHBtnActive = false;
+                resolve();
+            }, 15000);
+        };
+
+        // 注册点击监听
+        eogSwitch.addEventListener('click', onEOGActivated);
+
+        // 10 秒后如果仍未激活，则自动点击激活
+        autoActivateTimer = setTimeout(() => {
+            if (!eogSwitch.classList.contains('active')) {
+                eogSwitch.click();
+            }
+        }, 10000);
+
+        // 最初提示
+        alert("请点击右侧 EOG 开关以继续剧情（若10秒内未开启，将自动激活；开启后需保持15秒）");
+    });
 }
 
 function resumeInit() {

@@ -789,16 +789,16 @@
           "type": "player_options",
           "content": [
             "[好的]"
-          ]
+          ],
+          "params": {
+            "need_action": "eoh"
+          }
         },
         {
           "type": "aliya",
           "content": [
             "诶？为什么没充满"
-          ],
-          "params": {
-            "need_action": "eho"
-          }
+          ]
         },
         {
           "type": "aliya",
