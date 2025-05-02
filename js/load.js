@@ -52,7 +52,7 @@ function firstLoad(data){
     if(data.resouce == null){
         data.resouce={
             "oxgen":55.0,
-            "water":45.0,
+            "water":55.0,
             "eng":15.0
         }
     }

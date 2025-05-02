@@ -28,7 +28,8 @@ laoqi_young@foxmail.com
 1.open Server live
 2.npm start (起应用)
 
-3.npx electron-packager . MyApp --platform=win32 --arch=x64 --out=dist --overwrite --icon=QDW.ico
+3.npm run ele_pack
+npx electron-packager . MyApp --platform=win32 --arch=x64 --out=dist --overwrite --icon=QDW.ico
 参数:
 MyApp 是app的应用名称；
 platform 是适配的平台;

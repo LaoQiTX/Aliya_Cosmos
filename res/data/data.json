@@ -641,7 +641,7 @@
             "[为什么你好像很兴奋？]"
           ],
           "params": {
-            "need_action": "eh" 
+            "need_action": "eh"
           }
         },
         {
@@ -783,7 +783,10 @@
           "type": "aliya",
           "content": [
             "能拜托你把制氧开关打开吗"
-          ]
+          ],
+          "params": {
+            "need_action": "eh"
+          }
         },
         {
           "type": "player_options",

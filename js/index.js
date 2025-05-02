@@ -25,14 +25,16 @@ let eng = 0;
 // 按钮
 let EOHBtnActive = false;
 let EHBtnActive = false;
+// 是否允许点击按钮
+let canClickEOG = false;
+let canClickEH = false;
+
 // 记录当前心率更新的定时器
 let heartBeatInterval = null;
-
 // 控制是否允许跳过
 let isSkippable = true;
-
+// 当前心跳
 let bpm = 0;
-
 // 存储待发送的通知
 let pendingNotifications = [];
 // 初始化
@@ -43,10 +45,26 @@ function init() {
 	// 添加键盘事件监听
 	document.addEventListener('keydown', handleKeyPress);
 	window.addEventListener('focus', clearPendingNotifications);
+	// 初始化时禁用开关
+	setEOGSwitchEnabled(false);
+	setEHSwitchEnabled(false);
 }
 // 页面重新聚焦时只清理队列，不发送
 function clearPendingNotifications() {
-    pendingNotifications = [];
+	pendingNotifications = [];
+}
+
+// 设置设否允许点击按钮
+function setEOGSwitchEnabled(enabled) {
+	const eogSwitch = document.getElementById('eog-switch-btn');
+	canClickEOG = enabled;
+	eogSwitch.style.pointerEvents = enabled ? '' : 'none';
+}
+
+function setEHSwitchEnabled(enabled) {
+	const ehSwitch = document.getElementById('eh-switch-btn');
+	canClickEH = enabled;
+	ehSwitch.style.pointerEvents = enabled ? '' : 'none';
 }
 
 
@@ -197,19 +215,19 @@ function requestNotificationPermission() {
 // todo 加变量来区分当前是处于加载状态还是正常状态
 function checkNotification(text, isUser) {
 	if (!isUser && Notification.permission === 'granted' && !document.hasFocus()) {
-        showNotification('Aliya发来了一条新消息哦', text);
-    }
+		showNotification('Aliya发来了一条新消息哦', text);
+	}
 }
 
 function showNotification(title, message) {
 	try {
-        new Notification(title, {
-            body: message,
-            icon: CONFIG.notificationIcon
-        });
-    } catch (e) {
-        loggerError("通知发送失败:", e);
-    }
+		new Notification(title, {
+			body: message,
+			icon: CONFIG.notificationIcon
+		});
+	} catch (e) {
+		loggerError("通知发送失败:", e);
+	}
 }
 
 // 用户交互
@@ -830,13 +848,13 @@ document.getElementById('close-popup').addEventListener('click', () => {
 // 键盘事件监听器
 function handleKeyPress(event) {
 	loggerInfo("按键事件触发: " + event.key);
-    if (event.key === 'Shift' && isSkippable) {
-        cachedData.nextStageTime = Date.now();
-        localStorage.setItem("saveData", JSON.stringify(cachedData));
-        loggerInfo("nextStageTime 已更新为当前时间");
-        document.dispatchEvent(new Event('wakeUp'));
-        // 不再移除监听器，而是通过状态控制来避免重复触发
-    }
+	if (event.key === 'Shift' && isSkippable) {
+		cachedData.nextStageTime = Date.now();
+		localStorage.setItem("saveData", JSON.stringify(cachedData));
+		loggerInfo("nextStageTime 已更新为当前时间");
+		document.dispatchEvent(new Event('wakeUp'));
+		// 不再移除监听器，而是通过状态控制来避免重复触发
+	}
 }
 
 function playMusic() {
@@ -904,9 +922,9 @@ function startResourceDecay() {
 			return;
 		} else if (water > 0 && EOHBtnActive) {
 			// 每秒增加氧气量，每15s增加 30 个单位，所以每秒增加 3/15 个单位
-			oxgen += 35 / 15;
+			oxgen += 35 / 30;
 			// 每秒减少水量，每15s减少 40 个单位，所以每秒减少 40/15 个单位
-			water -= 40 / 15;
+			water -= 40 / 30;
 			// 确保氧气值不超过 100
 			oxgen = Math.min(oxgen, 100);
 			// 确保水值不低于 0
@@ -974,6 +992,7 @@ function stopResourceDecay() {
  */
 function waitForEHSwitch() {
 	return new Promise(resolve => {
+		setEHSwitchEnabled(true);
 		const ehSwitch = document.getElementById('eh-switch-btn');
 		if (!ehSwitch) {
 			alert("找不到 EH 开关按钮！");
@@ -1023,6 +1042,7 @@ function waitForEHSwitch() {
 				ehSwitch.style.opacity = '';
 				alert("EH 关闭，剧情继续");
 				EHBtnActive = false;
+				setEHSwitchEnabled(false);
 				resolve();
 			}, 15000);
 		};
@@ -1040,53 +1060,55 @@ function waitForEHSwitch() {
 }
 // 等待EOG开关激活
 function waitForEOGSwitch() {
+	setEOGSwitchEnabled(true);
 	return new Promise(resolve => {
-        const eogSwitch = document.getElementById('eog-switch-btn');
-        if (!eogSwitch) {
-            alert("找不到 EOG 开关按钮！");
-            resolve();
-            return;
-        }
+		const eogSwitch = document.getElementById('eog-switch-btn');
+		if (!eogSwitch) {
+			alert("找不到 EOG 开关按钮！");
+			resolve();
+			return;
+		}
 
-        let autoActivateTimer;
+		let autoActivateTimer;
 
-        // 点击回调：检测到开关被激活后，等待15秒再继续
-        const onEOGActivated = () => {
-            if (!eogSwitch.classList.contains('active')) return;  // 只在开启时处理
+		// 点击回调：检测到开关被激活后，等待15秒再继续
+		const onEOGActivated = () => {
+			if (!eogSwitch.classList.contains('active')) return;  // 只在开启时处理
 
-            // 清除自动激活定时器
-            clearTimeout(autoActivateTimer);
-            // 移除监听，避免重复触发
-            eogSwitch.removeEventListener('click', onEOGActivated);
+			// 清除自动激活定时器
+			clearTimeout(autoActivateTimer);
+			// 移除监听，避免重复触发
+			eogSwitch.removeEventListener('click', onEOGActivated);
 
-            alert("EOG 开关已开启，请保持 15 秒...");
+			alert("EOG 开关已开启，请保持 15 秒...");
 
-            setTimeout(() => {
-                // 15 秒后自动关闭开关
-                eogSwitch.classList.remove('active');
-                const labels = eogSwitch.closest('.switch-wrapper').querySelector('.status-labels');
-                labels.querySelector('.on')?.classList.remove('active');
-                labels.querySelector('.off')?.classList.add('active');
-                
-                alert("15 秒已到，EOG 关闭，剧情继续");
+			setTimeout(() => {
+				// 15 秒后自动关闭开关
+				eogSwitch.classList.remove('active');
+				const labels = eogSwitch.closest('.switch-wrapper').querySelector('.status-labels');
+				labels.querySelector('.on')?.classList.remove('active');
+				labels.querySelector('.off')?.classList.add('active');
+
+				alert("15 秒已到，EOG 关闭，剧情继续");
 				EOHBtnActive = false;
-                resolve();
-            }, 15000);
-        };
+				// setEOGSwitchEnabled(false);
+				resolve();
+			}, 15000);
+		};
 
-        // 注册点击监听
-        eogSwitch.addEventListener('click', onEOGActivated);
+		// 注册点击监听
+		eogSwitch.addEventListener('click', onEOGActivated);
 
-        // 10 秒后如果仍未激活，则自动点击激活
-        autoActivateTimer = setTimeout(() => {
-            if (!eogSwitch.classList.contains('active')) {
-                eogSwitch.click();
-            }
-        }, 10000);
+		// 10 秒后如果仍未激活，则自动点击激活
+		autoActivateTimer = setTimeout(() => {
+			if (!eogSwitch.classList.contains('active')) {
+				eogSwitch.click();
+			}
+		}, 10000);
 
-        // 最初提示
-        alert("请点击右侧 EOG 开关以继续剧情（若10秒内未开启，将自动激活；开启后需保持15秒）");
-    });
+		// 最初提示
+		alert("请点击右侧 EOG 开关以继续剧情（若10秒内未开启，将自动激活；开启后需保持15秒）");
+	});
 }
 
 function resumeInit() {
