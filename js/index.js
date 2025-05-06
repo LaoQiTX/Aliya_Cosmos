@@ -932,9 +932,9 @@ function startResourceDecay() {
 		}
 
 		// 检查是否满足能源消耗条件：能源存量大于 5 且能源消耗按钮处于激活状态
-		if (eng > 2 && EHBtnActive) {
+		if (EHBtnActive) {
 			// 动态计算每秒消耗的能源量
-			eng -= (eng - 1) / 15;
+			eng = Math.max(eng - 0.1, 0);
 		}
 
 		// 调用更新资源条配置的函数，将当前的氧气、水和能源值传递进去
@@ -1062,19 +1062,21 @@ function waitForEOGSwitch() {
 			eogSwitch.removeEventListener('click', onEOGActivated);
 
 			// alert("EOG 开关已开启，请保持 15 秒...");
-
-			setTimeout(() => {
-				// 15 秒后自动关闭开关
-				eogSwitch.classList.remove('active');
-				const labels = eogSwitch.closest('.switch-wrapper').querySelector('.status-labels');
-				labels.querySelector('.on')?.classList.remove('active');
-				labels.querySelector('.off')?.classList.add('active');
-
-				// alert("15 秒已到，EOG 关闭，剧情继续");
-				EOHBtnActive = false;
-				// setEOGSwitchEnabled(false);
-				resolve();
-			}, 15000);
+			const interval = setTimeout(() => {
+				// 每秒检测一下 查看是否eng到底了
+				if (eng <= 0) {
+					clearInterval(interval); // 停止监听
+			
+					eogSwitch.classList.remove('active');
+					const labels = eogSwitch.closest('.switch-wrapper').querySelector('.status-labels');
+					labels.querySelector('.on')?.classList.remove('active');
+					labels.querySelector('.off')?.classList.add('active');
+					// alert("15 秒已到，EOG 关闭，剧情继续");
+					EOHBtnActive = false;
+					// setEOGSwitchEnabled(false);
+					resolve();
+				}
+			}, 1000);
 		};
 
 		// 注册点击监听
