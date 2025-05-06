@@ -27,3 +27,4 @@ document.querySelector('#operationModal').addEventListener('click', function(e) 
 		this.style.display = 'none';
 	}
 });
+export{initConnection,closeWindow_URL}

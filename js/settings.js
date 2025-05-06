@@ -47,3 +47,5 @@ function closeInputDialog() {
         setTimeout(resolve, 300); // 让动画有时间完成
     });
 }
+
+export {closeInputDialog,showInputDialog,saveUsername}

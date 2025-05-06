@@ -2,6 +2,9 @@
 import * as loadModule from './load.js';
 import { ActionEnum } from './enums/action_enum.js';
 import { loggerInfo, loggerDebug, loggerError } from './utils/webUtils/logger.js';
+import { initConnection } from './operation_init.js';
+import { closeWindow } from './operation_closeWindow.js';
+import { closeInputDialog,saveUsername } from './settings.js';
 
 // import { Howl } from 'howler';
 
@@ -48,7 +51,25 @@ function init() {
 	// 初始化时禁用开关
 	setEOGSwitchEnabled(false);
 	setEHSwitchEnabled(false);
+	// 绑定按钮事件
+	bindBtnClick();
 }
+
+function bindBtnClick(){
+	// 初始化链接按钮
+	const initBtn = document.querySelector('.init-btn');
+	initBtn.addEventListener('click',initConnection);
+	// 关闭弹窗按钮
+	const closeBtn = document.querySelector('.exit-btn');
+	closeBtn.addEventListener('click',closeWindow);
+	// 取消弹窗按钮
+	const cancleBtn = document.querySelector('.cancel-btn');
+	cancleBtn.addEventListener('click',closeInputDialog)
+	// 保存名字按钮
+	const saveBtn = document.querySelector('.save-btn');
+	saveBtn.addEventListener('click',saveUsername);
+}
+
 // 页面重新聚焦时只清理队列，不发送
 function clearPendingNotifications() {
 	pendingNotifications = [];

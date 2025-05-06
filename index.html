@@ -162,8 +162,8 @@
 				<input type="text" id="username" placeholder="输入用户名">
 			</div>
 			<div class="button-group">
-				<button class="cancel-btn" onclick="closeInputDialog()">取消</button>
-				<button class="save-btn" onclick="saveUsername()" id="save-btn">保存</button>
+				<button class="cancel-btn">取消</button>
+				<button class="save-btn" id="save-btn">保存</button>
 			</div>
 		</div>
 	</div>
@@ -175,9 +175,9 @@
 				</h2>
 			</div>
 			<div class="button-group-vertical">
-				<button class="init-btn" onclick="initConnection()">初始化连接</button>
+				<button class="init-btn">初始化连接</button>
 				<!-- <button class="init-btn" onclick="settingURL()">配置接口</button> -->
-				<button class="exit-btn" onclick="closeWindow()">退出</button>
+				<button class="exit-btn">退出</button>
 			</div>
 		</div>
 	</div>
@@ -191,17 +191,11 @@
 </body>
 
 </html>
-<script type="module" src="./js/jquery.js"></script>
-<script type="module" src="./js/mui.min.js"></script>
-<script type="module" src="./js/operation_saveUrl.js"></script>
-<script type="module" src="./js/post.js"></script>
-<script type="module" src="./js/howler.min.js"></script>
-<script type="module" src="./js/load.js"></script>
-<script type="module" src="./js/save.js"></script>
+<script src="./js/jquery.js"></script>
+<script src="./js/mui.min.js"></script>
+<script src="./js/howler.min.js"></script>
 <script type="module" src="./js/index.js"></script>
-<script type="module" src="./js/operation_init.js"></script>
-<script type="module" src="./js/operation_closeWindow.js"></script>
-<script type="module" src="./js/settings.js"></script>
+
 <script>
 const canvas = document.getElementById('ecgCanvas');
         const ctx = canvas.getContext('2d', { willReadFrequently: true });

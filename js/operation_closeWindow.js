@@ -3,3 +3,5 @@ function closeWindow() {
 	$('#operationModal').css("display", "none")
 	window.close();
 }
+
+export{closeWindow}
