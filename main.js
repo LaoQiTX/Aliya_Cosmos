@@ -43,20 +43,28 @@ function createWindow() {
   win.webContents.openDevTools(); // 添加这行来自动打开开发者工具
 }
 
-// app.whenReady().then(createWindow);
-app.whenReady().then(() => {
-  logger.info("QDW demo start complete");
-  // app.setName("QDW_Demo");
-  if (app.isPackaged) {
-    const asarPath = path.join(appPath, "resources", "app.asar");
-    logger.info("asar->" + asarPath);
-    originGetMd5(asarPath);
-  }
-  createWindow();
-});
 
-// 监听来自渲染进程的退出请求
-ipcMain.on("quit-app-on-condition", () => {
-  logger.info("收到条件退出请求，正在退出应用...");
-  app.quit();
-});
+function init(){
+  app.whenReady().then(() => {
+    logger.info("QDW demo start complete");
+    // app.setName("QDW_Demo");
+    if (app.isPackaged) {
+      const asarPath = path.join(appPath, "resources", "app.asar");
+      logger.info("asar->" + asarPath);
+      originGetMd5(asarPath);
+    }
+    createWindow();
+  });
+  
+  // 监听来自渲染进程的退出请求
+  ipcMain.on("quit-app-on-condition", () => {
+    logger.info("收到条件退出请求，正在退出应用...");
+    app.quit();
+  });
+  
+  ipcMain.handle('get-window-focus', () => {
+    return mainWindow.isFocused();
+  });
+}
+
+init();

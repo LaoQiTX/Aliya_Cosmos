@@ -286,9 +286,13 @@ function requestNotificationPermission() {
 
 // todo 加变量来区分当前是处于加载状态还是正常状态
 function checkNotification(text, isUser) {
-	if (!isUser && Notification.permission === 'granted' && !document.hasFocus()) {
+	const focused = window.electronAPI.isFocus();
+	if (!isUser && Notification.permission === 'granted' && !focused) {
 		showNotification('Aliya发来了一条新消息哦', text);
 	}
+	// if (!isUser && Notification.permission === 'granted' && !document.hasFocus()) {
+	// 	showNotification('Aliya发来了一条新消息哦', text);
+	// }
 }
 
 function showNotification(title, message) {
