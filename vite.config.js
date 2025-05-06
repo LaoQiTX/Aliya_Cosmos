@@ -2,9 +2,10 @@ const { defineConfig } = require("vite");
 const { viteObfuscateFile } = require("vite-plugin-obfuscator");
 
 module.exports = defineConfig({
+  base:'./',
   build: {
     minify: 'terser',
-    outDir: 'dist/obfuscated'
+    outDir: 'dist/obfuscated',
   },
   plugins: [
     viteObfuscateFile({
