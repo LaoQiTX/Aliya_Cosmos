@@ -83,7 +83,7 @@ function bindBtnClick(){
 	});
 
 	// 关闭图片弹出
-	document.getElementById('image-popup').addEventListener('dblclick', function (e) {
+	document.getElementById('image-popup').addEventListener('click', function (e) {
 		// 点击任何区域都关闭弹出框
 		this.style.display = 'none';
 	});
@@ -820,7 +820,7 @@ function addImageMessage(imageUrl, isUser = true, needNotify = true) {
 	checkAutoScroll();
 
 	// 添加点击事件监听器
-	messageElement.addEventListener('click', () => {
+	messageElement.addEventListener('dblclick', () => {
 		showImagePopup(imageUrl);
 	});
 
