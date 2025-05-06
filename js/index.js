@@ -37,6 +37,14 @@ let heartBeatInterval = null;
 let isSkippable = true;
 // 当前心跳
 let bpm = 0;
+let musicInstance = null;
+// 定义开关音效对象
+const switchSound = new Howl({
+	src: ['./res/music/switch.wav'],
+	loop: false,
+	volume: 1
+});
+let shouldSaveData = true;
 // 存储待发送的通知
 let pendingNotifications = [];
 // 初始化
@@ -52,6 +60,8 @@ function init() {
 	setEHSwitchEnabled(false);
 	// 绑定按钮事件
 	bindBtnClick();
+	// 按钮滑动事件
+	bindSwitchBtn();
 }
 
 function bindBtnClick(){
@@ -76,6 +86,47 @@ function bindBtnClick(){
 	document.getElementById('image-popup').addEventListener('dblclick', function (e) {
 		// 点击任何区域都关闭弹出框
 		this.style.display = 'none';
+	});
+
+	// 关闭弹出框
+	document.getElementById('close-popup').addEventListener('click', () => {
+		document.getElementById('image-popup').style.display = 'none';
+	});
+}
+
+function bindSwitchBtn(){
+	// On/Off切换
+	document.querySelectorAll('.switch').forEach(switchElement => {
+		switchElement.addEventListener('click', function () {
+			this.classList.toggle('active');
+			const labels = this.closest('.switch-wrapper').querySelector('.status-labels');
+			labels.querySelector('.off').classList.toggle('active');
+			labels.querySelector('.on').classList.toggle('active');
+			// 获取 HRM 开关的按钮
+			const hrmSwitch = document.getElementById('hrm-switch-btn');
+			const heartRateElement = document.querySelector('.heart-rate');
+			const eogSwitch = document.getElementById('eog-switch-btn');
+			const ehSwitch = document.getElementById('eh-switch-btn');
+			// 检查 HRM 是否为 on 状态
+			if (hrmSwitch.classList.contains('active')) {
+				heartRateElement.style.opacity = 0.5;
+			} else {
+				heartRateElement.style.opacity = 0;
+			}
+
+			if (eogSwitch.classList.contains('active')) {
+				EOHBtnActive = true;
+			}
+
+			if (ehSwitch.classList.contains('active')) {
+				EHBtnActive = true;
+				const event = new Event('eh-switch-on');
+				document.dispatchEvent(event);
+			}
+
+			// 播放开关音效
+			switchSound.play();
+		});
 	});
 }
 
@@ -138,15 +189,6 @@ function updateHeartRate(min, max) {
 	bpmElement.textContent = randomHeartRate;
 }
 
-// 布局相关
-function setupLayout() {
-	updateMessagesPadding();
-}
-
-function updateMessagesPadding() {
-	const height = elements.inputContainer.offsetHeight;
-	document.documentElement.style.setProperty('--input-height', `${height}px`);
-}
 
 // 消息处理
 function createMessage(text, isUser = true) {
@@ -192,7 +234,7 @@ function createTimeMsg(text) {
 function addMessage(text, isUser = true, needNotify = true) {
 	// 如果text为null或undefined，跳过处理
 	if (typeof text !== 'string') {
-		loggerInfo('⚠️ 试图添加空文本消息，已跳过:' + text);
+		loggerInfo('试图添加空文本消息，已跳过:' + text);
 		return;
 	}
 	// 如果options的动画还没结束就再次触发来进行结束
@@ -260,57 +302,6 @@ function showNotification(title, message) {
 	}
 }
 
-// 用户交互
-function sendUserMessage() {
-	const text = elements.input.value.trim();
-	if (!text) {
-		return;
-	}
-	addMessage(text);
-	sendPost(text)
-	elements.input.value = '';
-}
-
-// 定义开关音效对象
-const switchSound = new Howl({
-	src: ['./res/music/switch.wav'],
-	loop: false,
-	volume: 1
-});
-
-// On/Off切换
-document.querySelectorAll('.switch').forEach(switchElement => {
-	switchElement.addEventListener('click', function () {
-		this.classList.toggle('active');
-		const labels = this.closest('.switch-wrapper').querySelector('.status-labels');
-		labels.querySelector('.off').classList.toggle('active');
-		labels.querySelector('.on').classList.toggle('active');
-		// 获取 HRM 开关的按钮
-		const hrmSwitch = document.getElementById('hrm-switch-btn');
-		const heartRateElement = document.querySelector('.heart-rate');
-		const eogSwitch = document.getElementById('eog-switch-btn');
-		const ehSwitch = document.getElementById('eh-switch-btn');
-		// 检查 HRM 是否为 on 状态
-		if (hrmSwitch.classList.contains('active')) {
-			heartRateElement.style.opacity = 0.5;
-		} else {
-			heartRateElement.style.opacity = 0;
-		}
-
-		if (eogSwitch.classList.contains('active')) {
-			EOHBtnActive = true;
-		}
-
-		if (ehSwitch.classList.contains('active')) {
-			EHBtnActive = true;
-			const event = new Event('eh-switch-on');
-			document.dispatchEvent(event);
-		}
-
-		// 播放开关音效
-		switchSound.play();
-	});
-});
 
 // console.log(localStorage.getItem("AliyaCalledMe"))
 function closeModal() { // 移除 export
@@ -342,9 +333,7 @@ function hideLoadingGif() {
 
 function handlerParmas(params) {
 	if (params?.music) {
-		if (params.music == cachedData.last_music) {
-			loggerInfo("当前音乐和上一次播放的一样，不播放");
-		} else {
+		if (params.music != cachedData.last_music) {
 			playMusicV1(params.music, true, 0.5);
 			cachedData.last_music = params.music;
 			loggerInfo("播放音乐" + params.music);
@@ -546,7 +535,7 @@ const replySound = new Howl({
  * @param {Boolean} isLoop 
  * @param {Float} volume 
  */
-let musicInstance = null;
+
 function playMusicV1(src, isLoop, volume) {
 	if (musicInstance) {
 		musicInstance.stop();
@@ -648,12 +637,7 @@ async function loadMessages() {
 
 				if (!dialogueDto.getIsLoad()) {
 					// 业务新需求 当不处在倒数第二个阶段的时候 允许玩家进行跳过
-					if (timeStage + 1 != data.dialogue.length - 1) {
-						// 不需要重复添加和移除监听器，只需要设置一个标志位
-						isSkippable = true;
-					} else {
-						isSkippable = false;
-					}
+					isSkippable = timeStage + 1 !== data.dialogue.length - 1;
 					isEnd = true;
 				}
 
@@ -664,12 +648,8 @@ async function loadMessages() {
 					localStorage.setItem("saveData", JSON.stringify(cachedData));
 					isEnd = false;
 					dialogueDto.setReadyForNextStage(false);
-					// readyForNextStage = false;
 					currentMessageIndex = 0;
 					loggerInfo("更新时间戳成功");
-					// if (timeStage + 1 !== data.dialogue.length - 1) {
-					// 	document.addEventListener('keydown', handleKeyPress);
-					// }
 				}
 			}
 
@@ -857,10 +837,6 @@ function showImagePopup(imageUrl) {
 	popup.style.display = 'block';
 }
 
-// 关闭弹出框
-document.getElementById('close-popup').addEventListener('click', () => {
-	document.getElementById('image-popup').style.display = 'none';
-});
 
 // 键盘事件监听器
 function handleKeyPress(event) {
@@ -874,18 +850,6 @@ function handleKeyPress(event) {
 	}
 }
 
-function playMusic() {
-	document.addEventListener("click", function () {
-		const musicPlayer = document.getElementById("bg-music");
-		if (musicPlayer.paused) {
-			musicPlayer.play().catch(error => loggerError("播放失败:", error));
-		} else {
-			loggerInfo("播放音乐成功");
-		}
-
-	}, { once: true }); // 确保只触发一次
-
-}
 
 /**
  * 加载默认配置
@@ -1064,7 +1028,7 @@ function waitForEHSwitch() {
 			}, 15000);
 		};
 
-		alert("请点击右侧 EH 开关以继续剧情（开启后将自动保持 15 秒），或等待15秒自动开启");
+		// alert("请点击右侧 EH 开关以继续剧情（开启后将自动保持 15 秒），或等待15秒自动开启");
 		ehSwitch.addEventListener('click', onEHClicked);
 
 		// 添加鼠标移动和键盘事件监听
@@ -1097,7 +1061,7 @@ function waitForEOGSwitch() {
 			// 移除监听，避免重复触发
 			eogSwitch.removeEventListener('click', onEOGActivated);
 
-			alert("EOG 开关已开启，请保持 15 秒...");
+			// alert("EOG 开关已开启，请保持 15 秒...");
 
 			setTimeout(() => {
 				// 15 秒后自动关闭开关
@@ -1106,7 +1070,7 @@ function waitForEOGSwitch() {
 				labels.querySelector('.on')?.classList.remove('active');
 				labels.querySelector('.off')?.classList.add('active');
 
-				alert("15 秒已到，EOG 关闭，剧情继续");
+				// alert("15 秒已到，EOG 关闭，剧情继续");
 				EOHBtnActive = false;
 				// setEOGSwitchEnabled(false);
 				resolve();
@@ -1145,7 +1109,7 @@ function saveDataBeforeQuit() {
 	cachedData.resouce = resouce;
 }
 
-let shouldSaveData = true;
+
 document.addEventListener('DOMContentLoaded', () => {
 	shouldSaveData = true;
 	window.addEventListener('beforeunload', (event) => {
