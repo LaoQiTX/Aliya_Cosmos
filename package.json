@@ -6,14 +6,18 @@
   "scripts": {
     "start": "set NODE_ENV=dev && electron .",
     "build": "electron-builder --win --x64",
-    "ele_pack": "set NODE_ENV=prod && npx electron-packager . QDW_demo --platform=win32 --arch=x64 --out=dist --overwrite --icon=QDW.ico --asar"
+    "ele_pack": "set NODE_ENV=prod && npx electron-packager . QDW_demo --platform=win32 --arch=x64 --out=dist --overwrite --icon=QDW.ico --asar",
+    "vite_build":"npx vite build"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "electron": "^35.1.2",
-    "electron-builder": "^26.0.12"
+    "electron-builder": "^26.0.12",
+    "terser": "^5.39.0",
+    "vite": "^6.3.5",
+    "vite-plugin-obfuscator": "^1.0.5"
   },
   "build": {
     "asar": true,
@@ -21,8 +25,8 @@
     "productName": "QDW_demo",
     "win": {
       "target": "nsis",
-      "icon":"./QDW.ico",
-      "sign":false
+      "icon": "./QDW.ico",
+      "sign": false
     },
     "directories": {
       "output": "dist_electron"
@@ -30,7 +34,9 @@
     "files": [
       {
         "from": ".",
-        "filter": ["**/*"]
+        "filter": [
+          "**/*"
+        ]
       }
     ],
     "nsis": {

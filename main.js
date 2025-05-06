@@ -34,6 +34,7 @@ function createWindow() {
       preload: path.join(__dirname, "preload.js"), // 指定 preload 脚本
       nodeIntegration: true,
       contextIsolation: true,
+      devTools:false
     },
   });
 
