@@ -4,10 +4,9 @@ import { ActionEnum } from './enums/action_enum.js';
 import { loggerInfo, loggerDebug, loggerError } from './utils/webUtils/logger.js';
 import { initConnection } from './operation_init.js';
 import { closeWindow } from './operation_closeWindow.js';
-import { closeInputDialog,saveUsername } from './settings.js';
+import { closeInputDialog,saveUsername,showInputDialog } from './settings.js';
 
 // import { Howl } from 'howler';
-
 
 // 配置参数
 const CONFIG = {
@@ -65,9 +64,19 @@ function bindBtnClick(){
 	// 取消弹窗按钮
 	const cancleBtn = document.querySelector('.cancel-btn');
 	cancleBtn.addEventListener('click',closeInputDialog)
-	// 保存名字按钮
-	const saveBtn = document.querySelector('.save-btn');
-	saveBtn.addEventListener('click',saveUsername);
+
+	// 可选：添加关闭模态框的点击外部区域功能
+	document.querySelector('.modal-overlay').addEventListener('click', function (e) {
+		if (e.target === this) {
+			closeModal();
+		}
+	});
+
+	// 关闭图片弹出
+	document.getElementById('image-popup').addEventListener('dblclick', function (e) {
+		// 点击任何区域都关闭弹出框
+		this.style.display = 'none';
+	});
 }
 
 // 页面重新聚焦时只清理队列，不发送
@@ -189,7 +198,7 @@ function addMessage(text, isUser = true, needNotify = true) {
 	// 如果options的动画还没结束就再次触发来进行结束
 	hideLoadingGif();
 	if (text.includes("$userName$")) {
-		text = text.replace("$userName$", savedUsername)
+		text = text.replace("$userName$", localStorage.getItem('AliyaCalledMe'))
 	}
 	const messageElement = createMessage(text, isUser);
 	elements.container.appendChild(messageElement);
@@ -309,19 +318,6 @@ function closeModal() { // 移除 export
 }
 $("#closeWindow").on("click", function () {
 	closeModal()
-});
-
-// 可选：添加关闭模态框的点击外部区域功能
-document.querySelector('.modal-overlay').addEventListener('click', function (e) {
-	if (e.target === this) {
-		closeModal();
-	}
-});
-
-// 关闭图片弹出
-document.getElementById('image-popup').addEventListener('click', function (e) {
-	// 点击任何区域都关闭弹出框
-	this.style.display = 'none';
 });
 
 // wait 

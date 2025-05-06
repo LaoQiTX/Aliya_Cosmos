@@ -17,10 +17,10 @@ function saveUsername() {
 		alert('用户名已保存！');
 		savedUsername = localStorage.getItem('AliyaCalledMe');
 		closeInputDialog();
+		return;
 		// location.reload()
-	} else {
-		alert('请输入有效的用户名');
 	}
+	alert('请输入有效的用户名');
 }
 
 if (localStorage.getItem("conversation_id") == null) {
