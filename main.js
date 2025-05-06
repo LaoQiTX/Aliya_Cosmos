@@ -46,6 +46,7 @@ function createWindow() {
 // app.whenReady().then(createWindow);
 app.whenReady().then(() => {
   logger.info("QDW demo start complete");
+  // app.setName("QDW_Demo");
   if (app.isPackaged) {
     const asarPath = path.join(appPath, "resources", "app.asar");
     logger.info("asar->" + asarPath);

@@ -5,12 +5,12 @@
   "main": "main.js",
   "scripts": {
     "start": "set NODE_ENV=dev&& electron .",
-    "build": "electron-builder --win --x64",
+    "build": "set NODE_ENV=prod&& electron-builder --win --x64",
     "ele_pack": "set NODE_ENV=prod&& npx electron-packager . QDW_demo --platform=win32 --arch=x64 --out=dist --overwrite --icon=QDW.ico --asar",
     "vite_build":"npx vite build"
   },
   "keywords": [],
-  "author": "",
+  "author": "Yae | Qi",
   "license": "ISC",
   "devDependencies": {
     "electron": "^35.1.2",
