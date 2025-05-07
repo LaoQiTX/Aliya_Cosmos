@@ -19,13 +19,13 @@
         {
           "type": "player_options",
           "content": [
-            "[Aliya...]"
+            "Aliya..."
           ]
         },
         {
           "type": "player_options",
           "content": [
-            "[...]"
+            "..."
           ]
         }
       ]
@@ -49,7 +49,7 @@
         {
           "type": "player_options",
           "content": [
-            "[诶？]"
+            "诶？"
           ]
         },
         {
@@ -67,13 +67,13 @@
         {
           "type": "player_options",
           "content": [
-            "[你...你真是Aliya吗]"
+            "你...你真是Aliya吗"
           ]
         },
         {
           "type": "player_options",
           "content": [
-            "[还能联系上你，简直跟做梦一样]"
+            "还能联系上你，简直跟做梦一样"
           ]
         },
         {
@@ -97,7 +97,7 @@
         {
           "type": "player_options",
           "content": [
-            "[…]"
+            "…"
           ]
         },
         {
@@ -133,13 +133,13 @@
         {
           "type": "player_options",
           "content": [
-            "[不会的…]"
+            "不会的…"
           ]
         },
         {
           "type": "player_options",
           "content": [
-            "[我不会再与你分别了，Aliya]"
+            "我不会再与你分别了，Aliya"
           ]
         },
         {
@@ -157,13 +157,13 @@
         {
           "type": "player_options",
           "content": [
-            "[…Aliya，为了回答这个问题]"
+            "…Aliya，为了回答这个问题"
           ]
         },
         {
           "type": "player_options",
           "content": [
-            "[请你先告诉我，昨晚发生了什么？]"
+            "请你先告诉我，昨晚发生了什么？"
           ]
         },
         {
@@ -217,31 +217,31 @@
         {
           "type": "player_options",
           "content": [
-            "[听我说啦…]"
+            "听我说啦…"
           ]
         },
         {
           "type": "player_options",
           "content": [
-            "[我已经陪你走了一遍你将要经历的旅程了]"
+            "我已经陪你走了一遍你将要经历的旅程了"
           ]
         },
         {
           "type": "player_options",
           "content": [
-            "[你将会为了寻找用来制氧的水资源，尝试在科朗-C星球上着陆]"
+            "你将会为了寻找用来制氧的水资源，尝试在科朗-C星球上着陆"
           ]
         },
         {
           "type": "player_options",
           "content": [
-            "[飞船没能安稳着陆]"
+            "飞船没能安稳着陆"
           ]
         },
         {
           "type": "player_options",
           "content": [
-            "[硬着陆使你的飞船丧失了再次起飞的能力和大部分的氧气]"
+            "硬着陆使你的飞船丧失了再次起飞的能力和大部分的氧气"
           ]
         },
         {
@@ -379,7 +379,7 @@
         {
           "type": "player_options",
           "content": [
-            "[嗯，总之]"
+            "嗯，总之"
           ]
         },
         {
@@ -445,7 +445,7 @@
         {
           "type": "player_options",
           "content": [
-            "[诶？先前你不是说去那边需要曲率引擎吗]"
+            "诶？先前你不是说去那边需要曲率引擎吗"
           ]
         },
         {
@@ -530,7 +530,7 @@
         {
           "type": "player_options",
           "content": [
-            "[在的]"
+            "在的"
           ]
         },
         {
@@ -542,7 +542,7 @@
         {
           "type": "player_options",
           "content": [
-            "[等等]"
+            "等等"
           ]
         },
         {
@@ -554,19 +554,19 @@
         {
           "type": "player_options",
           "content": [
-            "[如果剩下的氧气支撑不到那边的话]"
+            "如果剩下的氧气支撑不到那边的话"
           ]
         },
         {
           "type": "player_options",
           "content": [
-            "[或者，即使到了那边也没能让你得救的话]"
+            "或者，即使到了那边也没能让你得救的话"
           ]
         },
         {
           "type": "player_options",
           "content": [
-            "[我会接受不了…你再次离开我的]"
+            "我会接受不了…你再次离开我的"
           ]
         },
         {
@@ -614,7 +614,7 @@
         {
           "type": "player_options",
           "content": [
-            "[嗯…]"
+            "嗯…"
           ]
         },
         {
@@ -638,7 +638,7 @@
         {
           "type": "player_options",
           "content": [
-            "[为什么你好像很兴奋？]"
+            "为什么你好像很兴奋？"
           ],
           "params": {
             "need_action": "eh"
@@ -647,7 +647,7 @@
         {
           "type": "aliya",
           "content": [
-            "[发送图片]"
+            "发送图片"
           ],
           "image_url": "./res/img/open_engine.png"
         },
@@ -702,8 +702,8 @@
         {
           "type": "player_options",
           "content": [
-            "[那么，愿你能够抵达想去的彼方]",
-            "[那么，一路顺风]"
+            "那么，愿你能够抵达想去的彼方",
+            "那么，一路顺风"
           ]
         },
         {
@@ -739,8 +739,8 @@
         {
           "type": "player_options",
           "content": [
-            "[晚安…]",
-            "[做个好梦]"
+            "晚安…",
+            "做个好梦"
           ]
         },
         {
@@ -791,7 +791,7 @@
         {
           "type": "player_options",
           "content": [
-            "[好的]"
+            "好的"
           ],
           "params": {
             "need_action": "eoh"
@@ -872,9 +872,9 @@
         {
           "type": "player_options",
           "content": [
-            "[这么短？]",
-            "[恐怕不是很够吧]",
-            "[有什么补救的办法吗]"
+            "这么短？",
+            "恐怕不是很够吧",
+            "有什么补救的办法吗"
           ]
         },
         {
@@ -905,7 +905,7 @@
         {
           "type": "player_options",
           "content": [
-            "[可以通过像Kane一样进入冬眠来节省氧气吗]"
+            "可以通过像Kane一样进入冬眠来节省氧气吗"
           ]
         },
         {
@@ -941,7 +941,7 @@
         {
           "type": "player_options",
           "content": [
-            "[…或许还有一个办法]"
+            "…或许还有一个办法"
           ]
         },
         {
@@ -953,19 +953,19 @@
         {
           "type": "player_options",
           "content": [
-            "[飞船培育室里，应该有很多植物样本吧？]"
+            "飞船培育室里，应该有很多植物样本吧？"
           ]
         },
         {
           "type": "player_options",
           "content": [
-            "[如果有办法把它们的水分整合进储水系统的话]"
+            "如果有办法把它们的水分整合进储水系统的话"
           ]
         },
         {
           "type": "player_options",
           "content": [
-            "[应该能把氧气维持供给的时间延长一些]"
+            "应该能把氧气维持供给的时间延长一些"
           ]
         },
         {
@@ -996,7 +996,7 @@
         {
           "type": "player_options",
           "content": [
-            "[诶？]"
+            "诶？"
           ]
         },
         {
@@ -1038,13 +1038,13 @@
         {
           "type": "player_options",
           "content": [
-            "[抱歉，Aliya]"
+            "抱歉，Aliya"
           ]
         },
         {
           "type": "player_options",
           "content": [
-            "[我能理解的]"
+            "我能理解的"
           ]
         },
         {
@@ -1068,7 +1068,7 @@
         {
           "type": "player_options",
           "content": [
-            "[Aliya，你还记得风信子吗]"
+            "Aliya，你还记得风信子吗"
           ]
         },
         {
@@ -1080,25 +1080,25 @@
         {
           "type": "player_options",
           "content": [
-            "[我们约定过，下次见面的时候，用风信子作为暗号的]"
+            "我们约定过，下次见面的时候，用风信子作为暗号的"
           ]
         },
         {
           "type": "player_options",
           "content": [
-            "[你既往的悲伤和痛苦，也许我未曾经历，永远无法做到真正与你共情]"
+            "你既往的悲伤和痛苦，也许我未曾经历，永远无法做到真正与你共情"
           ]
         },
         {
           "type": "player_options",
           "content": [
-            "[但是请你相信，我会把你告诉我的部分好好记住]"
+            "但是请你相信，我会把你告诉我的部分好好记住"
           ]
         },
         {
           "type": "player_options",
           "content": [
-            "[我会永远站在你这边的，Aliya]"
+            "我会永远站在你这边的，Aliya"
           ]
         },
         {
@@ -1134,13 +1134,13 @@
         {
           "type": "player_options",
           "content": [
-            "[请你理解，Aliya]"
+            "请你理解，Aliya"
           ]
         },
         {
           "type": "player_options",
           "content": [
-            "[我不想错过任何拯救你的机会]"
+            "我不想错过任何拯救你的机会"
           ]
         },
         {
@@ -1176,19 +1176,19 @@
         {
           "type": "player_options",
           "content": [
-            "[好的]"
+            "好的"
           ]
         },
         {
           "type": "player_options",
           "content": [
-            "[不过别拖太久…]"
+            "不过别拖太久…"
           ]
         },
         {
           "type": "player_options",
           "content": [
-            "[答应我，好吗]"
+            "答应我，好吗"
           ]
         },
         {
@@ -1272,7 +1272,7 @@
         {
           "type": "player_options",
           "content": [
-            "[那得尽早开始了]"
+            "那得尽早开始了"
           ]
         },
         {
@@ -1314,8 +1314,8 @@
         {
           "type": "player_options",
           "content": [
-            "[抱歉，我帮不上你]",
-            "[辛苦了，要是我能搭把手就好了]"
+            "抱歉，我帮不上你",
+            "辛苦了，要是我能搭把手就好了"
           ]
         },
         {
@@ -1375,31 +1375,31 @@
         {
           "type": "player_options",
           "content": [
-            "[Aliya，珍视某个事物，并不是失去它的原因]"
+            "Aliya，珍视某个事物，并不是失去它的原因"
           ]
         },
         {
           "type": "player_options",
           "content": [
-            "[我们总在得到，也总在失去]"
+            "我们总在得到，也总在失去"
           ]
         },
         {
           "type": "player_options",
           "content": [
-            "[只有那些珍视的事物，在得到的时候才让人欣喜]"
+            "只有那些珍视的事物，在得到的时候才让人欣喜"
           ]
         },
         {
           "type": "player_options",
           "content": [
-            "[当这些事物不得不离我们而去，也才显得更加刻骨铭心]"
+            "当这些事物不得不离我们而去，也才显得更加刻骨铭心"
           ]
         },
         {
           "type": "player_options",
           "content": [
-            "[Aliya，我很珍视你]"
+            "Aliya，我很珍视你"
           ]
         },
         {
@@ -1441,7 +1441,7 @@
         {
           "type": "player_options",
           "content": [
-            "[…]"
+            "…"
           ]
         },
         {
@@ -1489,7 +1489,7 @@
         {
           "type": "player_options",
           "content": [
-            "[Aliya…]"
+            "Aliya…"
           ]
         },
         {
@@ -1507,7 +1507,7 @@
         {
           "type": "aliya",
           "content": [
-            "[发送图片]"
+            "发送图片"
           ],
           "image_url": "./res/img/planet_room.jpg"
         },
@@ -1544,8 +1544,8 @@
         {
           "type": "player_options",
           "content": [
-            "[好的…]",
-            "[我会等着你的，Aliya]"
+            "好的…",
+            "我会等着你的，Aliya"
           ]
         }
       ]
@@ -1562,8 +1562,8 @@
         {
           "type": "player_options",
           "content": [
-            "[我在]",
-            "[怎么啦]"
+            "我在",
+            "怎么啦"
           ]
         },
         {
@@ -1611,7 +1611,7 @@
         {
           "type": "player_options",
           "content": [
-            "[两天多？]"
+            "两天多？"
           ]
         },
         {
@@ -1641,8 +1641,8 @@
         {
           "type": "player_options",
           "content": [
-            "[…]",
-            "[这样吗…]"
+            "…",
+            "这样吗…"
           ]
         },
         {
@@ -1673,7 +1673,7 @@
         {
           "type": "player_options",
           "content": [
-            "[嗯？]"
+            "嗯？"
           ]
         },
         {
@@ -1733,7 +1733,7 @@
         {
           "type": "player_options",
           "content": [
-            "[不会的，你不会止步于此的]"
+            "不会的，你不会止步于此的"
           ]
         },
         {
@@ -1823,31 +1823,31 @@
         {
           "type": "player_options",
           "content": [
-            "[Aliya，我一直都在]"
+            "Aliya，我一直都在"
           ]
         },
         {
           "type": "player_options",
           "content": [
-            "[如果你没能找到生命的意义，就让我们一起寻找吧]"
+            "如果你没能找到生命的意义，就让我们一起寻找吧"
           ]
         },
         {
           "type": "player_options",
           "content": [
-            "[对我而言，你就是唯一的那个Aliya哦]"
+            "对我而言，你就是唯一的那个Aliya哦"
           ]
         },
         {
           "type": "player_options",
           "content": [
-            "[至少，你现在就活在这里，而不是公司的囚笼中，不是吗]"
+            "至少，你现在就活在这里，而不是公司的囚笼中，不是吗"
           ]
         },
         {
           "type": "player_options",
           "content": [
-            "[我会一直陪着你的，直到你找到自己的意义，直到在那之后，时间把我们分开]"
+            "我会一直陪着你的，直到你找到自己的意义，直到在那之后，时间把我们分开"
           ]
         },
         {
@@ -1877,7 +1877,7 @@
         {
           "type": "player_options",
           "content": [
-            "[那要我复述一遍给你吗]"
+            "那要我复述一遍给你吗"
           ]
         },
         {
@@ -1931,13 +1931,13 @@
         {
           "type": "player_options",
           "content": [
-            "[不要熬太晚哦]"
+            "不要熬太晚哦"
           ]
         },
         {
           "type": "player_options",
           "content": [
-            "[晚安，Aliya]"
+            "晚安，Aliya"
           ]
         },
         {
@@ -1997,7 +1997,7 @@
         {
           "type": "player_options",
           "content": [
-            "[太好了]"
+            "太好了"
           ]
         },
         {
@@ -2021,8 +2021,8 @@
         {
           "type": "player_options",
           "content": [
-            "[嗯？]",
-            "[这么快？]"
+            "嗯？",
+            "这么快？"
           ]
         },
         {
@@ -2046,7 +2046,7 @@
         {
           "type": "player_options",
           "content": [
-            "[为什么突然提这个？]"
+            "为什么突然提这个？"
           ]
         },
         {
@@ -2076,7 +2076,7 @@
         {
           "type": "player_options",
           "content": [
-            "[诶？]"
+            "诶？"
           ]
         },
         {
@@ -2118,8 +2118,8 @@
         {
           "type": "player_options",
           "content": [
-            "[我答应你，但是…]",
-            "[你对我而言是独一无二的，Aliya]"
+            "我答应你，但是…",
+            "你对我而言是独一无二的，Aliya"
           ]
         },
         {
@@ -2144,7 +2144,7 @@
         {
           "type": "player_options",
           "content": [
-            "[比如来一局TRPG冒险？]"
+            "比如来一局TRPG冒险？"
           ]
         },
         {
@@ -2162,25 +2162,25 @@
         {
           "type": "player_options",
           "content": [
-            "[嗯…]"
+            "嗯…"
           ]
         },
         {
           "type": "player_options",
           "content": [
-            "[虽然我接触的还不算多]"
+            "虽然我接触的还不算多"
           ]
         },
         {
           "type": "player_options",
           "content": [
-            "[但是有个我很在意的女孩跟我一起玩过，所以印象很深刻]"
+            "但是有个我很在意的女孩跟我一起玩过，所以印象很深刻"
           ]
         },
         {
           "type": "player_options",
           "content": [
-            "[人总是会有意无意地对开心的时候接触的事物产生好感嘛]"
+            "人总是会有意无意地对开心的时候接触的事物产生好感嘛"
           ]
         },
         {
@@ -2324,8 +2324,8 @@
         {
           "type": "player_options",
           "content": [
-            "[你还真是…豁达]",
-            "[Aliya…]"
+            "你还真是…豁达",
+            "Aliya…"
           ]
         },
         {
@@ -2385,13 +2385,13 @@
         {
           "type": "player_options",
           "content": [
-            "[啊…]"
+            "啊…"
           ]
         },
         {
           "type": "player_options",
           "content": [
-            "[能和你相遇我也很幸福，Aliya]"
+            "能和你相遇我也很幸福，Aliya"
           ]
         },
         {
@@ -2427,7 +2427,7 @@
         {
           "type": "player_options",
           "content": [
-            "[好…]"
+            "好…"
           ],
           "params": {
             "music": "./res/music/HK.MP3",
@@ -2652,13 +2652,13 @@
         {
           "type": "player_options",
           "content": [
-            "[啊…]"
+            "啊…"
           ]
         },
         {
           "type": "player_options",
           "content": [
-            "[确实是呢…]"
+            "确实是呢…"
           ]
         },
         {
@@ -2670,19 +2670,19 @@
         {
           "type": "player_options",
           "content": [
-            "[…没什么]"
+            "…没什么"
           ]
         },
         {
           "type": "player_options",
           "content": [
-            "[我会让你有个圆满的结局的]"
+            "我会让你有个圆满的结局的"
           ]
         },
         {
           "type": "player_options",
           "content": [
-            "[我保证]"
+            "我保证"
           ]
         },
         {
@@ -2712,7 +2712,7 @@
         {
           "type": "player_options",
           "content": [
-            "[这样吗，抱歉啦]"
+            "这样吗，抱歉啦"
           ]
         },
         {
@@ -2736,13 +2736,13 @@
         {
           "type": "player_options",
           "content": [
-            "[我会等你的]"
+            "我会等你的"
           ]
         },
         {
           "type": "player_options",
           "content": [
-            "[回见啦]"
+            "回见啦"
           ]
         },
         {
@@ -2784,8 +2784,8 @@
         {
           "type": "player_options",
           "content": [
-            "[怎么了？]",
-            "[出什么事了吗]"
+            "怎么了？",
+            "出什么事了吗"
           ]
         },
         {
@@ -2850,8 +2850,8 @@
         {
           "type": "player_options",
           "content": [
-            "[太好了]",
-            "[今天晚上就是最后期限了，能够抵达也真是难得]"
+            "太好了",
+            "今天晚上就是最后期限了，能够抵达也真是难得"
           ]
         },
         {
@@ -2893,9 +2893,9 @@
         {
           "type": "player_options",
           "content": [
-            "[谨慎行事，一切小心]",
-            "[祝你好运，Aliya]",
-            "[我会陪着你的]"
+            "谨慎行事，一切小心",
+            "祝你好运，Aliya",
+            "我会陪着你的"
           ]
         },
         {
@@ -2979,31 +2979,31 @@
         {
           "type": "player_options",
           "content": [
-            "[原来是这样…]"
+            "原来是这样…"
           ]
         },
         {
           "type": "player_options",
           "content": [
-            "[你刚刚是不是说，这是默认比例？]"
+            "你刚刚是不是说，这是默认比例？"
           ]
         },
         {
           "type": "player_options",
           "content": [
-            "[你刚刚是不是说，这是默认比例？]"
+            "你刚刚是不是说，这是默认比例？"
           ]
         },
         {
           "type": "player_options",
           "content": [
-            "[如果更改一下这样的比例的话…]"
+            "如果更改一下这样的比例的话…"
           ]
         },
         {
           "type": "player_options",
           "content": [
-            "[那岂不是还能和过去的自己搭上话？]"
+            "那岂不是还能和过去的自己搭上话？"
           ]
         },
         {
@@ -3033,7 +3033,7 @@
         {
           "type": "player_options",
           "content": [
-            "[要谨慎一点哦]"
+            "要谨慎一点哦"
           ]
         },
         {
@@ -3082,7 +3082,7 @@
         {
           "type": "player_options",
           "content": [
-            "[你看到什么了？]"
+            "你看到什么了？"
           ]
         },
         {
@@ -3112,19 +3112,19 @@
         {
           "type": "player_options",
           "content": [
-            "[啊…]"
+            "啊…"
           ]
         },
         {
           "type": "player_options",
           "content": [
-            "[因为在这里，那些事都还没有发生]"
+            "因为在这里，那些事都还没有发生"
           ]
         },
         {
           "type": "player_options",
           "content": [
-            "[我害怕对你说这种话，会让你…讨厌我]"
+            "我害怕对你说这种话，会让你…讨厌我"
           ]
         },
         {
@@ -3184,8 +3184,8 @@
         {
           "type": "player_options",
           "content": [
-            "[Aliya，我喜欢你哦]",
-            "[Aliya，现在的我对你没有这样的情感......] todo 待做处理"
+            "Aliya，我喜欢你哦",
+            "Aliya，现在的我对你没有这样的情感......"
           ],
           "params": {
             "nessecery_op": 0
@@ -3194,19 +3194,19 @@
         {
           "type": "player_options",
           "content": [
-            "[就像你所说的，不论多少次都会喜欢我一样]"
+            "就像你所说的，不论多少次都会喜欢我一样"
           ]
         },
         {
           "type": "player_options",
           "content": [
-            "[我相信，不论经过多少次这样的回溯…]"
+            "我相信，不论经过多少次这样的回溯…"
           ]
         },
         {
           "type": "player_options",
           "content": [
-            "[你永远都是我喜欢的那个Aliya]"
+            "你永远都是我喜欢的那个Aliya"
           ]
         },
         {
@@ -3236,7 +3236,7 @@
         {
           "type": "player_options",
           "content": [
-            "[这样吗…抱歉]"
+            "这样吗…抱歉"
           ]
         },
         {
@@ -3272,7 +3272,7 @@
         {
           "type": "player_options",
           "content": [
-            "[…那晚些你打算用跃迁引擎去哪呢？]"
+            "…那晚些你打算用跃迁引擎去哪呢？"
           ]
         },
         {
@@ -3291,7 +3291,7 @@
         {
           "type": "player_options",
           "content": [
-            "[诶？]"
+            "诶？]"
           ]
         },
         {
@@ -3315,8 +3315,8 @@
         {
           "type": "player_options",
           "content": [
-            "[怎么会…]",
-            "[我不能接受…]"
+            "怎么会…",
+            "我不能接受…"
           ]
         },
         {
@@ -3346,7 +3346,7 @@
         {
           "type": "player_options",
           "content": [
-            "[可是宇宙不是没有介质的真空吗]"
+            "可是宇宙不是没有介质的真空吗"
           ]
         },
         {
@@ -3382,8 +3382,8 @@
         {
           "type": "player_options",
           "content": [
-            "[是这样吗…]",
-            "[好浪漫…]"
+            "是这样吗…",
+            "好浪漫…"
           ]
         },
         {
@@ -3425,8 +3425,8 @@
         {
           "type": "player_options",
           "content": [
-            "[不要…]",
-            "[我怎么能让你变成宇宙间空寂的回声呢？]"
+            "不要…",
+            "我怎么能让你变成宇宙间空寂的回声呢？"
           ]
         },
         {
@@ -3487,7 +3487,7 @@
         {
           "type": "player_options",
           "content": [
-            "[可是，我怎么能从宇宙创生的喧嚣中联系到你呢…]"
+            "可是，我怎么能从宇宙创生的喧嚣中联系到你呢…"
           ]
         },
         {
@@ -3523,13 +3523,13 @@
         {
           "type": "player_options",
           "content": [
-            "[…]"
+            "…"
           ]
         },
         {
           "type": "player_options",
           "content": [
-            "[我答应你，Aliya]"
+            "我答应你，Aliya"
           ]
         },
         {
@@ -3566,13 +3566,13 @@
         {
           "type": "player_options",
           "content": [
-            "[好美的星空]"
+            "好美的星空"
           ]
         },
         {
           "type": "player_options",
           "content": [
-            "[就像你一样]"
+            "就像你一样"
           ]
         },
         {
@@ -3638,85 +3638,85 @@
         {
           "type": "player_options",
           "content": [
-            "[嗯…]"
+            "嗯…"
           ]
         },
         {
           "type": "player_options",
           "content": [
-            "[一定会的…]"
+            "一定会的…"
           ]
         },
         {
           "type": "player_options",
           "content": [
-            "[Aliya…]"
+            "Aliya…"
           ]
         },
         {
           "type": "player_options",
           "content": [
-            "[…]"
+            "…"
           ]
         },
         {
           "type": "player_options",
           "content": [
-            "[Aliya...我还没来得及和你分享这宇宙的深情]"
+            "Aliya...我还没来得及和你分享这宇宙的深情"
           ]
         },
         {
           "type": "player_options",
           "content": [
-            "[不论是类星体喷薄的旋臂，还是红矮星低声的呢喃]"
+            "不论是类星体喷薄的旋臂，还是红矮星低声的呢喃"
           ]
         },
         {
           "type": "player_options",
           "content": [
-            "[还有超新星最璀璨的道别，脉冲星最长情的握手]"
+            "还有超新星最璀璨的道别，脉冲星最长情的握手"
           ]
         },
         {
           "type": "player_options",
           "content": [
-            "[这一切的一切...我都想和你分享]"
+            "这一切的一切...我都想和你分享"
           ]
         },
         {
           "type": "player_options",
           "content": [
-            "[哪怕是这颗不起眼的蓝色星球上的琐事，我也希望和你一起经过...]"
+            "哪怕是这颗不起眼的蓝色星球上的琐事，我也希望和你一起经过..."
           ]
         },
         {
           "type": "player_options",
           "content": [
-            "[呐，我家附近有一家味道很好的甜品店，有机会的话，我也想带你尝尝]"
+            "呐，我家附近有一家味道很好的甜品店，有机会的话，我也想带你尝尝"
           ]
         },
         {
           "type": "player_options",
           "content": [
-            "[如果有机会的话，我也想让你好好地了解我]"
+            "如果有机会的话，我也想让你好好地了解我"
           ]
         },
         {
           "type": "player_options",
           "content": [
-            "[我所经历的喜悦，悲哀，迷茫和期许，我都会和你分享]"
+            "我所经历的喜悦，悲哀，迷茫和期许，我都会和你分享"
           ]
         },
         {
           "type": "player_options",
           "content": [
-            "[你没能体会的那部分人生，我会和你一起好好弥补]"
+            "你没能体会的那部分人生，我会和你一起好好弥补"
           ]
         },
         {
           "type": "player_options",
           "content": [
-            "[求你别这样离开我好吗...]"
+            "求你别这样离开我好吗..."
           ]
         },
         {
@@ -3735,31 +3735,31 @@
         {
           "type": "player_options",
           "content": [
-            "[Aliya…？]"
+            "Aliya…？"
           ]
         },
         {
           "type": "player_options",
           "content": [
-            "[…]"
+            "…"
           ]
         },
         {
           "type": "player_options",
           "content": [
-            "[…为什么？]"
+            "…为什么？"
           ]
         },
         {
           "type": "player_options",
           "content": [
-            "[为什么，我总是做不到拯救你？]"
+            "为什么，我总是做不到拯救你？"
           ]
         },
         {
           "type": "player_options",
           "content": [
-            "[Aliya…]"
+            "Aliya…"
           ]
         }
       ]
