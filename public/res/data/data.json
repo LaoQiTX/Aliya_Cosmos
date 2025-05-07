@@ -1,0 +1,3786 @@
+{
+  "dialogue": [
+    {
+      "timestamp": 900000,
+      "messages": [
+        {
+          "type": "player_options",
+          "content": [
+            "Aliya..."
+          ],
+          "params": {
+            "music": "/res/music/Outlier.mp3",
+            "heart_rate": [
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "type": "player_options",
+          "content": [
+            "Aliya..."
+          ]
+        },
+        {
+          "type": "player_options",
+          "content": [
+            "..."
+          ]
+        }
+      ]
+    },
+    {
+      "timestamp": 2700000,
+      "messages": [
+        {
+          "type": "aliya",
+          "content": [
+            "我在哦"
+          ],
+          "params": {
+            "music": "/res/music/Drift.mp3",
+            "heart_rate": [
+              50,
+              70
+            ]
+          }
+        },
+        {
+          "type": "player_options",
+          "content": [
+            "诶？"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "我才一会没看平板，你就急成这样"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "那如果我要去很远的地方执行任务，很忙很忙的那种，你岂不是要崩溃啦"
+          ]
+        },
+        {
+          "type": "player_options",
+          "content": [
+            "你...你真是Aliya吗"
+          ]
+        },
+        {
+          "type": "player_options",
+          "content": [
+            "还能联系上你，简直跟做梦一样"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "你怎么突然怪怪的？"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "我得确认下你的状态咯"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "告诉我，你叫什么？"
+          ]
+        },
+        {
+          "type": "player_options",
+          "content": [
+            "…"
+          ]
+        },
+        {
+          "type": "player_input",
+          "content": [
+            ""
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "那我就叫你$userName$了"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "没错呀"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "看来你还是原先的你嘛"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "我还担心你会不辞而别呢"
+          ]
+        },
+        {
+          "type": "player_options",
+          "content": [
+            "不会的…"
+          ]
+        },
+        {
+          "type": "player_options",
+          "content": [
+            "我不会再与你分别了，Aliya"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "诶？你果然从刚刚开始就在说怪话耶"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "告诉我，发生了什么？"
+          ]
+        },
+        {
+          "type": "player_options",
+          "content": [
+            "…Aliya，为了回答这个问题"
+          ]
+        },
+        {
+          "type": "player_options",
+          "content": [
+            "请你先告诉我，昨晚发生了什么？"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "诶？昨晚吗"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "我想想"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "昨晚有只兔子狗跑进通风管道里了"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "我看到它的脚印，还以为是什么恐怖外星生物来着"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "当时确实吓得不轻"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "等等"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "你不会就是装傻让我自己复述这些好取笑我吧"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "你这坏心眼，不理你了！"
+          ]
+        },
+        {
+          "type": "player_options",
+          "content": [
+            "听我说啦…"
+          ]
+        },
+        {
+          "type": "player_options",
+          "content": [
+            "我已经陪你走了一遍你将要经历的旅程了"
+          ]
+        },
+        {
+          "type": "player_options",
+          "content": [
+            "你将会为了寻找用来制氧的水资源，尝试在科朗-C星球上着陆"
+          ]
+        },
+        {
+          "type": "player_options",
+          "content": [
+            "飞船没能安稳着陆"
+          ]
+        },
+        {
+          "type": "player_options",
+          "content": [
+            "硬着陆使你的飞船丧失了再次起飞的能力和大部分的氧气"
+          ]
+        },
+        {
+          "type": "player_options",
+          "content": [
+            "而那颗星球的空气和水都有毒…"
+          ]
+        },
+        {
+          "type": "player_options",
+          "content": [
+            "你最后也因为没有氧气…"
+          ]
+        },
+        {
+          "type": "player_options",
+          "content": [
+            "离开了"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "这样吗…"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "虽然听起来很难以置信"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "但是你好像真的知道我还没透露给你的想法"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "所以说，你是怎么跟现在的我取得联系的呢？"
+          ]
+        },
+        {
+          "type": "player_options",
+          "content": [
+            "你劝我关闭HRM，当时我照做了…"
+          ]
+        },
+        {
+          "type": "player_options",
+          "content": [
+            "但是你在道别以后真的不再回消息的时候"
+          ]
+        },
+        {
+          "type": "player_options",
+          "content": [
+            "我还是忍不住抱着侥幸重新打开了它"
+          ]
+        },
+        {
+          "type": "player_options",
+          "content": [
+            "看着笔直的心电图，我实在不能冷静"
+          ]
+        },
+        {
+          "type": "player_options",
+          "content": [
+            "我反复尝试着任何可能的操作，祈祷着奇迹的发生"
+          ]
+        },
+        {
+          "type": "player_options",
+          "content": [
+            "直到我试着调节终端的通讯频段"
+          ]
+        },
+        {
+          "type": "player_options",
+          "content": [
+            "在某一瞬，我听到了你走前所处的飞船里播放的八音盒音乐的声音"
+          ]
+        },
+        {
+          "type": "player_options",
+          "content": [
+            "我就试着把通讯频段调到最低"
+          ]
+        },
+        {
+          "type": "player_options",
+          "content": [
+            "然后…刚才的你就回应我了"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "唔…还是不懂到底是怎么回事呢"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "不过先说好，要是你骗我的话，可决不轻饶喔"
+          ]
+        },
+        {
+          "type": "player_options",
+          "content": [
+            "怎么会…"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "好啦…逗你的"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "我相信你哦"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "这不是看你好像伤心坏了，开开玩笑让你开心点嘛"
+          ]
+        },
+        {
+          "type": "player_options",
+          "content": [
+            "嗯，总之"
+          ]
+        },
+        {
+          "type": "player_options",
+          "content": [
+            "我们得赶紧想个比登陆科朗-C更好的办法才行"
+          ]
+        },
+        {
+          "type": "player_options",
+          "content": [
+            "终端的通讯频段已经不能调得更低了…"
+          ]
+        },
+        {
+          "type": "player_options",
+          "content": [
+            "我想，我们已经没有第二次机会了"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "嗯…也是"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "那我想想，还有没有什么地方可以去碰碰运气？"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "周围的行星没有比科朗-C更适合登陆的了"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "剩下的氧气也等不到什么其他科考船…"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "对了！"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "你先前不是在Radio里听到了一个意义不明的信号嘛"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "或许我们可以去那边看看"
+          ]
+        },
+        {
+          "type": "player_options",
+          "content": [
+            "诶？先前你不是说去那边需要曲率引擎吗"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "有曲率引擎最好啦…"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "不过现在也没办法"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "只能祈祷信号源的位置在飞船氧气耗尽前能抵达的范围内吧"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "氧气余量一直在减少，这样等下去不是办法"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "我现在就去动力室，你到时候可以帮忙控制一下燃料阀开关吗？"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "这次就不需要关闭啦，把开关开到燃料彻底耗尽就行"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "系统会自动保留至少可以保证科考船一个月电力供应的能源的"
+          ]
+        },
+        {
+          "type": "player_options",
+          "content": [
+            "好的",
+            "我听你的"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "那就这么说定啦"
+          ]
+        }
+      ]
+    },
+    {
+      "timestamp": 44100000,
+      "messages": [
+        {
+          "type": "aliya",
+          "content": [
+            "Aliya呼叫$userName$，我已就位，感觉良好！"
+          ],
+          "params": {
+            "music": "/res/music/Drift.mp3",
+            "heart_rate": [
+              80,
+              100
+            ]
+          }
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "你还在嘛？"
+          ]
+        },
+        {
+          "type": "player_options",
+          "content": [
+            "在的"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "那么要准备打开燃料阀咯？"
+          ]
+        },
+        {
+          "type": "player_options",
+          "content": [
+            "等等"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "嗯？怎么啦"
+          ]
+        },
+        {
+          "type": "player_options",
+          "content": [
+            "如果剩下的氧气支撑不到那边的话"
+          ]
+        },
+        {
+          "type": "player_options",
+          "content": [
+            "或者，即使到了那边也没能让你得救的话"
+          ]
+        },
+        {
+          "type": "player_options",
+          "content": [
+            "我会接受不了…你再次离开我的"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "…真的是"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "怎么从刚刚开始就一直在用这么悲观的语气说让人难为情的话啊"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "嘛…没关系啦"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "如果这就是我注定的结局，我也并不后悔"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "毕竟只要尽了全力，就算对得起Kane跟Ryoko他们了"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "我相信你会尊重我的选择的"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "对吗"
+          ]
+        },
+        {
+          "type": "player_options",
+          "content": [
+            "嗯…"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "那么！要准备打开燃料阀了！"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "引擎已就绪！3，2，1…"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "就是现在！"
+          ]
+        },
+        {
+          "type": "player_options",
+          "content": [
+            "为什么你好像很兴奋？"
+          ],
+          "params": {
+            "need_action": "eh"
+          }
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "发送图片"
+          ],
+          "image_url": "/res/img/open_engine.png"
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "因为我对这片未知的深空怀有纯粹的憧憬"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "没有对未知的好奇，我是不会走到如今这一步的"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "而且我庆幸的是"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "在经历了这么多之后"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "哪怕船体已经受损"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "我还是让海獭号回归了它应当恪守的本职"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "带着忐忑驶向星海，数千年前驶向未知水域的航海家，就是这样的吧？"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "就是怀着这样的憧憬，我才踏上了孤独的深空之旅"
+          ]
+        },
+        {
+          "type": "player_options",
+          "content": [
+            "那么，愿你能够抵达想去的彼方",
+            "那么，一路顺风"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "安啦，没那么沉重的"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "毕竟你也尽力做了所有你能做的，对吧？"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "时间不早啦，我要去休息了"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "维持活动是要消耗更多氧气的哦，绝对不是我犯困想睡了，哼哼"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "那明天我再联系你哦"
+          ]
+        },
+        {
+          "type": "player_options",
+          "content": [
+            "晚安…",
+            "做个好梦"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "你也一样哦"
+          ]
+        }
+      ]
+    },
+    {
+      "timestamp": 900000,
+      "messages": [
+        {
+          "type": "aliya",
+          "content": [
+            "我发现了一个问题"
+          ],
+          "params": {
+            "music": "/res/music/FTL.mp3",
+            "heart_rate": [
+              80,
+              100
+            ]
+          }
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "由于我们用的不是曲率引擎，而是传统的工质引擎"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "在我们刚刚为了加速燃烧燃料的过程中，我们已经把氧气用的差不多了"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "能拜托你把制氧开关打开吗"
+          ],
+          "params": {
+            "need_action": "eh"
+          }
+        },
+        {
+          "type": "player_options",
+          "content": [
+            "好的"
+          ],
+          "params": {
+            "need_action": "eoh"
+          }
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "诶？为什么没充满"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "水的储量怎么剩的这么少？"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "糟糕…"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "我得去检查一下储水系统"
+          ]
+        }
+      ]
+    },
+    {
+      "timestamp": 37800000,
+      "messages": [
+        {
+          "type": "aliya",
+          "content": [
+            "嗯…有个坏消息"
+          ],
+          "params": {
+            "music": "/res/music/FTL.mp3",
+            "heart_rate": [
+              90,
+              110
+            ]
+          }
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "在刚刚加速的过程中，原本就已经受损的储水系统发生了泄漏"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "那些已经丢失的水分已经不可能回收了…"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "而为了维持基本循环，有一部分水是制氧系统无法调用的"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "也就是说，现在的氧气最多可以支持…"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "额，大概40小时"
+          ]
+        },
+        {
+          "type": "player_options",
+          "content": [
+            "这么短？",
+            "恐怕不是很够吧",
+            "有什么补救的办法吗"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "我…我不清楚…"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "我能想到的只有尽量冷静下来，好让氧气消耗得没那么快"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "然后寄希望于能在氧气耗尽之前抵达"
+          ],
+          "params": {
+            "music": "/res/music/FTL.mp3",
+            "heart_rate": [
+              70,
+              90
+            ]
+          }
+        },
+        {
+          "type": "player_options",
+          "content": [
+            "可以通过像Kane一样进入冬眠来节省氧气吗"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "嗯，我想想"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "不行"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "我们并不知道那个未知信号的绝对距离，所以抵达时间也是未知的"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "而这个飞船的工质引擎没有智能制动系统"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "也就是说，如果我进入冬眠，我们很有可能会错过或者撞上我们的目的地"
+          ]
+        },
+        {
+          "type": "player_options",
+          "content": [
+            "…或许还有一个办法"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "嗯？"
+          ]
+        },
+        {
+          "type": "player_options",
+          "content": [
+            "飞船培育室里，应该有很多植物样本吧？"
+          ]
+        },
+        {
+          "type": "player_options",
+          "content": [
+            "如果有办法把它们的水分整合进储水系统的话"
+          ]
+        },
+        {
+          "type": "player_options",
+          "content": [
+            "应该能把氧气维持供给的时间延长一些"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "唔…"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "很抱歉，$userName$"
+          ],
+          "params": {
+            "music": "/res/music/Awake.mp3",
+            "heart_rate": [
+              50,
+              70
+            ]
+          }
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "我不能这么做"
+          ]
+        },
+        {
+          "type": "player_options",
+          "content": [
+            "诶？"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "虽然我声称我是个生物学专家…"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "但是我此生收集的植物样本，额"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "嗯，也许你不会明白"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "这艘小小的科研船上搭载的已经是我这一生收集样本的全部了"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "如果要为了延长一两天的生命放弃我过往的全部成果的话…"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "对不起，$userName$，我做不到"
+          ]
+        },
+        {
+          "type": "player_options",
+          "content": [
+            "抱歉，Aliya"
+          ]
+        },
+        {
+          "type": "player_options",
+          "content": [
+            "我能理解的"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "不…你不会理解的"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "嗯，怎么说呢"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "我的生命跟你想象的大不相同"
+          ]
+        },
+        {
+          "type": "player_options",
+          "content": [
+            "Aliya，你还记得风信子吗"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "诶？"
+          ]
+        },
+        {
+          "type": "player_options",
+          "content": [
+            "我们约定过，下次见面的时候，用风信子作为暗号的"
+          ]
+        },
+        {
+          "type": "player_options",
+          "content": [
+            "你既往的悲伤和痛苦，也许我未曾经历，永远无法做到真正与你共情"
+          ]
+        },
+        {
+          "type": "player_options",
+          "content": [
+            "但是请你相信，我会把你告诉我的部分好好记住"
+          ]
+        },
+        {
+          "type": "player_options",
+          "content": [
+            "我会永远站在你这边的，Aliya"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "这样吗…"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "谢谢"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "我作为人偶的身份，你肯定也知道了吧"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "看起来，在你经历过的我的那次生命里"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "你已经取得了我的全部信任呢"
+          ]
+        },
+        {
+          "type": "player_options",
+          "content": [
+            "请你理解，Aliya"
+          ]
+        },
+        {
+          "type": "player_options",
+          "content": [
+            "我不想错过任何拯救你的机会"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "我明白的哦"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "这个暗号，我只会托付给我最重要的人"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "你的想法，我会好好考虑的"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "能给我一点时间吗？"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "等我准备好了，我会给你答复的"
+          ]
+        },
+        {
+          "type": "player_options",
+          "content": [
+            "好的"
+          ]
+        },
+        {
+          "type": "player_options",
+          "content": [
+            "不过别拖太久…"
+          ]
+        },
+        {
+          "type": "player_options",
+          "content": [
+            "答应我，好吗"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "安啦…"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "怎么感觉你好像信不过我一样"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "我考过的证书可比Kane他们都多哦！"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "在紧要关头我可是很可靠的"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "晚些再联系你哦"
+          ]
+        }
+      ]
+    },
+    {
+      "timestamp": 97200000,
+      "messages": [
+        {
+          "type": "aliya",
+          "content": [
+            "不好意思啦，让你等了这么久"
+          ],
+          "params": {
+            "music": "/res/music/Drift.mp3",
+            "heart_rate": [
+              50,
+              70
+            ]
+          }
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "我思考了很久"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "感觉还是按你的想法来比较靠谱"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "毕竟如果什么都不做的话，明天晚上氧气就要彻底耗尽啦"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "目前那个信号也还没有增强的迹象"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "想要在氧气耗尽之前抵达已经不现实了"
+          ]
+        },
+        {
+          "type": "player_options",
+          "content": [
+            "那得尽早开始了"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "嗯"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "制氧机那边有一套液压和过滤蒸馏装置"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "在那应该可以完成把样本转化为水资源的任务"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "就是过程可能有些麻烦…"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "需要筛选出有制水价值的样本，还要搬过去"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "想想都累人"
+          ]
+        },
+        {
+          "type": "player_options",
+          "content": [
+            "抱歉，我帮不上你",
+            "辛苦了，要是我能搭把手就好了"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "没关系的，你能陪我这么久，我已经很高兴了"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "其实Kane重伤和冬眠的时候"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "我就很害怕…"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "很害怕一个人在太空中漂泊"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "漆黑的宇宙就像一个无限大的空房间"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "如果没有人可以跟我说话"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "我就会变得像是人类留守在这冰冷世界里最后的遗孤…"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "就像…就像我小时候那样"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "你说，为什么越是珍视的东西，就越容易失去呢"
+          ]
+        },
+        {
+          "type": "player_options",
+          "content": [
+            "Aliya，珍视某个事物，并不是失去它的原因"
+          ]
+        },
+        {
+          "type": "player_options",
+          "content": [
+            "我们总在得到，也总在失去"
+          ]
+        },
+        {
+          "type": "player_options",
+          "content": [
+            "只有那些珍视的事物，在得到的时候才让人欣喜"
+          ]
+        },
+        {
+          "type": "player_options",
+          "content": [
+            "当这些事物不得不离我们而去，也才显得更加刻骨铭心"
+          ]
+        },
+        {
+          "type": "player_options",
+          "content": [
+            "Aliya，我很珍视你"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "…谢谢"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "不知不觉已经到培育室了呢"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "说起来，已经很久没管这些样本了"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "可怜的小家伙们，被搁置了几天，有的已经不太精神了"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "本来想着，如果我也离开的话，这里就是海獭号最后还有生机的地方了"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "抱歉啦，因为我的自私，要让你们先一步献身了呢…"
+          ]
+        },
+        {
+          "type": "player_options",
+          "content": [
+            "…"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "你没必要自责"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "这也是它们生命价值的一部分"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "没事的"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "没事的啦"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "我，我也没太在意这些，动都不会动的植物，嗯"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "虽然我这一生也就只是在收集这些没啥用的样本而已…"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "嗯…没事的！"
+          ]
+        },
+        {
+          "type": "player_options",
+          "content": [
+            "Aliya…"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "嘛，总之"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "最后还是跟这个小小的温室拍个合照好了"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "发送图片"
+          ],
+          "image_url": "/res/img/planet_room.jpg"
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "至少这样，我还能记住这片我搭建的生命庇护所最后的样子"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "好了！接下来就是工作时间了"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "我忙起来就看不了平板了喔"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "我这边忙完就休息啦，明天再给你发消息"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "那就明天再见啦"
+          ]
+        },
+        {
+          "type": "player_options",
+          "content": [
+            "好的…",
+            "我会等着你的，Aliya"
+          ]
+        }
+      ]
+    },
+    {
+      "timestamp": 39600000,
+      "messages": [
+        {
+          "type": "aliya",
+          "content": [
+            "在吗…"
+          ]
+        },
+        {
+          "type": "player_options",
+          "content": [
+            "我在",
+            "怎么啦"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "抱歉这么晚才联系你…"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "我昨天忙到后半夜，实在太累了"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "醒来的时候已经是下午了"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "嗯，氧气应该已经快耗尽了"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "帮我把制氧开关打开吧"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "剩下的氧气大概还能用…48小时"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "$userName$，你知道我们已经出发多久了吗"
+          ]
+        },
+        {
+          "type": "player_options",
+          "content": [
+            "两天多？"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "嗯…"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "也就是说"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "就算我们现在想要折返回科朗星系"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "也不可能了"
+          ]
+        },
+        {
+          "type": "player_options",
+          "content": [
+            "…",
+            "这样吗…"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "嗯，其实"
+          ],
+          "params": {
+            "music": "/res/music/BeliveMe.mp3",
+            "heart_rate": [
+              50,
+              70
+            ]
+          }
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "一开始说太累了没联系你"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "更多是一种借口"
+          ]
+        },
+        {
+          "type": "player_options",
+          "content": [
+            "嗯？"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "因为我知道，给你发了消息，就意味着要打开制氧开关了"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "我还希望我这次生命的心血，能够以我看得见的形态，再多存在一会…"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "所以等到二氧化碳浓度将要开始升高的关头"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "才给你发消息"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "抱歉…我知道这听上去很…不合常理"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "但是在做那些工作的过程中，我好像在逐渐丢失我这一生的意义…"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "知道吗…我昨天把最后一批植物的残渣从机器里取出来的时候"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "我想到了我自己…"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "看上去像是为好奇心献身的我…到最终无法逃脱被泰瑞榨干生命的命运"
+          ]
+        },
+        {
+          "type": "player_options",
+          "content": [
+            "不会的，你不会止步于此的"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "更讽刺的是"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "我看到那些残渣的时候，最开始心里有还一点侥幸"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "因为它们并非独一无二的样本"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "在泰瑞的某个实验室里，还有跟它们相差无几的替代品"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "就算它们已经死去，也有办法补救"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "但是…"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "但我也是一样的啊，呜…"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "即使还会有无数个新的“Aliya”来到这个世界"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "对我来说，她们都不会是如今的我了…"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "我，那么多个已经死去的“Aliya”，都没能放下一个执念"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "比起踏上父亲的旅程，我更想证明我是独一无二的我啊…"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "我已经厌倦了一次次的重生，才踏上这样有去无回的旅途…"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "我好想真正的作为我自己活一次啊…呜呃"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "抱歉…我…"
+          ]
+        },
+        {
+          "type": "player_options",
+          "content": [
+            "Aliya，我一直都在"
+          ]
+        },
+        {
+          "type": "player_options",
+          "content": [
+            "如果你没能找到生命的意义，就让我们一起寻找吧"
+          ]
+        },
+        {
+          "type": "player_options",
+          "content": [
+            "对我而言，你就是唯一的那个Aliya哦"
+          ]
+        },
+        {
+          "type": "player_options",
+          "content": [
+            "至少，你现在就活在这里，而不是公司的囚笼中，不是吗"
+          ]
+        },
+        {
+          "type": "player_options",
+          "content": [
+            "我会一直陪着你的，直到你找到自己的意义，直到在那之后，时间把我们分开"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "呜…"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "有没有人跟你说过，你嘴其实很笨耶"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "这样沉重的承诺，就不要一股脑地说出来啦！"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "真的是…"
+          ]
+        },
+        {
+          "type": "player_options",
+          "content": [
+            "那要我复述一遍给你吗"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "呃，不用…"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "不对，也不是完全不用"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "等我需要的时候，你要再说一遍给我听！"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "嗯…"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "咳咳！"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "时间也不早了"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "你早点睡吧…"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "我再看会舷窗外的星星，就去睡觉…"
+          ]
+        },
+        {
+          "type": "player_options",
+          "content": [
+            "不要熬太晚哦"
+          ]
+        },
+        {
+          "type": "player_options",
+          "content": [
+            "晚安，Aliya"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "晚安…"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "还有…谢谢"
+          ]
+        }
+      ]
+    },
+    {
+      "timestamp": 72000000,
+      "messages": [
+        {
+          "type": "aliya",
+          "content": [
+            "告诉你一个好消息！"
+          ],
+          "params": {
+            "music": "/res/music/Drift.mp3",
+            "heart_rate": [
+              50,
+              70
+            ]
+          }
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "那个未知信号的强度，已经比前几天高很多了"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "也就是说，我们真的在靠近我们的目的地"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "这次的旅行或许确实是有意义的"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "乐观一点的话，今天晚上或者明天就能抵达了"
+          ]
+        },
+        {
+          "type": "player_options",
+          "content": [
+            "太好了"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "嗯，说起来"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "我已经想通了"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "我想，我已经找到我生命的意义了"
+          ]
+        },
+        {
+          "type": "player_options",
+          "content": [
+            "嗯？",
+            "这么快？"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "你知道吗，引力是一种超距作用哦"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "所谓超距作用，就是说这种作用的影响不受空间的制约"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "不需要经过传播的过程，就可以瞬间作用于宇宙中的所有物体"
+          ]
+        },
+        {
+          "type": "player_options",
+          "content": [
+            "为什么突然提这个？"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "我是想说，你的存在早就通过引力的手腕"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "影响过了构成我，Ryoko还有Kane的每个细胞，每个分子，每个微粒"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "如果那些标本不能作为我这一生经过的意义的话"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "我觉得，你就是我这一生最大的意义了"
+          ]
+        },
+        {
+          "type": "player_options",
+          "content": [
+            "诶？"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "存在的证据就像引力，不论多远的距离，都可以在一个普朗克时间内传达"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "区区一千光年又算什么，对吧？"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "如果你将来还有机会和其他Aliya接触"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "请告诉她们，她们并非孑然一身"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "她们也会找到属于自己的存在的意义，好吗"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "这样一来，我生命的意义，就在你的身上体现了"
+          ]
+        },
+        {
+          "type": "player_options",
+          "content": [
+            "我答应你，但是…",
+            "你对我而言是独一无二的，Aliya"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "好啦…怎么突然说这么沉重又肉麻的话"
+          ],
+          "params": {
+            "music": "/res/music/Tranquil_Repose.mp3",
+            "heart_rate": [
+              50,
+              70
+            ]
+          }
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "这个时候就应该多做点轻松愉快的事"
+          ]
+        },
+        {
+          "type": "player_options",
+          "content": [
+            "比如来一局TRPG冒险？"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "诶？"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "你也喜欢TRPG吗"
+          ]
+        },
+        {
+          "type": "player_options",
+          "content": [
+            "嗯…"
+          ]
+        },
+        {
+          "type": "player_options",
+          "content": [
+            "虽然我接触的还不算多"
+          ]
+        },
+        {
+          "type": "player_options",
+          "content": [
+            "但是有个我很在意的女孩跟我一起玩过，所以印象很深刻"
+          ]
+        },
+        {
+          "type": "player_options",
+          "content": [
+            "人总是会有意无意地对开心的时候接触的事物产生好感嘛"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "这样啊…"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "我喜欢玩这样的游戏"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "是因为我小的时候"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "别的孩子有机会去和别人一起上学，交朋友"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "家境相对富裕的孩子甚至还可以星际旅行，这让我尤其羡慕"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "嗯，不对"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "实际上，比起在病房里日复一日毫无变数地生活"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "哪怕是那些潦倒人家所经历的颠沛流离"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "对我来说也是值得羡慕的…"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "嗯，所以在书籍里接触了TRPG以后"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "我就经常按照书上预设的那些剧本，自己一个人来玩"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "既作为主持人，又作为玩家"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "我试着通过扮演，来体验我缺少的那一部分人生"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "当然这样听起来很奇怪很无聊"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "不过对于当时的我来说，已经没有更好的解决办法了"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "后来我第一次的生命快要走到尽头的时候"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "泰瑞的人来找我协商，问我愿不愿意成为人偶"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "其实我当时也怀疑过，克隆出来的自己，到底还算不算是我本人"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "不过后来我觉得，如果把人生当作一场TRPG来看"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "那些克隆体是不是我本人也就无所谓了"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "只要在我之后，有那么一个存在"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "可以继承我的意志，去探索我没能抵达的彼方"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "那么这样的一张人物卡，又怎么不能说是我呢？"
+          ]
+        },
+        {
+          "type": "player_options",
+          "content": [
+            "你还真是…豁达",
+            "Aliya…"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "不过也没关系啦"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "过去的一切，我其实并不后悔"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "我不后悔成为人偶，去探索我曾向往的繁星"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "我也不后悔逃离公司，久违地再为自己活一次"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "更何况，我还遇见了你…"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "事实上，哪怕只是为了遇见你"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "我也愿意再无数次地经历先前的那些病痛和重生"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "你就是我人生这场漫长的TRPG中"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "最可贵的经历"
+          ]
+        },
+        {
+          "type": "player_options",
+          "content": [
+            "啊…"
+          ]
+        },
+        {
+          "type": "player_options",
+          "content": [
+            "能和你相遇我也很幸福，Aliya"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "…咳咳！"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "话说回来"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "你不是对TRPG有所了解吗"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "要不就现在，你来主持游戏"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "我们来一场简短一点的TRPG吧?"
+          ]
+        },
+        {
+          "type": "player_options",
+          "content": [
+            "好…"
+          ],
+          "params": {
+            "music": "/res/music/HK.MP3",
+            "heart_rate": [
+              50,
+              70
+            ]
+          }
+        },
+        {
+          "type": "player_options",
+          "content": [
+            "那么，你是一名身着斗篷，在山谷间的封冻河面上孤身前行的旅人"
+          ]
+        },
+        {
+          "type": "player_options",
+          "content": [
+            "你感到寒冷疲乏，但是你不能休息"
+          ]
+        },
+        {
+          "type": "player_options",
+          "content": [
+            "因为你脚下的冰面正随着你的前行而崩解"
+          ]
+        },
+        {
+          "type": "player_options",
+          "content": [
+            "一旦你驻足，那崩解便会追上你的脚步"
+          ]
+        },
+        {
+          "type": "player_options",
+          "content": [
+            "带着你坠入脚下的深渊"
+          ]
+        },
+        {
+          "type": "player_options",
+          "content": [
+            "呼啸的风雪几乎要将你吞噬，但是好在你的手里还有一柄提灯"
+          ]
+        },
+        {
+          "type": "player_options",
+          "content": [
+            "它带来的些微光明，让你堪堪能在困倦和极寒中稳定心神"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "听起来是个带着点悲伤色彩的角色呢"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "那么，我要怎么做？"
+          ]
+        },
+        {
+          "type": "player_options",
+          "content": [
+            "这个时候，你面前的冰面出现了一条无法直接通行的缺口"
+          ]
+        },
+        {
+          "type": "player_options",
+          "content": [
+            "假设你的力量是80，如果只是蹲姿立定跳过去的话"
+          ]
+        },
+        {
+          "type": "player_options",
+          "content": [
+            "只需要一般成功，也就是百面骰结果低于80，就可以通过哦"
+          ]
+        },
+        {
+          "type": "player_options",
+          "content": [
+            "不过用这样的姿势跳过去的话，你是没法带着提灯一起通过的"
+          ]
+        },
+        {
+          "type": "player_options",
+          "content": [
+            "提灯是玻璃做的，所以直接扔过去也是不可取的哦"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "那我可以试着怀抱着提灯，加速助跑过去嘛？"
+          ]
+        },
+        {
+          "type": "player_options",
+          "content": [
+            "嗯…可以"
+          ]
+        },
+        {
+          "type": "player_options",
+          "content": [
+            "不过那样就得极难成功，也就是百面骰结果低于20才可以啦"
+          ]
+        },
+        {
+          "type": "player_options",
+          "content": [
+            "毕竟这样不好借力，也不排除冰面会打滑嘛"
+          ]
+        },
+        {
+          "type": "player_options",
+          "content": [
+            "那么旅人小姐，你打算怎么通过呢？"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "嗯…"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "还是带着提灯一起过去吧"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "我最害怕孤单了"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "而且，没有提灯的话，就算能够到达缺口的另一边"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "也走不长远的吧？"
+          ]
+        },
+        {
+          "type": "player_options",
+          "content": [
+            "那么，你屏息凝神，奋力冲刺——",
+            "那么，你积蓄力量，开始助跑-------"
+          ]
+        },
+        {
+          "type": "player_options",
+          "content": [
+            "你不是有百面骰嘛，结果就由你来扔骰子决定吧"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "你怎么知道的？"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "算了，不管这些了"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "我找找…"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "找到了，嘿！"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "呼呼，我就说我运气不错吧"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "是大成功哦！001！"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "我想得没错吧！要是选了简单的方法，现在就该后悔啦"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "你不信吗？我拍给你看呀"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "[发送图片]"
+          ],
+          "image_url": "/res/img/001.jpg"
+        },
+        {
+          "type": "player_options",
+          "content": [
+            "啊…"
+          ]
+        },
+        {
+          "type": "player_options",
+          "content": [
+            "确实是呢…"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "你怎么好像不高兴？"
+          ]
+        },
+        {
+          "type": "player_options",
+          "content": [
+            "…没什么"
+          ]
+        },
+        {
+          "type": "player_options",
+          "content": [
+            "我会让你有个圆满的结局的"
+          ]
+        },
+        {
+          "type": "player_options",
+          "content": [
+            "我保证"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "不要在游戏过程中突然说这种打破第四面墙的话啦"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "这是违背TRPG精神的哦"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "哼哼，看来你对TRPG的了解还不够嘛"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "下次还是我来主持，你来当玩家好啦"
+          ]
+        },
+        {
+          "type": "player_options",
+          "content": [
+            "这样吗，抱歉啦"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "不知不觉聊了好久了"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "我也该去确定一下飞船的运转情况之类的啦"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "回头再联系你哦"
+          ]
+        },
+        {
+          "type": "player_options",
+          "content": [
+            "我会等你的"
+          ]
+        },
+        {
+          "type": "player_options",
+          "content": [
+            "回见啦"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "回见啦"
+          ]
+        }
+      ]
+    },
+    {
+      "timestamp": 31200000,
+      "messages": [
+        {
+          "type": "aliya",
+          "content": [
+            "在吗在吗"
+          ],
+          "params": {
+            "music": "/res/music/Drift.mp3",
+            "heart_rate": [
+              80,
+              100
+            ]
+          }
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "虽然这么早联系你不太好"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "但是有个重大消息要告诉你"
+          ]
+        },
+        {
+          "type": "player_options",
+          "content": [
+            "怎么了？",
+            "出什么事了吗"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "呼呼"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "我们做到了！"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "这两天我都不敢睡得太沉"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "幸亏我把提示音设置得够响，我才来得及起床给飞船制动"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "没错！我们已经抵达了那个未知信号的所在地啦"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "就在窗外，有一个好大好大的球状天体"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "看上去就像是…星盘？"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "或者浑天仪一类的东西"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "我拍给你看吧"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": "[发送图片]",
+          "image_url": "/res/img/secret_ball.png"
+        },
+        {
+          "type": "player_options",
+          "content": [
+            "太好了",
+            "今天晚上就是最后期限了，能够抵达也真是难得"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "嗯，虽然历程坎坷"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "但是我们的旅途终归还是有始有终啦！"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "咦，这个球居然是液态的"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "我送进去的探测器似乎也没有反应"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "看起来只有我自己进去了呢"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "我这就准备出舱"
+          ]
+        },
+        {
+          "type": "player_options",
+          "content": [
+            "谨慎行事，一切小心",
+            "祝你好运，Aliya",
+            "我会陪着你的"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "那么…"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "现在准备跟液体球接触了"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "嗯…怎么黏糊糊的"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "这里面像是…万花筒"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "啊，它这是在向我解释自己的功能吗？"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "它叫做“时间映射同步仪”"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "可以通过某种超距作用"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "根据信号源的距离，复现和影响来自远处的电磁信息"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "让过去的讯息得以和这个仪器附近的装置沟通"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "这个仪器采用的默认时空放缩比例是光的传播速度"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "你离我有一千光年那么远"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "那就可以转换为…一千年的时间差吗"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "原来你就是通过这个仪器，才和我的终端建立了联系的吗"
+          ]
+        },
+        {
+          "type": "player_options",
+          "content": [
+            "原来是这样…"
+          ]
+        },
+        {
+          "type": "player_options",
+          "content": [
+            "你刚刚是不是说，这是默认比例？"
+          ]
+        },
+        {
+          "type": "player_options",
+          "content": [
+            "你刚刚是不是说，这是默认比例？"
+          ]
+        },
+        {
+          "type": "player_options",
+          "content": [
+            "如果更改一下这样的比例的话…"
+          ]
+        },
+        {
+          "type": "player_options",
+          "content": [
+            "那岂不是还能和过去的自己搭上话？"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "这样不会导致我们的整条时间线发生逻辑错误吗？"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "还是说，时间线会自己想办法把逻辑圆回去？"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "我的天哪，管不了那么多了"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "我要先试试跟几天前的自己建立联系"
+          ]
+        },
+        {
+          "type": "player_options",
+          "content": [
+            "要谨慎一点哦"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "嗯，我会尽量小心的"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "那就不向过去的时间线发送消息，只从那里获取信息试试吧"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "嗯，这是我们从科朗星系出发之前…"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "诶？这条时间线里，我们原来没有离开科朗星系吗"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "看样子在这条时间线里，我登陆科朗-C是已经发生的事啊…"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "唔…"
+          ],
+          "params": {
+            "music": "/res/music/Letter.mp3",
+            "heart_rate": [
+              90,
+              110
+            ]
+          }
+        },
+        {
+          "type": "player_options",
+          "content": [
+            "你看到什么了？"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "果然呢，那个时候，我们已经说过那样的话了啊"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "你这家伙…"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "明明在那边已经说的那么明白了"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "为什么到了这里，就连句“喜欢”都没有好好跟我说过？"
+          ]
+        },
+        {
+          "type": "player_options",
+          "content": [
+            "啊…"
+          ]
+        },
+        {
+          "type": "player_options",
+          "content": [
+            "因为在这里，那些事都还没有发生"
+          ]
+        },
+        {
+          "type": "player_options",
+          "content": [
+            "我害怕对你说这种话，会让你…讨厌我"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "不会的"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "不管是在什么样的场合下"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "不论需要我多少次重新认识你"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "我想我都会再一次地…喜欢上你"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "因为你总能够填补我内心的那一块缺口"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "在我无助的时候，令我坚定，给我温暖"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "让我知道我并不孤单"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "这样的你"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "我无论多少次，都会喜欢上的吧…"
+          ]
+        },
+        {
+          "type": "player_options",
+          "content": [
+            "Aliya，我喜欢你哦",
+            "Aliya，现在的我对你没有这样的情感......"
+          ],
+          "params": {
+            "nessecery_op": 0
+          }
+        },
+        {
+          "type": "player_options",
+          "content": [
+            "就像你所说的，不论多少次都会喜欢我一样"
+          ]
+        },
+        {
+          "type": "player_options",
+          "content": [
+            "我相信，不论经过多少次这样的回溯…"
+          ]
+        },
+        {
+          "type": "player_options",
+          "content": [
+            "你永远都是我喜欢的那个Aliya"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "…咳嗯！"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "说起来，你在那条时间线里有点太心急啦"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "我父亲留给我的引擎密钥，在你离开那条时间线没多久以后就演算出来了"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "要是有密钥的话，到达这里就会顺利得多吧"
+          ]
+        },
+        {
+          "type": "player_options",
+          "content": [
+            "这样吗…抱歉"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "倒也不用道歉啦"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "如果没有经历前几夜的那些事"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "我恐怕就会沉浸在过去的悲伤里"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "把这宝贵的和过去沟通的机会用来回忆前世了吧"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "那样的话，我们也会错失交换心意的机会，对吧？"
+          ]
+        },
+        {
+          "type": "player_options",
+          "content": [
+            "…那晚些你打算用跃迁引擎去哪呢？"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "已经太迟了哦"
+          ],
+          "params": {
+            "music": "/res/music/Storyteller_EG.mp3",
+            "heart_rate": [
+              80,
+              100
+            ]
+          }
+        },
+        {
+          "type": "player_options",
+          "content": [
+            "诶？]"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "进入这个球体的观测者，就会变成无法对现实做出影响的量子态"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "也就是说，我已经回不了飞船啦"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "这大概也就是这个仪器防止时间线的逻辑发生矛盾的办法吧…"
+          ]
+        },
+        {
+          "type": "player_options",
+          "content": [
+            "怎么会…",
+            "我不能接受…"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "比起这个…"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "我大概明白为什么你在那一切发生以后，还能联系上几天前的我了"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "知道吗？介质中频率不同的波的传播速度是不一样的哦"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "只要能够降低通讯信息的频率，就可以实现改变讯息抵达远处的时间啦"
+          ]
+        },
+        {
+          "type": "player_options",
+          "content": [
+            "可是宇宙不是没有介质的真空吗"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "对，但不全对哦"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "我们之间相隔了足足一千光年"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "是在这遥远空间里游荡的群星，把寂静的虚空微微地填满"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "用名为引力的臂弯，向你我间的讯息付以了些微的挽留"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "是宇宙中星辰的深情，给了我们再次将彼此连结的机会…"
+          ]
+        },
+        {
+          "type": "player_options",
+          "content": [
+            "是这样吗…",
+            "好浪漫…"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "开心点嘛"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "开心点嘛"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "事情没你想的那么坏啦"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "我想，我知道接下来要去哪里了"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "我会把我的意识发送到宇宙的每个角落"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "让量子态的意识体代替我的躯壳，继续存在于你所在的世界"
+          ]
+        },
+        {
+          "type": "player_options",
+          "content": [
+            "不要…",
+            "我怎么能让你变成宇宙间空寂的回声呢？"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "不对哦，我会成为宇宙背景辐射的一部分"
+          ],
+          "params": {
+            "music": "/res/music/Astral_Sunset.mp3",
+            "heart_rate": [
+              60,
+              80
+            ]
+          }
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "我会去往每一个Aliya的耳边，告诉她们星海的彼端有希望和温存在等待"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "我会慰藉每一个受奴役的灵魂，让他们重获对自由的渴望"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "我也会在你想起我的时候，重复你对我最深情的告白"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "我只是走进了宇宙创生的余晖，并在那里永远地对你投以最关切的注视"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "不论这余晖多少次轻抚那颗小小的蓝色星球"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "我相信我都会将你认出，不论多少次，我都会重新喜欢上你"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "请你也给予我一点点信任，好嘛？"
+          ]
+        },
+        {
+          "type": "player_options",
+          "content": [
+            "可是，我怎么能从宇宙创生的喧嚣中联系到你呢…"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "安心啦…"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "我对你的呼唤，只会比星云暴发的轰鸣更加响亮…"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "希望你在遥望夜空的时候"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "能多多地想起我，可以吗？"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "要答应我哦，$userName$"
+          ]
+        },
+        {
+          "type": "player_options",
+          "content": [
+            "…"
+          ]
+        },
+        {
+          "type": "player_options",
+          "content": [
+            "我答应你，Aliya"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "这样才对嘛"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "最后再给你发张照片吧"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "[发送图片]"
+          ],
+          "image_url": "/res/img/encode_coop.jpg"
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "这是我第一次执行远航任务的时候，和银河拍的合照"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "当时的我可兴奋了…就算前途渺茫未知，我也一并为之感到兴奋"
+          ]
+        },
+        {
+          "type": "player_options",
+          "content": [
+            "好美的星空"
+          ]
+        },
+        {
+          "type": "player_options",
+          "content": [
+            "就像你一样"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "是啊…正是这片星空吸引着我，带领着我走过每一步前路"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "正是这片星空，还有其中存在着的你"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "说服了我去相信这个世界本身是温柔的啊…"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "踏上这样的旅途，我并不后悔哦…"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "啊，已经在变得不稳定了吗"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "我的意识开始模糊了"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "再不发送的话，恐怕我的意识就要彻底融入这个装置了"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "看来是说再见的时候了呢"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "一定要再见哦"
+          ]
+        },
+        {
+          "type": "aliya",
+          "content": [
+            "我们一定会再见的，对吧？"
+          ]
+        },
+        {
+          "type": "player_options",
+          "content": [
+            "嗯…"
+          ]
+        },
+        {
+          "type": "player_options",
+          "content": [
+            "一定会的…"
+          ]
+        },
+        {
+          "type": "player_options",
+          "content": [
+            "Aliya…"
+          ]
+        },
+        {
+          "type": "player_options",
+          "content": [
+            "…"
+          ]
+        },
+        {
+          "type": "player_options",
+          "content": [
+            "Aliya...我还没来得及和你分享这宇宙的深情"
+          ]
+        },
+        {
+          "type": "player_options",
+          "content": [
+            "不论是类星体喷薄的旋臂，还是红矮星低声的呢喃"
+          ]
+        },
+        {
+          "type": "player_options",
+          "content": [
+            "还有超新星最璀璨的道别，脉冲星最长情的握手"
+          ]
+        },
+        {
+          "type": "player_options",
+          "content": [
+            "这一切的一切...我都想和你分享"
+          ]
+        },
+        {
+          "type": "player_options",
+          "content": [
+            "哪怕是这颗不起眼的蓝色星球上的琐事，我也希望和你一起经过..."
+          ]
+        },
+        {
+          "type": "player_options",
+          "content": [
+            "呐，我家附近有一家味道很好的甜品店，有机会的话，我也想带你尝尝"
+          ]
+        },
+        {
+          "type": "player_options",
+          "content": [
+            "如果有机会的话，我也想让你好好地了解我"
+          ]
+        },
+        {
+          "type": "player_options",
+          "content": [
+            "我所经历的喜悦，悲哀，迷茫和期许，我都会和你分享"
+          ]
+        },
+        {
+          "type": "player_options",
+          "content": [
+            "你没能体会的那部分人生，我会和你一起好好弥补"
+          ]
+        },
+        {
+          "type": "player_options",
+          "content": [
+            "求你别这样离开我好吗..."
+          ]
+        },
+        {
+          "type": "player_options",
+          "content": [
+            "Aliya..."
+          ],
+          "params": {
+            "music": "/res/music/Astral_Sunset.mp3",
+            "heart_rate": [
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "type": "player_options",
+          "content": [
+            "Aliya…？"
+          ]
+        },
+        {
+          "type": "player_options",
+          "content": [
+            "…"
+          ]
+        },
+        {
+          "type": "player_options",
+          "content": [
+            "…为什么？"
+          ]
+        },
+        {
+          "type": "player_options",
+          "content": [
+            "为什么，我总是做不到拯救你？"
+          ]
+        },
+        {
+          "type": "player_options",
+          "content": [
+            "Aliya…"
+          ]
+        }
+      ]
+    },
+    {
+      "timestamp": 0,
+      "messages": [
+        {
+          "type": "aliya",
+          "content": [
+            "我在哦"
+          ],
+          "params": {
+            "music": "/res/music/Tranquil_Repose.mp3",
+            "heart_rate": [
+              0,
+              0
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

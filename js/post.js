@@ -1,3 +1,4 @@
+import $ from jQuery
 function sendPost(question) {
 	var url = localStorage.getItem("Cosmos_userURL");
 	var key = localStorage.getItem("Cosmos_userKEY");

@@ -14,8 +14,8 @@ module.exports = defineConfig({
       deadCodeInjection: true,
       stringArray: true,
       stringArrayThreshold: 0.75,
-      debugProtection: true,
-      debugProtectionInterval: 4000,
+      // debugProtection: true,
+      // debugProtectionInterval: 4000,
     }),
   ],
 });

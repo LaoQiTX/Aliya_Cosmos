@@ -1,7 +1,6 @@
+import $ from 'jquery'
 // 初始化连接功能
 function initConnection() {
-	// localStorage.removeItem("conversation_id");
-	// localStorage.removeItem("AliyaCalledMe")
 	localStorage.clear();
 	window.shouldSaveData = false;
 	alert("连接已初始化！");

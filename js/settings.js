@@ -1,3 +1,4 @@
+import $ from 'jquery'
 // 点击Settings按钮
 $("#settings").on("tap", function() {
 	$("#settingspop").css('display', 'flex')

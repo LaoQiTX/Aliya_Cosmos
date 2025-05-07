@@ -8,6 +8,7 @@ const logger = require("./js/utils/clientUtils/logger.js");
 
 // 获取当前 exe 所在目录
 const appPath = path.dirname(process.execPath);
+let win;
 
 /**
  * 获取文件的MD5唯一值
@@ -24,7 +25,7 @@ function originGetMd5(asarPath) {
 }
 
 function createWindow() {
-  let win = new BrowserWindow({
+  win = new BrowserWindow({
     width: 1024,
     height: 900,
     minWidth: 900,
@@ -38,8 +39,8 @@ function createWindow() {
     },
   });
 
-  win.loadFile("index.html");
-  // win.loadFile("./dist/obfuscated/index.html");
+  // win.loadFile("index.html");
+  win.loadFile("./dist/obfuscated/index.html");
   win.webContents.openDevTools(); // 添加这行来自动打开开发者工具
 }
 
@@ -63,7 +64,8 @@ function init(){
   });
   
   ipcMain.handle('get-window-focus', () => {
-    return mainWindow.isFocused();
+    if(!win) return false;
+    return win.isFocused();
   });
 }
 

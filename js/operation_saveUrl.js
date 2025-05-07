@@ -1,3 +1,4 @@
+import $ from jQuery
 // 设置url
 function settingURL() {
 	$("#settingURL").css("display", "flex");

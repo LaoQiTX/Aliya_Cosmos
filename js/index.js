@@ -5,8 +5,8 @@ import { loggerInfo, loggerDebug, loggerError } from './utils/webUtils/logger.js
 import { initConnection } from './operation_init.js';
 import { closeWindow } from './operation_closeWindow.js';
 import { closeInputDialog,saveUsername,showInputDialog } from './settings.js';
-
-// import { Howl } from 'howler';
+import $ from 'jquery';
+import { Howl } from 'howler';
 
 // 配置参数
 const CONFIG = {
@@ -183,7 +183,7 @@ function updateHeartRate(min, max) {
 	} else if (max === min && min === 0) {
 		bpm = 0;
 		document.querySelector('.heart-rate').style.display = "flex";
-		document.querySelector('.heart-rate').style.backgroundImage = "url('./res/animation/heart_beat/heart_beat_0.gif')";
+		document.querySelector('.heart-rate').style.backgroundImage = `url('${new URL('/res/animation/heart_beat/heart_beat_0.gif', import.meta.url)}')`;
 		document.querySelector('#ecgCanvas').style.display = "none";
 	}
 	bpmElement.textContent = randomHeartRate;
@@ -373,9 +373,8 @@ function showOptions(options, params) { // params 包含 nessecery_op 等信息
 						loggerError(`必要操作检查失败：需要选项 ${requiredOptionIndex}，但选择了 ${index}。正在发送退出请求...`);
 						window.electronAPI.sendQuitRequest(); // 发送退出请求
 						return; // 阻止后续操作
-					} else {
-						loggerInfo(`必要操作检查通过：选择了正确的选项 ${index}`); // 保留 console.log 用于成功情况
 					}
+					loggerInfo(`必要操作检查通过：选择了正确的选项 ${index}`); // 保留 console.log 用于成功情况
 				}
 
 				handlerParmas(params);
@@ -396,7 +395,7 @@ async function pointAnimation(curIndex = -1, targetIndex = 0) {
 	if (curIndex === targetIndex) {
 		return;
 	}
-	const waitGifUrl = "url('./res/animation/wait/donet_waiting.gif')";
+	const waitGifUrl = `url('${new URL('/res/animation/wait/donet_waiting.gif', import.meta.url)}')`;
 	showLoadingGif(waitGifUrl);
 	await wait(2000);
 	hideLoadingGif();
@@ -528,7 +527,7 @@ class DialogueStateDto {
 }
 
 const replySound = new Howl({
-	src: ['./res/music/msg.mp3'],
+	src: [`url('${new URL('/res/music/msg.mp3', import.meta.url)}')`],
 	loop: false, // 让背景音乐循环
 	volume: 1 // 调整音量
 })
@@ -544,8 +543,9 @@ function playMusicV1(src, isLoop, volume) {
 	if (musicInstance) {
 		musicInstance.stop();
 	}
+	const audioUrl = new URL(src, import.meta.url);
 	musicInstance = new Howl({
-		src: [src],
+		src: [audioUrl],
 		loop: isLoop,
 		volume: volume
 	});
@@ -636,7 +636,7 @@ async function loadMessages() {
 					await pointAnimation(currentMessageIndex, dialogue.messages.length);
 				}
 
-				const timerGifUrl = "url('./res/animation/wait/timer.gif')"
+				const timerGifUrl = `url(${new URL('/res/animation/wait/timer.gif', import.meta.url)})`;
 				showLoadingGif(timerGifUrl);
 
 				if (!dialogueDto.getIsLoad()) {
@@ -701,7 +701,7 @@ async function loadMessages() {
  */
 function aliyaWaitingTime(userMsg, isTargetConvert = false) {
 	const msgLength = userMsg.length;
-	const waitGifUrl = "url('./res/animation/wait/donet_waiting.gif')";
+	const waitGifUrl = `url(${new URL('./res/animation/wait/donet_waiting.gif', import.meta.url)})`;
 	showLoadingGif(waitGifUrl);
 	// 如果是对话方互相转换时 额外增加1.2s
 	if (isTargetConvert) {
@@ -776,11 +776,11 @@ function loadCacheData(dialogueDto, cacheOptionList, message, currentMessageInde
 
 /**
  *  todo 这边写的不好 可读性太差后续维护比较高，待更新;
- * @param {String} content 玩家的option选项;根据其是否是null来判断当前处于是load状态还是play状态  null为加载状态
+ * @param {String} content 玩家的option选项;根据其是否是null来判断当前处于是load状态还是play状态  null为play状态
  * @param {JSON} message 剧情文本
  */
 function sendMsg(content, message) {
-	var isLoad = content == null;
+	var isLoad = content != null;
 	if (message.image_url) {
 		addImageMessage(message.image_url, false, isLoad);
 	} else {
@@ -790,6 +790,7 @@ function sendMsg(content, message) {
 		}
 		addMessage(content, message.type !== 'aliya', isLoad);
 	}
+	console.log("当前的isLoad状态是->",isLoad);
 	if (isLoad == false) {
 		// debugger;
 		handlerParmas(message.params);
@@ -808,6 +809,7 @@ function createImageMessage(imageUrl, isUser = true) {
 	div.className = `message ${isUser ? 'user-message' : ''}`;
 
 	const img = document.createElement('img');
+	// img.src = new URL(imageUrl, import.meta.url);
 	img.src = imageUrl;
 	img.alt = "图片消息";
 	img.classList.add("chat-image"); // 添加 CSS 类，方便样式调整

@@ -1,3 +1,4 @@
+import data from "../res/data/data.json";
 
 function getCache() {
     return JSON.parse(localStorage.getItem("saveData") || "{}");
@@ -8,9 +9,9 @@ function getCache() {
  * @returns {Promise<JSON>} 返回剧情数据
  */
 async function loadDialogueData() {
-    const response = await fetch('./res/data/data.json');
-    const data = await response.json();
-    console.log(data);
+    // const response = await fetch('./res/data/data.json');
+    // const data = await response.json();
+    // console.log(data);
     return data;
 }
 
