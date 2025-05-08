@@ -285,8 +285,8 @@ function requestNotificationPermission() {
 }
 
 // todo 加变量来区分当前是处于加载状态还是正常状态
-function checkNotification(text, isUser) {
-	const focused = window.electronAPI.isFocus();
+async function checkNotification(text, isUser) {
+	const focused = await window.electronAPI.isFocus();
 	loggerInfo("当前的focus状态为" + focused);
 	if (!isUser && Notification.permission === 'granted' && !focused) {
 		showNotification('Aliya发来了一条新消息哦', text);
