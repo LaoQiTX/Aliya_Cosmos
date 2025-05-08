@@ -781,18 +781,18 @@ function loadCacheData(dialogueDto, cacheOptionList, message, currentMessageInde
  * @param {JSON} message 剧情文本
  */
 function sendMsg(content, message) {
-	var isLoad = content != null;
+	var isPlay = content == null;
 	if (message.image_url) {
-		addImageMessage(message.image_url, false, isLoad);
+		addImageMessage(message.image_url, false, isPlay);
 	} else {
 		// 如果aliya发送的消息不是img的时候 则需要把他的content更新到content进行输出
 		if (message.type == 'aliya') {
 			content = message.content[0];
 		}
-		addMessage(content, message.type !== 'aliya', isLoad);
+		addMessage(content, message.type !== 'aliya', isPlay);
 	}
-	console.log("当前的isLoad状态是->",isLoad);
-	if (isLoad == false) {
+	console.log("当前的isLoad状态是->",isPlay);
+	if (isPlay) {
 		// debugger;
 		handlerParmas(message.params);
 		replySound.play();

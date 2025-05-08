@@ -6,7 +6,7 @@ const appPath = path.dirname(process.execPath);
 // 日志文件基础路径 判断当前是env 还是prod 如果是生产环境就直接拿appPath
 const logBasePath =
   process.env.NODE_ENV === "dev"
-    ? path.resolve(__dirname, "../../../logs")
+    ? path.resolve(__dirname, "logs")
     : path.join(appPath, "logs");
 
 // 确保日志目录存在
