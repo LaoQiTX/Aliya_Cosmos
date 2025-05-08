@@ -4,6 +4,7 @@
   "description": "本项目是基于《彼方的她》游戏二创，截至目前暂未完成所有功能\r 有bug和建议欢迎反馈",
   "main": "main.js",
   "scripts": {
+    "vite_test":"set NODE_ENV=dev&& vite",
     "start": "set NODE_ENV=dev&& electron .",
     "build": "set NODE_ENV=prod&& electron-builder --win --x64",
     "ele_pack": "set NODE_ENV=prod&& npx electron-packager . QDW_demo --platform=win32 --arch=x64 --out=dist --overwrite --icon=QDW.ico --asar",

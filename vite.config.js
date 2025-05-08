@@ -7,6 +7,7 @@ module.exports = defineConfig({
     minify: "terser",
     outDir: "dist/obfuscated",
   },
+  // publicDir:'res',
   plugins: [
     viteObfuscateFile({
       compact: true,
@@ -18,4 +19,9 @@ module.exports = defineConfig({
       // debugProtectionInterval: 4000,
     }),
   ],
+  server:{
+    host:'localhost',
+    port:3000,
+    open:false
+  }
 });

@@ -1,8 +1,8 @@
 const { app, BrowserWindow, ipcMain } = require("electron"); // 引入 ipcMain
-const fs = require("fs");
+// const fs = require("fs");
 const path = require("path");
 const crypto = require("crypto");
-const asar = require("@electron/asar");
+// const asar = require("@electron/asar");
 const originalFs = require("original-fs");
 const logger = require("./js/utils/clientUtils/logger.js");
 
@@ -38,9 +38,12 @@ function createWindow() {
       // devTools:false
     },
   });
-
+  if(process.env.NODE_ENV ==='dev'){
+    win.loadURL('http://localhost:3000')
+  }else{
+    win.loadFile(path.join(__dirname, 'dist/obfuscated/index.html'));
+  }
   // win.loadFile("index.html");
-  win.loadFile("./dist/obfuscated/index.html");
   win.webContents.openDevTools(); // 添加这行来自动打开开发者工具
 }
 
@@ -55,6 +58,9 @@ function init(){
       originGetMd5(asarPath);
     }
     createWindow();
+    win.on('closed',()=>{
+      win = null;
+    })
   });
   
   // 监听来自渲染进程的退出请求
