@@ -5,7 +5,7 @@ module.exports = defineConfig({
   base: "./",
   build: {
     minify: "terser",
-    outDir: "dist/obfuscated",
+    outDir: "election/page",
   },
   // publicDir:'res',
   plugins: [
