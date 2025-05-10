@@ -785,17 +785,14 @@
             "能拜托你把制氧开关打开吗"
           ],
           "params": {
-            "need_action": "eh"
+            "need_action": "eoh"
           }
         },
         {
           "type": "player_options",
           "content": [
             "好的"
-          ],
-          "params": {
-            "need_action": "eoh"
-          }
+          ]
         },
         {
           "type": "aliya",

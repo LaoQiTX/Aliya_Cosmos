@@ -943,7 +943,7 @@ function startResourceDecay() {
 		// 检查是否满足能源消耗条件：能源存量大于 5 且能源消耗按钮处于激活状态
 		if (EHBtnActive) {
 			// 动态计算每秒消耗的能源量
-			eng = Math.max(eng - 0.1, 0);
+			eng = Math.max(eng - 1, 0);
 		}
 
 		// 调用更新资源条配置的函数，将当前的氧气、水和能源值传递进去
