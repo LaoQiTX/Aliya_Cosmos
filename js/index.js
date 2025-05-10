@@ -338,6 +338,7 @@ function hideLoadingGif() {
 
 function handlerParmas(params) {
 	if (params?.music) {
+		// debugger;
 		if (params.music != cachedData.last_music) {
 			playMusicV1(params.music, true, 0.5);
 			cachedData.last_music = params.music;
@@ -528,7 +529,7 @@ class DialogueStateDto {
 }
 
 const replySound = new Howl({
-	src: [`url('${new URL('/res/music/msg.mp3', import.meta.url)}')`],
+	src: ['./res/music/msg.mp3'],
 	loop: false, // 让背景音乐循环
 	volume: 1 // 调整音量
 })
@@ -544,7 +545,8 @@ function playMusicV1(src, isLoop, volume) {
 	if (musicInstance) {
 		musicInstance.stop();
 	}
-	const audioUrl = new URL(src, import.meta.url);
+	// const audioUrl = new URL(src, import.meta.url);
+	const audioUrl = src;
 	musicInstance = new Howl({
 		src: [audioUrl],
 		loop: isLoop,
@@ -1156,6 +1158,6 @@ window.addEventListener('load', () => {
 // 启动应用
 init();
 // loadMessages();
-// playMusic(); // 在页面加载时播放音乐
+ // 在页面加载时播放音乐
 
 export { closeModal }
