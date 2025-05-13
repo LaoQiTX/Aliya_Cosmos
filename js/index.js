@@ -138,13 +138,11 @@ function clearPendingNotifications() {
 // 设置设否允许点击按钮
 function setEOGSwitchEnabled(enabled) {
 	const eogSwitch = document.getElementById('eog-switch-btn');
-	canClickEOG = enabled;
 	eogSwitch.style.pointerEvents = enabled ? '' : 'none';
 }
 
 function setEHSwitchEnabled(enabled) {
 	const ehSwitch = document.getElementById('eh-switch-btn');
-	canClickEH = enabled;
 	ehSwitch.style.pointerEvents = enabled ? '' : 'none';
 }
 
@@ -338,7 +336,6 @@ function hideLoadingGif() {
 
 function handlerParmas(params) {
 	if (params?.music) {
-		// debugger;
 		if (params.music != cachedData.last_music) {
 			playMusicV1(params.music, true, 0.5);
 			cachedData.last_music = params.music;
@@ -868,7 +865,7 @@ function loadConstConifg() {
 	oxgen = cachedData.resouce.oxgen;
 	water = cachedData.resouce.water;
 	eng = cachedData.resouce.eng;
-	updateResBarConifg(oxgen, water, eng);
+	updateResBarConfig(oxgen, water, eng);
 	const heartRate = cachedData.heart_rate;
 	loggerInfo(heartRate);
 	setHeartBeat(heartRate[0], heartRate[1]);
@@ -883,7 +880,7 @@ function loadConstConifg() {
  * @param {Float} water 水
  * @param {Float} eng  燃料能量
  */
-function updateResBarConifg(oxgen, water, eng) {
+function updateResBarConfig(oxgen, water, eng) {
 	const oxgenBar = document.querySelector('.bar.OO');
 	const waterBar = document.querySelector('.bar.HOO');
 	const engBar = document.querySelector('.bar.ENG');
@@ -934,7 +931,7 @@ function startResourceDecay() {
 				prevOxgenConsumption /= 2;
 			} else {
 				// 非制氧机激活状态下且氧气量不小于 30 时，每秒固定消耗 0.01 个单位的氧气
-				oxgen -= 0.01;
+				oxgen -= 0.1;
 				// 确保氧气值不低于 0
 				oxgen = Math.max(oxgen, 0);
 			}
@@ -947,7 +944,7 @@ function startResourceDecay() {
 		}
 
 		// 调用更新资源条配置的函数，将当前的氧气、水和能源值传递进去
-		updateResBarConifg(oxgen, water, eng);
+		updateResBarConfig(oxgen, water, eng);
 	}, 1000);
 }
 
@@ -1017,32 +1014,35 @@ function waitForEHSwitch() {
 
 			// 移除监听器
 			ehSwitch.removeEventListener('click', onEHClicked);
-			document.removeEventListener('mousemove', resetAutoOpenTimer);
-			document.removeEventListener('keydown', resetAutoOpenTimer);
+			// document.removeEventListener('mousemove', resetAutoOpenTimer);
+			// document.removeEventListener('keydown', resetAutoOpenTimer);
 
 			alert("EH 开关已开启，请保持 15 秒...");
 			ehSwitch.style.pointerEvents = 'none';
 
-			setTimeout(() => {
-				ehSwitch.classList.remove('active');
-				const labels = ehSwitch.closest('.switch-wrapper').querySelector('.status-labels');
-				labels.querySelector('.on')?.classList.remove('active');
-				labels.querySelector('.off')?.classList.add('active');
-				ehSwitch.style.pointerEvents = '';
-				ehSwitch.style.opacity = '';
-				alert("EH 关闭，剧情继续");
-				EHBtnActive = false;
-				setEHSwitchEnabled(false);
-				resolve();
-			}, 15000);
+			const ehInterval = setInterval(() => {
+				if(eng <= 0){
+					ehSwitch.classList.remove('active');
+					const labels = ehSwitch.closest('.switch-wrapper').querySelector('.status-labels');
+					labels.querySelector('.on')?.classList.remove('active');
+					labels.querySelector('.off')?.classList.add('active');
+					ehSwitch.style.pointerEvents = '';
+					ehSwitch.style.opacity = '';
+					// alert("EH 关闭，剧情继续");
+					EHBtnActive = false;
+					setEHSwitchEnabled(false);
+					clearInterval(ehInterval);
+					resolve();
+				}
+			}, 1000);
 		};
 
 		// alert("请点击右侧 EH 开关以继续剧情（开启后将自动保持 15 秒），或等待15秒自动开启");
 		ehSwitch.addEventListener('click', onEHClicked);
 
-		// 添加鼠标移动和键盘事件监听
-		document.addEventListener('mousemove', resetAutoOpenTimer);
-		document.addEventListener('keydown', resetAutoOpenTimer);
+		// // 添加鼠标移动和键盘事件监听
+		// document.addEventListener('mousemove', resetAutoOpenTimer);
+		// document.addEventListener('keydown', resetAutoOpenTimer);
 
 		// 初始化自动打开定时器
 		resetAutoOpenTimer();
@@ -1069,11 +1069,11 @@ function waitForEOGSwitch() {
 			clearTimeout(autoActivateTimer);
 			// 移除监听，避免重复触发
 			eogSwitch.removeEventListener('click', onEOGActivated);
-
+			let time = 0;
 			// alert("EOG 开关已开启，请保持 15 秒...");
-			const interval = setTimeout(() => {
+			const interval = setInterval(() => {
 				// 每秒检测一下 查看是否eng到底了
-				if (eng <= 0) {
+				if (time >= 15 || water <= 0) {
 					clearInterval(interval); // 停止监听
 			
 					eogSwitch.classList.remove('active');
@@ -1082,9 +1082,11 @@ function waitForEOGSwitch() {
 					labels.querySelector('.off')?.classList.add('active');
 					// alert("15 秒已到，EOG 关闭，剧情继续");
 					EOHBtnActive = false;
-					// setEOGSwitchEnabled(false);
+					setEOGSwitchEnabled(false);
+					time = 0;
 					resolve();
 				}
+				time ++;
 			}, 1000);
 		};
 
@@ -1158,6 +1160,6 @@ window.addEventListener('load', () => {
 // 启动应用
 init();
 // loadMessages();
- // 在页面加载时播放音乐
+// playMusic(); // 在页面加载时播放音乐
 
 export { closeModal }
