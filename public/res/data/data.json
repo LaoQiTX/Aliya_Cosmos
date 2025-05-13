@@ -2991,12 +2991,6 @@
         {
           "type": "player_options",
           "content": [
-            "你刚刚是不是说，这是默认比例？"
-          ]
-        },
-        {
-          "type": "player_options",
-          "content": [
             "如果更改一下这样的比例的话…"
           ]
         },
@@ -3291,7 +3285,7 @@
         {
           "type": "player_options",
           "content": [
-            "诶？]"
+            "诶？"
           ]
         },
         {
