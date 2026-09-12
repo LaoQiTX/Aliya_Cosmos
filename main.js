@@ -41,7 +41,7 @@ function createWindow() {
   if(process.env.NODE_ENV ==='dev'){
     win.loadURL('http://localhost:3000')
   }else{
-    win.loadFile(path.join(__dirname, 'dist/obfuscated/index.html'));
+    win.loadFile(path.join(__dirname, 'election/page/index.html'));
   }
   // win.loadFile("index.html");
   win.webContents.openDevTools(); // 添加这行来自动打开开发者工具

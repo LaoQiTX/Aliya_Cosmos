@@ -260,7 +260,7 @@ body {
 	min-height: 40px;
 	color: white;
 	font-size: 1.5em;
-	background-image: url('../res/img/heart_rate.png');
+	background-image: url('/img/heart_rate.png');
 	background-size: 100% 100%;
 	/* 图片自适应宽和高 */
 	background-repeat: no-repeat;
@@ -436,7 +436,7 @@ body {
 	position: relative;
 	height: 100%;
 	/* 让背景图高度撑满父元素 */
-	background-image: url(../res/img/cosmos_console.png);
+	background-image: url(/img/cosmos_console.png);
 	background-size: contain;
 	/* 修改为 contain 以保持图片比例 */
 	background-position: center;

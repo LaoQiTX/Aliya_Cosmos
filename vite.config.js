@@ -7,7 +7,7 @@ module.exports = defineConfig({
     minify: "terser",
     outDir: "election/page",
   },
-  // publicDir:'res',
+  publicDir: 'res',
   plugins: [
     viteObfuscateFile({
       compact: true,

@@ -53,20 +53,20 @@ function firstLoad(data){
     if(data.resouce == null){
         data.resouce={
             "oxgen":55.0,
-            "water":55.0,
+            "water":40.0,
             "eng":15.0
         }
     }
 
     if(data.last_music == null){
-        data.last_music = "./res/music/Outlier.mp3"
+        data.last_music = "./music/Outlier.mp3"
     }
     data.heart_rate = [0,0];
     return data;
 }
 function firstLoadHeartRateAnimate(data){
     if(data[0] == 0 && data[1] == 0){
-		document.querySelector('.heart-rate').style.backgroundImage = "url('../res/animation/heart_beat/heart_beat_0.gif')";	
+		document.querySelector('.heart-rate').style.backgroundImage = "url('../animation/heart_beat/heart_beat_0.gif')";	
 		document.querySelector('#ecgCanvas').style.display = "none";
 	}
 }

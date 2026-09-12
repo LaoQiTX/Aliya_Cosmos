@@ -5,3 +5,6 @@ dist/
 dist_electron/
 logs/
 election/page
+
+.claude
+CLAUDE.md

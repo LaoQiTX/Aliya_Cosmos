@@ -4,22 +4,24 @@
   "description": "本项目是基于《彼方的她》游戏二创，截至目前暂未完成所有功能\r 有bug和建议欢迎反馈",
   "main": "main.js",
   "scripts": {
-    "vite_test":"set NODE_ENV=dev&& vite",
-    "start": "set NODE_ENV=dev&& electron .",
-    "build": "set NODE_ENV=prod&& electron-builder --win --x64",
-    "ele_pack": "set NODE_ENV=prod&& npx electron-packager . QDW_demo --platform=win32 --arch=x64 --out=dist --overwrite --icon=QDW.ico --asar",
+    "vite_test": "set NODE_ENV=dev&& vite",
+    "start": "set NODE_ENV=dev&& concurrently -k \"npx vite --port 3000\" \"npx wait-on http://localhost:3000 && electron .\"",
+    "build": "set NODE_ENV=prod&& set ELECTRON_MIRROR=https://npmmirror.com/mirrors/electron/&& set ELECTRON_BUILDER_BINARIES_MIRROR=https://npmmirror.com/mirrors/electron-builder-binaries/&& electron-builder --win --x64",
+    "ele_pack": "set NODE_ENV=prod&& set ELECTRON_MIRROR=https://npmmirror.com/mirrors/electron/&& npx electron-packager . QDW_demo --platform=win32 --arch=x64 --out=dist --overwrite --icon=QDW.ico --asar --ignore=\"logs\" --ignore=\"dist_electron\" --ignore=\"election/dist\"",
     "vite_build": "npx vite build"
   },
   "keywords": [],
   "author": "Yae | Qi",
   "license": "ISC",
   "devDependencies": {
+    "concurrently": "^10.0.3",
     "electron": "^35.1.2",
     "electron-builder": "^26.0.12",
     "jquery": "^3.7.1",
     "terser": "^5.39.0",
     "vite": "^6.3.5",
-    "vite-plugin-obfuscator": "^1.0.5"
+    "vite-plugin-obfuscator": "^1.0.5",
+    "wait-on": "^9.0.10"
   },
   "build": {
     "asar": true,
@@ -27,22 +29,23 @@
     "productName": "QDW_demo",
     "win": {
       "target": "nsis",
-      "icon": "./QDW.ico",
-      "sign": false
+      "icon": "./QDW.ico"
+    },
+    "electronDownload": {
+      "mirror": "https://npmmirror.com/mirrors/electron/"
     },
     "directories": {
       "output": "dist_electron"
     },
     "files": [
-      {
-        "from": ".",
-        "filter": [
-          "**/*"
-        ]
-      }
+      "main.js",
+      "preload.js",
+      "js/utils/clientUtils/logger.js",
+      "election/page/**/*",
+      "QDW.ico"
     ],
     "nsis": {
-      "oneClick": true,
+      "oneClick": false,
       "perMachine": false,
       "allowElevation": true,
       "allowToChangeInstallationDirectory": true

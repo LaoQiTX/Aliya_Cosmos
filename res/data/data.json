@@ -9,7 +9,7 @@
             "Aliya..."
           ],
           "params": {
-            "music": "./res/music/Outlier.mp3",
+            "music": "./music/Outlier.mp3",
             "heart_rate": [
               0,
               0
@@ -39,7 +39,7 @@
             "我在哦"
           ],
           "params": {
-            "music": "./res/music/Drift.mp3",
+            "music": "./music/Drift.mp3",
             "heart_rate": [
               50,
               70
@@ -514,7 +514,7 @@
             "Aliya呼叫$userName$，我已就位，感觉良好！"
           ],
           "params": {
-            "music": "./res/music/Drift.mp3",
+            "music": "./music/Drift.mp3",
             "heart_rate": [
               80,
               100
@@ -649,7 +649,7 @@
           "content": [
             "发送图片"
           ],
-          "image_url": "./res/img/open_engine.png"
+          "image_url": "./img/open_engine.png"
         },
         {
           "type": "aliya",
@@ -760,7 +760,7 @@
             "我发现了一个问题"
           ],
           "params": {
-            "music": "./res/music/FTL.mp3",
+            "music": "./music/FTL.mp3",
             "heart_rate": [
               80,
               100
@@ -829,7 +829,7 @@
             "嗯…有个坏消息"
           ],
           "params": {
-            "music": "./res/music/FTL.mp3",
+            "music": "./music/FTL.mp3",
             "heart_rate": [
               90,
               110
@@ -892,7 +892,7 @@
             "然后寄希望于能在氧气耗尽之前抵达"
           ],
           "params": {
-            "music": "./res/music/FTL.mp3",
+            "music": "./music/FTL.mp3",
             "heart_rate": [
               70,
               90
@@ -977,7 +977,7 @@
             "很抱歉，$userName$"
           ],
           "params": {
-            "music": "./res/music/Awake.mp3",
+            "music": "./music/Awake.mp3",
             "heart_rate": [
               50,
               70
@@ -1229,7 +1229,7 @@
             "不好意思啦，让你等了这么久"
           ],
           "params": {
-            "music": "./res/music/Drift.mp3",
+            "music": "./music/Drift.mp3",
             "heart_rate": [
               50,
               70
@@ -1506,7 +1506,7 @@
           "content": [
             "发送图片"
           ],
-          "image_url": "./res/img/planet_room.jpg"
+          "image_url": "./img/planet_room.jpg"
         },
         {
           "type": "aliya",
@@ -1591,7 +1591,10 @@
           "type": "aliya",
           "content": [
             "帮我把制氧开关打开吧"
-          ]
+          ],
+          "params": {
+            "need_action": "eoh"
+          }
         },
         {
           "type": "aliya",
@@ -1648,7 +1651,7 @@
             "嗯，其实"
           ],
           "params": {
-            "music": "./res/music/BeliveMe.mp3",
+            "music": "./music/BeliveMe.mp3",
             "heart_rate": [
               50,
               70
@@ -1960,7 +1963,7 @@
             "告诉你一个好消息！"
           ],
           "params": {
-            "music": "./res/music/Drift.mp3",
+            "music": "./music/Drift.mp3",
             "heart_rate": [
               50,
               70
@@ -2125,7 +2128,7 @@
             "好啦…怎么突然说这么沉重又肉麻的话"
           ],
           "params": {
-            "music": "./res/music/Tranquil_Repose.mp3",
+            "music": "./music/Tranquil_Repose.mp3",
             "heart_rate": [
               50,
               70
@@ -2427,7 +2430,7 @@
             "好…"
           ],
           "params": {
-            "music": "./res/music/HK.MP3",
+            "music": "./music/HK.MP3",
             "heart_rate": [
               50,
               70
@@ -2644,7 +2647,7 @@
           "content": [
             "[发送图片]"
           ],
-          "image_url": "./res/img/001.jpg"
+          "image_url": "./img/001.jpg"
         },
         {
           "type": "player_options",
@@ -2759,7 +2762,7 @@
             "在吗在吗"
           ],
           "params": {
-            "music": "./res/music/Drift.mp3",
+            "music": "./music/Drift.mp3",
             "heart_rate": [
               80,
               100
@@ -2842,7 +2845,7 @@
         {
           "type": "aliya",
           "content": "[发送图片]",
-          "image_url": "./res/img/secret_ball.png"
+          "image_url": "./img/secret_ball.png"
         },
         {
           "type": "player_options",
@@ -3063,7 +3066,7 @@
             "唔…"
           ],
           "params": {
-            "music": "./res/music/Letter.mp3",
+            "music": "./music/Letter.mp3",
             "heart_rate": [
               90,
               110
@@ -3272,7 +3275,7 @@
             "已经太迟了哦"
           ],
           "params": {
-            "music": "./res/music/Storyteller_EG.mp3",
+            "music": "./music/Storyteller_EG.mp3",
             "heart_rate": [
               80,
               100
@@ -3426,7 +3429,7 @@
             "不对哦，我会成为宇宙背景辐射的一部分"
           ],
           "params": {
-            "music": "./res/music/Astral_Sunset.mp3",
+            "music": "./music/Astral_Sunset.mp3",
             "heart_rate": [
               60,
               80
@@ -3540,7 +3543,7 @@
           "content": [
             "[发送图片]"
           ],
-          "image_url": "./res/img/encode_coop.jpg"
+          "image_url": "./img/encode_coop.jpg"
         },
         {
           "type": "aliya",
@@ -3716,7 +3719,7 @@
             "Aliya..."
           ],
           "params": {
-            "music": "./res/music/Astral_Sunset.mp3",
+            "music": "./music/Astral_Sunset.mp3",
             "heart_rate": [
               0,
               0
@@ -3764,7 +3767,7 @@
             "我在哦"
           ],
           "params": {
-            "music": "./res/music/Tranquil_Repose.mp3",
+            "music": "./music/Tranquil_Repose.mp3",
             "heart_rate": [
               0,
               0

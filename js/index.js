@@ -12,7 +12,7 @@ import { Howl } from 'howler';
 const CONFIG = {
 	scrollThreshold: 100,
 	systemMsgInterval: 5000,
-	notificationIcon: './res/img/notify_img.png'
+	notificationIcon: './img/notify_img.png'
 };
 
 let cachedData;
@@ -40,7 +40,7 @@ let bpm = 0;
 let musicInstance = null;
 // 定义开关音效对象
 const switchSound = new Howl({
-	src: ['./res/music/switch.wav'],
+	src: ['./music/switch.wav'],
 	loop: false,
 	volume: 1
 });
@@ -181,7 +181,7 @@ function updateHeartRate(min, max) {
 	} else if (max === min && min === 0) {
 		bpm = 0;
 		document.querySelector('.heart-rate').style.display = "flex";
-		document.querySelector('.heart-rate').style.backgroundImage = `url('${new URL('/res/animation/heart_beat/heart_beat_0.gif', import.meta.url)}')`;
+		document.querySelector('.heart-rate').style.backgroundImage = `url('${new URL('/animation/heart_beat/heart_beat_0.gif', import.meta.url)}')`;
 		document.querySelector('#ecgCanvas').style.display = "none";
 	}
 	bpmElement.textContent = randomHeartRate;
@@ -394,7 +394,7 @@ async function pointAnimation(curIndex = -1, targetIndex = 0) {
 	if (curIndex === targetIndex) {
 		return;
 	}
-	const waitGifUrl = `url('${new URL('/res/animation/wait/donet_waiting.gif', import.meta.url)}')`;
+	const waitGifUrl = `url('${new URL('/animation/wait/donet_waiting.gif', import.meta.url)}')`;
 	showLoadingGif(waitGifUrl);
 	await wait(2000);
 	hideLoadingGif();
@@ -526,7 +526,7 @@ class DialogueStateDto {
 }
 
 const replySound = new Howl({
-	src: ['./res/music/msg.mp3'],
+	src: ['./music/msg.mp3'],
 	loop: false, // 让背景音乐循环
 	volume: 1 // 调整音量
 })
@@ -636,7 +636,7 @@ async function loadMessages() {
 					await pointAnimation(currentMessageIndex, dialogue.messages.length);
 				}
 
-				const timerGifUrl = `url(${new URL('/res/animation/wait/timer.gif', import.meta.url)})`;
+				const timerGifUrl = `url(${new URL('/animation/wait/timer.gif', import.meta.url)})`;
 				showLoadingGif(timerGifUrl);
 
 				if (!dialogueDto.getIsLoad()) {
@@ -701,7 +701,7 @@ async function loadMessages() {
  */
 function aliyaWaitingTime(userMsg, isTargetConvert = false) {
 	const msgLength = userMsg.length;
-	const waitGifUrl = `url(${new URL('./res/animation/wait/donet_waiting.gif', import.meta.url)})`;
+	const waitGifUrl = `url(${new URL('/animation/wait/donet_waiting.gif', import.meta.url)})`;
 	showLoadingGif(waitGifUrl);
 	// 如果是对话方互相转换时 额外增加1.2s
 	if (isTargetConvert) {
@@ -911,7 +911,7 @@ function startResourceDecay() {
 			// 每秒增加氧气量，每15s增加 30 个单位，所以每秒增加 3/15 个单位
 			oxgen += 35 / 30;
 			// 每秒减少水量，每15s减少 40 个单位，所以每秒减少 40/15 个单位
-			water -= 40 / 30;
+			water -= 40 / 20;
 			// 确保氧气值不超过 100
 			oxgen = Math.min(oxgen, 100);
 			// 确保水值不低于 0
